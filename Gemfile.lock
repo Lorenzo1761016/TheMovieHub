@@ -47,7 +47,7 @@ GEM
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
-    bcrypt (3.1.12-x64-mingw32)
+    bcrypt-ruby (3.1.1.rc1)
     bindex (0.7.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
@@ -188,7 +188,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  bcrypt
+  bcrypt-ruby (= 3.1.1.rc1)
   bootsnap (>= 1.1.0)
   bootstrap-sass (~> 3.2.0.0)
   byebug
