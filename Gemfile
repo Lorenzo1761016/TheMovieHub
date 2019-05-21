@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '3.1.1.rc1', :require => 'bcrypt'
 
+gem 'gravtastic'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
