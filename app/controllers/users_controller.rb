@@ -8,6 +8,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def home
+  end
+
+  def help
+  end
+
+  def about
+  end
+
+  def contact
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
