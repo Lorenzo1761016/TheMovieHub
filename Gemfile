@@ -32,6 +32,12 @@ gem 'bcrypt-ruby', '3.1.1.rc1', :require => 'bcrypt'
 
 gem 'rails-controller-testing'
 
+gem 'faker'
+
+gem 'bootstrap-will_paginate'
+
+gem 'will_paginate'
+
 gem 'gravtastic'
 
 # Use ActiveStorage variant
