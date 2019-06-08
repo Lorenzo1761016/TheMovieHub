@@ -1,8 +1,0 @@
-<h1>Listing Tweets</h1>
-<h3>Please enter a key word</h3>
-  <%= form_tag("/tweets", method: "post") do %>
-    <%= label_tag(:q, "") %>
-    <%= text_field_tag(:q) %>
-    <%= submit_tag("Search") %>
-  <% end %>
-<%= link_to 'Back', controller: 'welcome' %>

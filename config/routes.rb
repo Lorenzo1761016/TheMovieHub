@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
-  resources :articles do
-    resources :comments
-  end
-  resources :tweets
 
-  get 'welcome/index'
-  root 'welcome#index'
+  get 'sessions/new'
+  get 'users/new'
+  root             'static_pages#home'
+
+  get 'home'    => 'static_pages#home'
+  get 'about' => 'static_pages#about'
+  get 'help' => 'static_pages#help'
+  get 'contact' => 'static_pages#contact'
+  get 'signup'  => 'users#new'
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
+  resources :users
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get 'tweets/index'
-  post 'tweets/show'
 end
