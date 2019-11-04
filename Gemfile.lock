@@ -112,6 +112,7 @@ GEM
     execjs (2.7.0)
     faker (2.5.0)
       i18n (~> 1.6.0)
+    ffi (1.11.1)
     ffi (1.11.1-x64-mingw32)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -156,10 +157,13 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.12.2)
+    msgpack (1.3.1)
     msgpack (1.3.1-x64-mingw32)
     multipart-post (2.1.1)
     naught (1.1.0)
     nio4r (2.5.2)
+    nokogiri (1.10.4)
+      mini_portile2 (~> 2.4.0)
     nokogiri (1.10.4-x64-mingw32)
       mini_portile2 (~> 2.4.0)
     public_suffix (4.0.1)
@@ -267,6 +271,7 @@ GEM
     zeitwerk (2.1.10)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
@@ -302,4 +307,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
