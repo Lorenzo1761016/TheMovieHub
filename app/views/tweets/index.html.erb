@@ -1,9 +1,7 @@
 <% provide(:title, 'Tweets') %>
-    <%= form_tag(tweets_path method: :get) do %>
-        search for tweets <%= text_field_tag :tweet %>
-        <%= submit_tag 'Search' %>
-    <% end %>
-<% @tweets.each do |tweet| %>
-   User @<%= tweet.user.screen_name %> said: "<%= tweet.text %>" on <%= tweet.created_at.strftime('%-m/%d/%Y') %>
-   <br>
+
+<%= form_tag(tweets_path) do %>
+    search for tweets <%= text_field_tag :tweet %>
+    <%= submit_tag 'Search' %>
 <% end %>
+

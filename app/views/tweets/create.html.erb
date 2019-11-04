@@ -1,0 +1,5 @@
+<% provide(:title, 'Tweets') %>
+<% @tweets.each do |tweet| %>
+   User @<%= tweet.user.screen_name %> said: "<%= tweet.text %>" on <%= tweet.created_at.strftime('%-m/%d/%Y') %>
+   <br>
+<% end %>
