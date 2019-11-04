@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
+  revision: 8a64089bf4c07c457be40973f1c99923ca8a7ef9
+  specs:
+    twitter-bootstrap-rails (4.0.0)
+      actionpack (>= 5.0, < 7.0)
+      execjs (~> 2.7)
+      less-rails (>= 3.0, < 5.0)
+      railties (>= 5.0, < 7.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,6 +88,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    commonjs (0.2.7)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     domain_name (0.5.20180417)
@@ -111,6 +122,12 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.2.0)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
+    less-rails (4.0.0)
+      actionpack (>= 4)
+      less (~> 2.6.0)
+      sprockets (>= 2)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -257,13 +274,14 @@ DEPENDENCIES
   sqlite3
   turbolinks (~> 5)
   twitter
+  twitter-bootstrap-rails!
   tzinfo-data
   uglifier (= 2.5.3)
   web-console (>= 3.3.0)
   will_paginate
 
 RUBY VERSION
-   ruby 2.6.3p62
+   ruby 2.6.5p114
 
 BUNDLED WITH
    1.17.2
