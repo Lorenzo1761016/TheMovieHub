@@ -9,6 +9,8 @@ gem 'rails', '~> 6.0.0'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 
 gem 'twitter'
+#bootstrap di twitter
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 gem 'bootstrap-sass', '~>3.2.0.0'
 # Use sqlite3 as the database for Active Record
