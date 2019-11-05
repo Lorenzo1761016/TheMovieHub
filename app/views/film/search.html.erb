@@ -1,6 +1,14 @@
-<h3> risultato </h3>
-<h5> prova </h5>
-<% @movies.each do |query| %>
-    Titolo: @<%= query.original_title %>
-<%end%>
-
+<% @res.each do |query|%>
+    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path) %>' width = 13%>
+    Titolo: <%= query.title %>
+    <br>
+    Trama: <%= query.overview %>
+    <br>
+    Data Di Uscita: <%= query.release_date %>
+    <br>
+    Valutazione: <%= query.vote_average%>/10
+    <br>
+    ID: <%= query.id %>
+    <br>
+    <br>
+    <% end %>

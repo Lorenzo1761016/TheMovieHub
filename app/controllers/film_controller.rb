@@ -3,7 +3,7 @@ class FilmController < ApplicationController
   end
   def search  
     @movies = Tmdb::Search.movie(params[:query])
+    @res = @movies.results
 
-    render json: @movies
   end
 end
