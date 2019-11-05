@@ -1,5 +1,6 @@
 <h3> risultato </h3>
+<h5> prova </h5>
+<% @movies.each do |query| %>
+    Titolo: @<%= query.original_title %>
+<%end%>
 
-<%@results.each do |result| %>
-    <%= result %>
-<% end %>

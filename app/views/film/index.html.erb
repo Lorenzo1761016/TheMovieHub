@@ -1,6 +1,5 @@
-<h1>Film#index</h1>
-<%= form_tag(search_path method: :post) do %>
-    Cerca il tuo film preferito <%= text_field_tag :result %>
+<%= form_tag(search_path) do %>
+    Cerca il tuo film preferito <%= text_field_tag :query %>
     <%= submit_tag 'Search' %>
   <% end %>
 <p>Find me in app/views/film/index.html.erb</p>
