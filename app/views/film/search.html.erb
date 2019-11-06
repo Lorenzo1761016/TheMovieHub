@@ -1,6 +1,10 @@
+
+<!-- 'https://image.tmdb.org/t/p/original/' -->
 <% @res.each do |query|%>
-    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path) %>' width = 13%>
-    Titolo: <%= query.title %>
+    <%= link_to "https://www.themoviedb.org/movie/"+query.id.to_s+"?language=it-IT" do %>
+        <img src= '<%= image_path('/no_locandina.webp') %>' width = 13%>
+        Titolo: <%= query.title %>
+    <% end %>
     <br>
     Trama: <%= query.overview %>
     <br>

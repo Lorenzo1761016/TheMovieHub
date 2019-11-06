@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'film/index'
   get 'film/search'
+  get 'film/result'
   get 'sessions/new'
   get 'users/new'
   get 'tweets/index'
@@ -10,7 +11,8 @@ Rails.application.routes.draw do
   get 'home'       => 'static_pages#home'
   get 'film'       => 'film#index'
   get 'search'     => 'film#search'
-  post 'search'     => 'film#search'
+  post 'search'    => 'film#search'
+  get 'result'     => 'film#result'
   get 'about'      => 'static_pages#about'
   get 'help'       => 'static_pages#help'
   get 'contact'    => 'static_pages#contact'
