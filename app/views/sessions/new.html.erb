@@ -20,5 +20,7 @@
     <% end %>
 
     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    <hr>
+    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(:twitter)}", user_twitter_omniauth_authorize_path %><br />
   </div>
 </div>
