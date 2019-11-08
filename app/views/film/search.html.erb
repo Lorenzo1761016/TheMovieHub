@@ -1,18 +1,17 @@
 
 <!-- 'https://image.tmdb.org/t/p/original/' -->
-<% @res.each do |query|%>
-    <%= link_to "https://www.themoviedb.org/movie/"+query.id.to_s+"?language=it-IT" do %>
-        <img src= '<%= image_path('/no_locandina.webp') %>' width = 13%>
-        Titolo: <%= query.title %>
+<ul>
+    <% @res.each do |query|%>
+        <li>
+            <%= link_to result_path(query.id) do %>
+            <% if query.poster_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 13%>
+            <%else%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 13%>
+            <% end %>
+            Titolo: <%= query.title %>
+        </li>
+        <br>
     <% end %>
-    <br>
-    Trama: <%= query.overview %>
-    <br>
-    Data Di Uscita: <%= query.release_date %>
-    <br>
-    Valutazione: <%= query.vote_average%>/10
-    <br>
-    ID: <%= query.id %>
-    <br>
-    <br>
-    <% end %>
+</ul>
+<% end %>

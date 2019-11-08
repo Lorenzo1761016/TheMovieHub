@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'film'       => 'film#index'
   get 'search'     => 'film#search'
   post 'search'    => 'film#search'
-  get 'result'     => 'film#result'
+  get 'result/:id', to: 'film#result', as: 'result'
   get 'about'      => 'static_pages#about'
   get 'help'       => 'static_pages#help'
   get 'contact'    => 'static_pages#contact'

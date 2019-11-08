@@ -4,6 +4,8 @@ class FilmController < ApplicationController
   def search 
     @movies = Tmdb::Search.movie(params[:query])
     @res = @movies.results
-
+  end
+  def result
+    @film = Tmdb::Movie.detail(params[:id])
   end
 end

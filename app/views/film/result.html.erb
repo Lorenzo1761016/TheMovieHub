@@ -1,0 +1,23 @@
+<%= @film %>
+<br>
+<br>
+Titolo: <%= @film.title %>
+<% if @film.poster_path %>
+    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@film.poster_path)%>' width = 22%>
+<%else%>
+    <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
+<% end %>
+<br>
+<br>
+Trama: <%= @film.overview%>
+<br>
+<br>
+Data Di Uscita: <%= @film.release_date%>
+<br>
+<br>
+Valutazione Media: <%= @film.vote_average%>/10
+<br>
+<br>
+Durata: <%= @film.runtime%> min.
+<br>
+<br>
