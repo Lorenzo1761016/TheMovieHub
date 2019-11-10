@@ -12,7 +12,10 @@ class FilmController < ApplicationController
     @video = Tmdb::Movie.videos(params[:id])
     @keywords = Tmdb::Movie.keywords(params[:id])
     @similar = Tmdb::Movie.similar(params[:id])
-
-
+    @directors = Tmdb::Movie.director(params[:id])
+  end
+  def persona
+    @persona = Tmdb::Person.detail(params[:id])
+    @mc = Tmdb::Person.movie_credits(params[:id])
   end
 end

@@ -20,18 +20,37 @@ Valutazione Media: <%= @film.vote_average%>/10
 Durata: <%= @film.runtime%> min.
 <br>
 <br>
+Regia:
+<ul>
+    <% @directors.each do |d| %>
+    <li>
+        <%= link_to persona_path(d.id) do%>
+            <% if d.profile_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+d.profile_path)%>' width = 10%>
+            <%else%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+            <% end %>
+            <%= d.name%>
+        <% end %>
+    </li>
+    <% end %>
+</ul>
+<br>
+<br>
 Cast:
 <ul>
     <% @cast.each do |character| %>
     <% break if character.order > 4%>
     <li>
-       <% if character.profile_path %>
-            <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+character.profile_path)%>' width = 10%>
-        <%else%>
-            <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-        <% end %> 
-        Attore: <%= character.name %>, Ruolo: <%= character.character %>
-        <br>
+        <%= link_to persona_path(character.id) do %>
+            <% if character.profile_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+character.profile_path)%>' width = 10%>
+            <%else%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+            <% end %> 
+            <%= character.name %>
+        <% end %>
+        - Ruolo: <%= character.character %>
     </li>
     <br>
     <% end %>

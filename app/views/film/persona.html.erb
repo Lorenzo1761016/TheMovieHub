@@ -1,0 +1,16 @@
+<%= @persona %>
+<h1> <%= @persona.name %> </h1>
+<% if @persona.profile_path %>
+    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@persona.profile_path)%>' width = 20%>
+<% else %>
+    <img src = '<%= image_path('/no_locandina.webp')%>' width = 20%  %>
+<% end %> 
+Data Di Nascita: <%= @persona.birthday %>, Luogo Di Nascita = <%= @persona.place_of_birth%>
+<br>
+Professione: <%= @persona.known_for_department %>
+<br>
+<br>
+Biografia: <%= @persona.biography %>
+<br>
+<br>
+<%= @mc %>
