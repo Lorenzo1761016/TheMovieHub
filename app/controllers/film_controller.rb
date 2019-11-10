@@ -1,5 +1,6 @@
 class FilmController < ApplicationController
   def index
+    @popular = Tmdb::Movie.popular
   end
   def search 
     @movies = Tmdb::Search.movie(params[:query])

@@ -1,17 +1,15 @@
 
 <!-- 'https://image.tmdb.org/t/p/original/' -->
-<ul>
-    <% @res.each do |query|%>
-        <li>
-            <%= link_to result_path(query.id) do %>
+<% @res.each_slice(3) do |q|%>
+    <% q.each do |query| %>
+        <%= link_to result_path(query.id) do %>
             <% if query.poster_path %>
-                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 13%>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 25%>
             <%else%>
-                <img src = '<%= image_path('/no_locandina.webp')%>' width = 13%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 25%>
             <% end %>
-            Titolo: <%= query.title %>
-        </li>
-        <br>
+        <% end %>
     <% end %>
-</ul>
+    <br>
+    <br>
 <% end %>
