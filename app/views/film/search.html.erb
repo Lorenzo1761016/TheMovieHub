@@ -1,5 +1,15 @@
-<h3> risultato </h3>
 
-<%@results.each do |result| %>
-    <%= result %>
+<!-- 'https://image.tmdb.org/t/p/original/' -->
+<% @res.each_slice(3) do |q|%>
+    <% q.each do |query| %>
+        <%= link_to result_path(query.id) do %>
+            <% if query.poster_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 25%>
+            <%else%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 25%>
+            <% end %>
+        <% end %>
+    <% end %>
+    <br>
+    <br>
 <% end %>
