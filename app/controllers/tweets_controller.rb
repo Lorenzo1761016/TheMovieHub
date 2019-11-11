@@ -6,8 +6,8 @@ class TweetsController < ApplicationController
 
     def create
         client = Twitter::REST::Client.new do |config|
-            config.consumer_key        = "huDbr8tcnNsTTZwjAlhvP8nuN"
-            config.consumer_secret     = "9BIB73O5VmZoMPfRNrIjRT91vWZr1LVy0kgHFWheYDrFBPbyye"
+            config.consumer_key        = 'FR4EQwpC8DxZps2olJQXHzujv'
+            config.consumer_secret     = 'rV4RURzJBFyCc6Uim0gs20CGHLBkGen1VD10qDKUfwt6wgWTyV'
             config.access_token        = "1014146447665659904-kBw19rr4EdWNyzhR9MjjCFwgjhaeQ3"
             config.access_token_secret = "CyyqnVhwsdTcpzEruvMhmD5lE9fJBBTsgGjS1KGXuA903"
           end
