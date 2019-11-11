@@ -65,8 +65,10 @@ Cast:
 <br>
 <br>
 Parole Chiave:
-<% @keywords. each do |kw| %>
-    <%= kw.name%>
+<% @keywords.each do |kw| %>
+    <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank' do%>
+        <%= kw.name %>
+    <% end %>
 <% end %>
 <br>
 <br>
