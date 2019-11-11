@@ -24,11 +24,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     super
   end
 
+  def after_sign_in_path_for(resource)
+    if resource.email_verified?
+      super resource
+    else
+      finish_signup_path(resource)
+    end
+  end
+  
   # GET|POST /users/auth/twitter/callback
   def failure
     flash[:error] = 'There was a problem signing you in. Please register or try signing in later.' 
     redirect_to new_user_registration_url
-end
+  end
 
   # protected
 

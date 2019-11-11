@@ -12,7 +12,7 @@
                             <div class="timeline-heading">
                                 <!-- Show user name -->
                                 <h4> <%= tweet.user.name %> </h4> 
-                                <%= "@#{tweet.user.screen_name}" %>
+                                <a href="https://twitter.com/<%= tweet.user.screen_name %>", target="_blank"> <%= "@#{tweet.user.screen_name}" %> </a>
                             </div>
                             <div class="timeline-body">
                                 <p class="text-muted"> <%= tweet.text%> </p>

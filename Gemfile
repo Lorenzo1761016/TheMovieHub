@@ -8,6 +8,8 @@ gem 'rails', '~> 5.2.3'
 
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 
+gem 'rake', '~> 12.3.3'
+# titter api
 gem 'twitter'
 # set up devise 
 gem 'devise', '~> 4.2'

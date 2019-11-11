@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
-
+  root             'static_pages#home'
   devise_for :users, controllers: {
     sessions: 'users/sessions', 
     registrations: 'users/registrations',
-    omniauth: 'users/omniauth'}
+    omniauth: 'users/omniauth',
+    omniauth_callbacks: "omniauth_callbacks"}
    
-  get 'users/session/new'
+  get 'users/sessions/new'
   get 'users/registrations/new'
   get 'tweets/index'
-  root             'static_pages#home'
-
   get 'home'       => 'static_pages#home'
   get 'about'      => 'static_pages#about'
   get 'help'       => 'static_pages#help'
