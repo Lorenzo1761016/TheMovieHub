@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   get 'film/search'
   get 'film/result'
   get 'film/persona'
-  get 'sessions/new'
-  get 'users/new'
   devise_for :users, controllers: {
     sessions: 'users/sessions', 
     registrations: 'users/registrations',
