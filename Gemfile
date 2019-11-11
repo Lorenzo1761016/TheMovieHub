@@ -9,7 +9,13 @@ gem 'rails', '~> 6.0.0'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 
 gem 'twitter'
-
+# set up devise 
+gem 'devise', '~> 4.2'
+# Use Omniauth Twitter plugin
+gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
+# Use ActiveRecord Sessions
+gem 'activerecord-session_store', '~> 1.0'
+# use bootstrap for scss
 gem 'bootstrap-sass', '~>3.2.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -61,6 +67,8 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+  # Use Dotenv for environment variables
+  gem 'dotenv', '~> 2.2.1'
 end
 
 group :test do

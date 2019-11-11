@@ -70,16 +70,17 @@ Parole Chiave:
 <% end %>
 <br>
 <br>
-Potrebbero Piacerti Anche:
+<h1> POTREBBERO PIACERTI ANCHE </h1>
 <br>
-<ul>
-    <% @similar.results.each do |s| %>
-    <li>
-        <%= link_to result_path(s.id) do %>
-            <%= s.title%>
+    <% @similar.results.each_slice(5) do |ss| %>
+        <% ss.each do |s| %>
+            <%= link_to result_path(s.id) do %>
+                <% if s.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 10%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %>
+            <% end %>
         <% end %>
-            <br>
-        <% end %>
-    </li>
-</ul>
+    <% end %>
 <br>

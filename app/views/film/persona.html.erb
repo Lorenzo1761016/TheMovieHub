@@ -12,4 +12,15 @@ Professione: <%= @persona.known_for_department %>
 Biografia: <%= @persona.biography %>
 <br>
 <br>
-<%= @mc %>
+<h1> CREDITI </h1>
+<% @mc.cast.each_slice(5) do |cc| %>
+    <% cc.each do |c| %>
+        <%= link_to result_path(c.id) do %>
+            <% if c.poster_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.poster_path)%>' width = 10%>
+            <% else %>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+            <% end %> 
+        <% end %>
+    <% end %>
+<% end %>
