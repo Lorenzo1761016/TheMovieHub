@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2019_11_10_101152) do
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.string "provider", limit: 50, default: "", null: false
+    t.string "uid", limit: 500, default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
