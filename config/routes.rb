@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     omniauth_callbacks: "omniauth_callbacks"}  
 =end
 
+  mount ActionCable.server => '/cable'
 
+  get 'chat/index'
   get 'film/index'
   get 'film/search'
   get 'film/result'
@@ -29,6 +31,8 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+  get 'chat'       => 'chat#index'
   resources :tweets
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
