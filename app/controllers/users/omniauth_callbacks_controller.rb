@@ -24,13 +24,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     super
   end
 
-  def after_sign_in_path_for(resource)
+=begin def after_sign_in_path_for(resource)
     if resource.email_verified?
       super resource
     else
       finish_signup_path(resource)
     end
-  end
+  end 
+=end
   
   # GET|POST /users/auth/twitter/callback
   def failure
