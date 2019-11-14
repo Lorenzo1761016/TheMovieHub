@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
@@ -24,13 +24,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     super
   end
 
-  def after_sign_in_path_for(resource)
+=begin def after_sign_in_path_for(resource)
     if resource.email_verified?
       super resource
     else
       finish_signup_path(resource)
     end
-  end
+  end 
+=end
   
   # GET|POST /users/auth/twitter/callback
   def failure
@@ -41,7 +42,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # protected
 
   # The path used when OmniAuth fails
-  # def after_omniauth_failure_path_for(scope)
-  #   super(scope)
-  # end
+  def after_omniauth_failure_path_for(scope)
+    super(scope)
+  end
 end
