@@ -12,10 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2019_11_12_151810) do
 
-  create_table "comments", force: :cascade do |t|
-    t.string "description"
-  end
-
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
@@ -52,7 +48,7 @@ ActiveRecord::Schema.define(version: 2019_11_12_151810) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", limit: 20, default: "", null: false
+    t.string "username", limit: 20, default: "", null: false
     t.string "provider", limit: 50, default: "", null: false
     t.string "uid", limit: 500, default: "", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
