@@ -1,0 +1,150 @@
+<br>
+<br>
+Titolo: <%= @film.title %>
+<% if @film.poster_path %>
+    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@film.poster_path)%>' width = 22%>
+<%else%>
+    <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
+<% end %>
+<br>
+<br>
+Trama: <%= @film.overview%>
+<br>
+<br>
+Data Di Uscita: <%= @film.release_date%>
+<br>
+<br>
+Valutazione Media: <%= @film.vote_average%>/10
+<br>
+<br>
+Durata: <%= @film.runtime%> min.
+<br>
+<br>
+Regia:
+<ul>
+    <% @directors.each do |d| %>
+    <li>
+        <%= link_to persona_path(d.id) do%>
+            <% if d.profile_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+d.profile_path)%>' width = 10%>
+            <%else%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+            <% end %>
+            <%= d.name%>
+        <% end %>
+    </li>
+    <% end %>
+</ul>
+<br>
+<br>
+Cast:
+<ul>
+    <% @cast.each do |character| %>
+    <% break if character.order > 4%>
+    <li>
+        <%= link_to persona_path(character.id) do %>
+            <% if character.profile_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+character.profile_path)%>' width = 10%>
+            <%else%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+            <% end %> 
+            <%= character.name %>
+        <% end %>
+        - Ruolo: <%= character.character %>
+    </li>
+    <br>
+    <% end %>
+</ul>
+<br>
+<br>
+<% if @video %>
+    <% @video.each do |video|%>
+    <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
+    <% end %>
+<% end %>
+<br>
+<br>
+Parole Chiave:
+<% @keywords. each do |kw| %>
+    <%= kw.name%>
+<% end %>
+<br>
+<br>
+<h1> POTREBBERO PIACERTI ANCHE </h1>
+<br>
+    <% @similar.results.each_slice(5) do |ss| %>
+        <% ss.each do |s| %>
+            <%= link_to result_path(s.id) do %>
+                <% if s.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 10%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+<br>
+
+<br>
+
+<div class="row bootstrap snippets">
+    <div class="col-md-6 col-md-offset-2 col-sm-12 pan">
+        <div class="comment-wrapper">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Comment panel
+                </div>
+                <div class="panel-body">
+                    <textarea class="form-control" placeholder="write a comment..." rows="3"></textarea>
+                    <br>
+                    <button type="button" class="btn btn-info pull-right">Post</button>
+                    <div class="clearfix"></div>
+                    <hr>
+                    <ul class="media-list">
+                        </li>
+                        <li class="media">
+                            <a href="#" class="pull-left">
+                                <img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">
+                            </a>
+                            <div class="media-body">
+                                <span class="text-muted pull-right">
+                                    <small class="text-muted">30 min ago</small>
+                                </span>
+                                <strong class="text-success">@JohnNida</strong>
+                                <p>
+                                    Lorem ipsum dolor <a href="#">#sitamet</a> sit amet, consectetur adipiscing elit.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+body{margin-top:20px;}
+
+.pan{
+    width: 1100px;
+}
+
+.comment-wrapper .panel-body {
+    width: 1000px;
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
+}
+</style>

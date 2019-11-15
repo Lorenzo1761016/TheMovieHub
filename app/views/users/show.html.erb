@@ -1,4 +1,6 @@
-<h1>
-    <%= @user.name %><br/>
-    <%= @user.email %><br/>
-</h1>
+<h1>Profile</h1>
+<div>
+    <%= current_user.username %><br/>
+    <%= current_user.email %><br/>
+    <%= link_to 'Edit Profile', edit_user_registration_path %>
+</div>
