@@ -10,8 +10,6 @@ class FilmController < ApplicationController
     if Film.exists?(params[:id])
       # your truck exists in the database
       @found = Film.find(params[:id])
-      puts("COMMENTI: ")
-      puts(@found.comments)
     else
       # the truck doesn't exist
       n = Film.all.size
@@ -21,6 +19,7 @@ class FilmController < ApplicationController
       Film.all.size == n+1
       Film.all.each do |f|
         puts(f.id)
+      @found = Film.find(params[:id])
      end
 
     end
