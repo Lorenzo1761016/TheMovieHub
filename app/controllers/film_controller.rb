@@ -7,6 +7,23 @@ class FilmController < ApplicationController
     @res = @movies.results
   end
   def result
+    if Film.exists?(params[:id])
+      # your truck exists in the database
+      @found = Film.find(params[:id])
+      puts("COMMENTI: ")
+      puts(@found.comments)
+    else
+      # the truck doesn't exist
+      n = Film.all.size
+      @new_film = Film.new
+      @new_film.id = params[:id]
+      @new_film.save
+      Film.all.size == n+1
+      Film.all.each do |f|
+        puts(f.id)
+     end
+
+    end
     @film = Tmdb::Movie.detail(params[:id])
     @cast = Tmdb::Movie.cast(params[:id])
     @video = Tmdb::Movie.videos(params[:id])
