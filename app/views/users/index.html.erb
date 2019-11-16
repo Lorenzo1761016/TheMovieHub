@@ -1,5 +1,5 @@
 <% @users = User.all %>
 <% @users.each do |user| %>
-  <%= user.name %><br/>
-  <%= user.email %><br/>
+  Username: <%= user.username %><br/>
+  E-mail: <%= user.email %><br/>
 <% end %>

@@ -62,9 +62,13 @@ ActiveRecord::Schema.define(version: 2019_11_14_181212) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", limit: 20, default: "", null: false
+    t.string "username", limit: 20, default: "", null: false
     t.string "provider", limit: 50, default: "", null: false
     t.string "uid", limit: 500, default: "", null: false
+    t.string "first_name", limit: 20, default: "", null: false
+    t.string "last_name", limit: 20, default: "", null: false
+    t.date "date_of_birth"
+    t.integer "gender", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
