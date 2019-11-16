@@ -1,6 +1,10 @@
 <h1>Profile</h1>
 <div>
-    <%= current_user.name %><br/>
-    <%= current_user.email %><br/>
-    <%= link_to 'Edit Profile', edit_user_registration_path %>
+    Username: <%= current_user.username %><br/>
+    First Name: <%= current_user.first_name %><br/>
+    Last Name: <%= current_user.last_name %><br/>
+    E-mail: <%= current_user.email %><br/>
+    gender: <%= current_user.gender %> <br>
+    date of birth: <%= current_user.date_of_birth %> <br>
+    <%= link_to 'Account Setting', edit_user_registration_path %>
 </div>

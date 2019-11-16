@@ -90,16 +90,26 @@ Parole Chiave:
 <br>
 
 
-<h3>Commenta</h3>
-
-<%= form_for [@found, Comment.new] do |f| %>
-    <%= f.text_area :body, placeholder: "Aggiungi un commento..." %><br/>
-    <%= f.submit "Invio" %>
-<% end %>
 
 <ul>
     <h1> COMMENTI </h1>
     <%= render(partial: 'comments/comment', collection: @found.comments) %>
 </ul>
 
+<h3>Commenta anche tu</h3>
 
+<%= form_for [@found, Comment.new] do |f| %>
+    <%= f.text_area :body, placeholder: "Aggiungi un commento..." %><br/>
+    <%= f.submit "Invio" %>
+<% end %>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#rsp').click(function(event){
+            event.preventDefault();
+            $('#cms').toggle();
+        });
+    });   
+</script>
