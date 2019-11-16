@@ -3,7 +3,7 @@
         <div class="col-sm-5">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong id = "user"> <%= current_user.username %> </strong> <span class="text-muted"><small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small></span>
+                    <strong id = "user"> <%= comment.username %> </strong> <span class="text-muted"><small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small></span>
                     <%= link_to "Elimina", comment, :method => :delete %> 
                     <a class ="rsp"> Rispondi </a>
                 </div>
