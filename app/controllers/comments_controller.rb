@@ -1,15 +1,28 @@
 class CommentsController < ApplicationController
     before_action :find_commentable
+    before_action :require_login
+ 
+ 
+  def require_login
+    unless current_user != nil
+    flash[:error] =  "DEVI EFFETTUARE L'ACCESSO PER VISUALIZZARE I FILM"
+      redirect_to new_user_session_path # halts request cycle
+    end
+  end
+
     
     def new
-        @comment = Comment.new
+        @comment = Comment.new  
     end
 
     def create
         @comment = @commentable.comments.new comment_params
+        @comment.username = current_user.username
         if @comment.save
             redirect_back fallback_location: root_path, notice: "commento postato"
             puts("ID: "+@comment.id.to_s)
+            @user = current_user.username
+            puts("UTENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE: "+@user)
         else
             redirect_back fallback_location: root_path
           end

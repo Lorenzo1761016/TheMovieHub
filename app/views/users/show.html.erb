@@ -1,10 +1,69 @@
-<h1>Profile</h1>
-<div>
-    Username: <%= current_user.username %><br/>
-    First Name: <%= current_user.first_name %><br/>
-    Last Name: <%= current_user.last_name %><br/>
-    E-mail: <%= current_user.email %><br/>
-    gender: <%= current_user.gender %> <br>
-    date of birth: <%= current_user.date_of_birth %> <br>
-    <%= link_to 'Account Setting', edit_user_registration_path %>
-</div>
+
+<div class="container emp-profile">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="profile-head">
+                                <h1><%= current_user.username %></h1>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="profile-edit-btn"> <%= link_to 'Edit', edit_user_registration_path %> </button>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                <div class="col-md-8">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><%= current_user.first_name%> <%=current_user.last_name%></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Email</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><%= current_user.email%></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Phone</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><%= current_user.phone_number%></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Social Account</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Web Developer and Designer</p>
+                                        </div>
+                                    </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Your Bio</label><br/>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>           
+    </div>
