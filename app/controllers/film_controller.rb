@@ -1,4 +1,15 @@
 class FilmController < ApplicationController
+  before_action :require_login
+ 
+ 
+  def require_login
+    unless current_user != nil
+    flash[:error] =  "DEVI EFFETTUARE L'ACCESSO PER VISUALIZZARE I FILM"
+      redirect_to new_user_session_path # halts request cycle
+    end
+  end
+
+
   def index
     @popular = Tmdb::Movie.popular
   end
