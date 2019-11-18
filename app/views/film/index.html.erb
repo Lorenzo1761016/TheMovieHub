@@ -1,10 +1,13 @@
 Cerca il tuo film preferito:
+
 <%= form_tag search_path, :method => :get do %>
 
     <%=text_field_tag :query %>
     <%= submit_tag "Cerca" %>
 
 <% end %>
+
+
 <h2> POPOLARI </h2>
     <%= @popular.results.each_slice(5) do |pp| %>
         <% pp.each do |p|%>
@@ -19,3 +22,4 @@ Cerca il tuo film preferito:
     <br>
     <br>
     <% end %>   
+

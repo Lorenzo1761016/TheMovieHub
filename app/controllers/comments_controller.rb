@@ -32,7 +32,6 @@ class CommentsController < ApplicationController
         @comment = Comment.find(params[:id])
         @comment.destroy
         redirect_back fallback_location: root_path, notice: "commento eliminato"
-
     end     
 
     private
