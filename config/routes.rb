@@ -10,12 +10,12 @@ Rails.application.routes.draw do
   get 'home'           => 'static_pages#home'
   get 'about'          => 'static_pages#about'
   get 'contact'        => 'static_pages#contact'
-  get 'chat'       => 'chat#index'
+  get 'chat'           => 'chat#index'
   get 'persona/:id', to: 'film#persona', as: 'persona'
   get 'result/:id', to: 'film#result', as: 'result'
-  post 'search'    => 'film#search'
-  get 'search'     => 'film#search'
-  get 'film'       => 'film#index'
+  post 'search'        => 'film#search'
+  get 'search'         => 'film#search'
+  get 'film'           => 'film#index'
   get 'film/persona'
   get 'film/result'
   get 'film/search'
@@ -31,6 +31,6 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :tweets
-  resources :users, :only =>[:show, :index]
+  resources :users, :only =>[:show, :index, :update, :edit]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

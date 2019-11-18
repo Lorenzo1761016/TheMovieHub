@@ -15,6 +15,13 @@
     <%= f.label :last_name %><br />
     <%= f.text_field :last_name, autofocous: true %>
   </div>
+  <!--check gender-->
+  <div class="field">
+    <%= f.label :gender %><br />
+    <% options_for_select(['Male', 'Female', 'Other', 'Not Telling'], f.object.gender)
+    options_for_select(['Male', 'Female', 'Other', 'Not Telling'], :selected => f.object.gender) %>
+    <%= f.select :gender, ["Not Telling", "Male", "Female", "Other"] %>
+  </div>
   <!--change phone number-->
   <div class="field">
     <%= f.label :Phone_Number %><br />
