@@ -1,11 +1,12 @@
+<body onload = "setButtons()">
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong id = "user"> <%= comment.username %> </strong> <span class="text-muted"><small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small></span>
-                    <%= link_to "Elimina", comment, :method => :delete %> 
-                    <a class ="rsp"> Rispondi </a>
+                    <%= link_to "Elimina", comment, :method => :delete,:id => "link", :style=>'display:none'%> 
+                   <!--- <a class ="rsp"> Rispondi </a> --->
                 </div>
                 <div class="panel-body">
                     <%= comment.body %>
@@ -15,23 +16,34 @@
     </div>
 </div>
 
-    <div id = "cms" style= "display: none">
+   <!--- <div id = "cms" style= "display: none">
         <%= form_for [comment, Comment.new] do |f| %>
             <%= f.text_area :body, placeholder: "Rispondi" %><br/>
             <%= f.submit "Rispondi"  %>
         <% end %>
-    </div>
+    </div> ---->
   <ul>
-      <%= render partial: 'comments/comment', collection: comment.comments %>
-  </ul>
+      <%= render partial: 'comment', collection: comment.comments %>
+  </ul> 
+</body>
 
-
-
-<script>
+<!---- <script>
     $(document).ready(function() {
-        $('a.rsp').click(function(event){
+        $('.rsp').click(function(event){
             event.preventDefault();
             $('#cms').toggle();
         });
     });   
+</script> ---->
+<script>
+function setButtons(){
+    if('<%= comment.username %>' == '<%= current_user.username %>'){
+        alert("ok")
+        $("#link").toggle();
+        alert("okkkk")
+    }
+    else{
+        alert("BAD")
+    }
+}
 </script>

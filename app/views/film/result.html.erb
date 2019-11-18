@@ -91,11 +91,12 @@ Parole Chiave:
 
 
 
-<ul>
-    <h1> COMMENTI </h1>
-    <%= render(partial: 'comments/comment', collection: @found.comments) %>
-</ul>
-
+<h1> COMMENTI </h1>
+<div class = "container cmnts">
+    <ul>
+        <%= render(partial: 'comment', collection: @found.comments) %>
+    </ul>
+</div>
 <h3>Commenta anche tu</h3>
 
 <%= form_for [@found, Comment.new] do |f| %>
@@ -104,12 +105,11 @@ Parole Chiave:
 <% end %>
 
 
-
-<script>
-    $(document).ready(function() {
-        $('#rsp').click(function(event){
-            event.preventDefault();
-            $('#cms').toggle();
-        });
-    });   
-</script>
+<style>
+.cmnts{
+    height: 500px;
+    border-style: groove;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+</style>
