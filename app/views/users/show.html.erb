@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="profile-edit-btn"> <%= link_to 'Edit', edit_user_registration_path %> </button>
+                    <%= link_to 'Edit', edit_user_registration_path %>
                 </div>
             </div>
             <div class="row">
@@ -28,6 +28,14 @@
                                         </div>
                                         <div class="col-md-6">
                                             <p><%= current_user.first_name%> <%=current_user.last_name%></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Date of Birth</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><%= current_user.date_of_birth%></p>
                                         </div>
                                     </div>
                                     <div class="row">
