@@ -11,12 +11,13 @@ class FilmController < ApplicationController
 
 
   def index
-    @popular = Tmdb::Movie.popular
+    @popular_films = Tmdb::Movie.popular
+    @popular_series = Tmdb::TV.popular
   end
   def search 
     @people = Tmdb::Search.person(params[:query])
     @movies = Tmdb::Search.movie(params[:query])
-    @res = @movies.results
+    @series = Tmdb::Search.tv(params[:query])
   end
   def result
     if Film.exists?(params[:id])
@@ -41,6 +42,30 @@ class FilmController < ApplicationController
     @keywords = Tmdb::Movie.keywords(params[:id])
     @similar = Tmdb::Movie.similar(params[:id])
     @directors = Tmdb::Movie.director(params[:id])
+  end
+  def tv
+    if Tv.exists?(params[:id])
+      # your truck exists in the database
+      @ftv = Tv.find(params[:id])
+    else
+      # the truck doesn't exist
+      n = Tv.all.size
+      @new_tv = Tv.new
+      @new_tv.id = params[:id]
+      @new_tv.save
+      Tv.all.size == n+1
+      Tv.all.each do |f|
+        puts(f.id)
+      @ftv = Tv.find(params[:id])
+     end
+    end
+    @serie = Tmdb::TV.detail(params[:id])
+    @cast = Tmdb::TV.cast(params[:id])
+    @ratings = Tmdb::TV.content_ratings(params[:id])
+    @keywords = Tmdb::TV.keywords(params[:id])
+    @videos = Tmdb::TV.videos(params[:id])
+    @similar = Tmdb::TV.similar(params[:id])
+
   end
   def persona
     @persona = Tmdb::Person.detail(params[:id])

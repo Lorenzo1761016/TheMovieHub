@@ -19,7 +19,7 @@
     <% end %>
 <% if @movies %>
     <h1> FILM </h1>
-    <% @res.each_slice(3) do |q|%>
+    <% @movies.results.each_slice(3) do |q|%>
         <% q.each do |query| %>
             <%= link_to result_path(query.id) do %>
                 <% if query.poster_path %>
@@ -33,3 +33,21 @@
         <br>
     <% end %>
 <% end %>
+<% if @series %>
+    <h1> SERIE TV </h1>
+    <% @series.results.each_slice(3) do |q|%>
+        <% q.each do |query| %>
+            <%= link_to tv_path(query.id) do %>
+                <% if query.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 25%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 25%>
+                <% end %>
+            <% end %>
+        <% end %>
+        <br>
+        <br>
+    <% end %>
+<% end %>
+
+
