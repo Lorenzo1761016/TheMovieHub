@@ -2,18 +2,23 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-  <!--change username-->
+  <!--change username, first name and last name-->
   <div class="field">
     <%= f.label :username %><br />
     <%= f.text_field :username, autofocous: true %>
   </div>
   <div class="field">
     <%= f.label :first_name %><br />
-    <%= f.text_field :last_name, autofocous: true %>
+    <%= f.text_field :first_name, autofocous: true %>
   </div>
   <div class="field">
     <%= f.label :last_name %><br />
     <%= f.text_field :last_name, autofocous: true %>
+  </div>
+  <!--change phone number-->
+  <div class="field">
+    <%= f.label :Phone_Number %><br />
+    <%= f.number_field :phone_number, autofocous: true %>
   </div>
   <!--change user gender-->
   <%= radio_button_tag(:gender, "male") %>
@@ -23,6 +28,11 @@
   <!--change user birth date-->
   <div class="field">
     <%= date_field(:user, :date_of_birth) %>
+  </div>
+  <!--necessary for twitter linking-->
+  <div class="field">
+    <%= f.label :Twitter_Name %><br />
+    <%= f.text_field :twittername, autofocous: true %>
   </div>
   <!--change user email-->
   <div class="field">

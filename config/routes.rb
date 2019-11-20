@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'}  
   get 'home'           => 'static_pages#home'
   get 'about'          => 'static_pages#about'
-  get 'help'           => 'static_pages#help'
   get 'contact'        => 'static_pages#contact'
   get 'chat'       => 'chat#index'
   get 'persona/:id', to: 'film#persona', as: 'persona'
