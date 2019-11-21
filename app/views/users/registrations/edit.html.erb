@@ -18,20 +18,13 @@
   <!--check gender-->
   <div class="field">
     <%= f.label :gender %><br />
-    <% options_for_select(['Male', 'Female', 'Other', 'Not Telling'], f.object.gender)
-    options_for_select(['Male', 'Female', 'Other', 'Not Telling'], :selected => f.object.gender) %>
-    <%= f.select :gender, ["Not Telling", "Male", "Female", "Other"] %>
+    <%= f.select(:gender, User.gender_types.map { |k,v| [k.capitalize, v] }) %>
   </div>
   <!--change phone number-->
   <div class="field">
     <%= f.label :Phone_Number %><br />
     <%= f.number_field :phone_number, autofocous: true %>
   </div>
-  <!--change user gender-->
-  <%= radio_button_tag(:gender, "male") %>
-  <%= label_tag(:gender_male,   "Male") %>
-  <%= radio_button_tag(:gender, "female") %>
-  <%= label_tag(:gender_female, "Female") %>
   <!--change user birth date-->
   <div class="field">
     <%= date_field(:user, :date_of_birth) %>
@@ -67,7 +60,7 @@
 
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
+    <%= f.password_field :current_password, autocomplete: "current-password", :value => current_user.encrypted_password %>
   </div>
 
   <div class="actions">
