@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get 'search'     => 'film#search'
   get 'index'       => 'film#index'
   get 'tv/:id', to: 'film#tv', as: 'tv'
+  get 'tv/:id/season/:number', to: 'film#season', as: 'season'
+  get 'tv/:id/season/:number/episode/:episode', to: 'film#episode', as: 'episode'
   get 'film/persona'
   get 'film/result'
   get 'film/search'

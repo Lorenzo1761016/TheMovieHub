@@ -13,6 +13,7 @@ class FilmController < ApplicationController
   def index
     @popular_films = Tmdb::Movie.popular
     @popular_series = Tmdb::TV.popular
+    @popular_people = Tmdb::Person.popular
   end
   def search 
     @people = Tmdb::Search.person(params[:query])
@@ -67,8 +68,17 @@ class FilmController < ApplicationController
     @similar = Tmdb::TV.similar(params[:id])
 
   end
+  def season
+    @season = Tmdb::Tv::Season.detail(params[:id],params[:number])
+    @videos = Tmdb::Tv::Season.videos(params[:id],params[:number])
+  end
+  def episode
+    @episode = Tmdb::Tv::Episode.detail(params[:id], params[:number], params[:episode])
+    @cast = Tmdb::Tv::Episode.cast(params[:id], params[:number], params[:episode])
+    @videos = Tmdb::Tv::Episode.videos(params[:id], params[:number], params[:episode])
+  end
   def persona
     @persona = Tmdb::Person.detail(params[:id])
-    @mc = Tmdb::Person.movie_credits(params[:id])
+    @mc = Tmdb::Person.combined_credits(params[:id])
   end
 end

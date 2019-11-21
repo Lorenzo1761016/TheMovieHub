@@ -73,6 +73,22 @@ Durata: <%= @film.runtime%> min.
 </div>
 <br>
 <br>
+
+
+<h1> COMMENTI </h1>
+<div class = "container cmnts">
+    <ul>
+        <%= render(partial: 'comment', collection: @found.comments) %>
+    </ul>
+</div>
+<h3>Commenta anche tu</h3>
+
+<%= form_for [@found, Comment.new] do |f| %>
+    <%= f.text_area :body, placeholder: "Aggiungi un commento..." %><br/>
+    <%= f.submit "Invio" %>
+<% end %>
+<br>
+<br>
 <h1> POTREBBERO PIACERTI ANCHE </h1>
 <br>
     <% @similar.results.each_slice(5) do |ss| %>
@@ -92,25 +108,10 @@ Durata: <%= @film.runtime%> min.
 
 
 
-<h1> COMMENTI </h1>
-<div class = "container cmnts">
-    <ul>
-        <%= render(partial: 'comment', collection: @found.comments) %>
-    </ul>
-</div>
-<h3>Commenta anche tu</h3>
-
-<%= form_for [@found, Comment.new] do |f| %>
-    <%= f.text_area :body, placeholder: "Aggiungi un commento..." %><br/>
-    <%= f.submit "Invio" %>
-<% end %>
-<br>
-<br>
-
 
 <style>
 .cmnts{
-    height: 500px;
+    height: 300px;
     border-style: groove;
     overflow-y: auto;
     overflow-x: hidden;

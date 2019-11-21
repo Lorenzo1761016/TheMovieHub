@@ -1,6 +1,6 @@
 <br>
 <br>
-Titolo: <%= @serie.title %>
+Titolo: <%= @serie.name %>
 <% if @serie.poster_path %>
     <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@serie.poster_path)%>' width = 22%>
 <%else%>
@@ -37,12 +37,14 @@ Ratings: °
 <div class = "container">
     <% @serie.seasons.each do |s| %>
         <div class = "container cmnts">
-            <% if s.poster_path %>
-                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 15%>
-            <%else%>
-                <img src = '<%= image_path('/no_locandina.webp')%>' width = 15%  %>
+            <%= link_to season_path(@serie.id,s.season_number) do %>    
+                <% if s.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 15%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 15%  %>
+                <% end %>
+                <%= s.name%>
             <% end %>
-            <%= s.name%>
             - Numero Episodi: 
             <%= s.episode_count %>
             - Messa in onda: 
@@ -92,27 +94,12 @@ Parole Chiave:
     <% end %>
 <% end %>
 <br>
-<h1> VIDEO </h1>
 <% if @videos %>
     <% @videos.each do |video|%>
     <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
     <% end %>
 <% end %>
 
-<h1> POTREBBERO PIACERTI ANCHE </h1>
-<br>
-    <% @similar.results.each_slice(5) do |ss| %>
-        <% ss.each do |s| %>
-            <%= link_to result_path(s.id) do %>
-                <% if s.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 10%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-                <% end %>
-            <% end %>
-        <% end %>
-    <% end %>
-<br>
 <h1> COMMENTI </h1>
 <div class = "container cmnts">
     <ul>
@@ -128,6 +115,29 @@ Parole Chiave:
 <br>
 <br>
 <br>
+
+<h1> POTREBBERO PIACERTI ANCHE </h1>
+<br>
+    <% @similar.results.each_slice(5) do |ss| %>
+        <% ss.each do |s| %>
+            <%= link_to result_path(s.id) do %>
+                <% if s.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 10%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+<br>
+<br>
+
+
+
+
+
+
+
 <style>
 .cmnts{
     height: 250px;
@@ -140,3 +150,5 @@ Parole Chiave:
     border-style: groove;
 }
 </style>
+
+
