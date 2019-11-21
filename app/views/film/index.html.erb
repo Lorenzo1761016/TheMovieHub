@@ -44,7 +44,7 @@ Cerca il tuo film preferito:
 <h2> PERSONE POPOLARI </h2>
 <%= @popular_people.results.each_slice(5) do |pp| %>
     <% pp.each do |p|%>
-        <%= link_to tv_path(p.id) do %>
+        <%= link_to persona_path(p.id) do %>
                 <% if p.profile_path %>
                     <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.profile_path)%>' width = 17%>
                 <%else%>
