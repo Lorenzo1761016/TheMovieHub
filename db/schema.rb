@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_17_150833) do
+ActiveRecord::Schema.define(version: 2019_11_20_144722) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -57,6 +57,12 @@ ActiveRecord::Schema.define(version: 2019_11_17_150833) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
+  create_table "tvs", force: :cascade do |t|
+    t.string "tv_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tweets", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -90,9 +96,9 @@ ActiveRecord::Schema.define(version: 2019_11_17_150833) do
     t.string "first_name", limit: 20, default: " ", null: false
     t.string "last_name", limit: 20, default: " ", null: false
     t.date "date_of_birth"
-    t.integer "gender", default: 0
     t.integer "phone_number"
     t.string "twittername", limit: 20, default: "", null: false
+    t.integer "gender", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

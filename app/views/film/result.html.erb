@@ -20,28 +20,28 @@ Valutazione Media: <%= @film.vote_average%>/10
 Durata: <%= @film.runtime%> min.
 <br>
 <br>
-Regia:
-<ul>
-    <% @directors.each do |d| %>
-    <li>
-        <%= link_to persona_path(d.id) do%>
-            <% if d.profile_path %>
-                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+d.profile_path)%>' width = 10%>
-            <%else%>
-                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+<h1> REGIA </h1>
+<% @directors.each_slice(3) do |dd| %>
+    <div class = "container cnt">
+        <% dd.each do |d| %>
+            <%= link_to persona_path(d.id) do%>
+                <% if d.profile_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+d.profile_path)%>' width = 10%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %>
+                <%= d.name%>
             <% end %>
-            <%= d.name%>
         <% end %>
-    </li>
-    <% end %>
-</ul>
+    </div>
+<% end %>
+
 <br>
 <br>
-Cast:
-<ul>
-    <% @cast.each do |character| %>
+<h1> CAST </h1>
+<% @cast.each do |character| %>
     <% break if character.order > 4%>
-    <li>
+    <div class="container cnt">
         <%= link_to persona_path(character.id) do %>
             <% if character.profile_path %>
                 <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+character.profile_path)%>' width = 10%>
@@ -51,10 +51,9 @@ Cast:
             <%= character.name %>
         <% end %>
         - Ruolo: <%= character.character %>
-    </li>
-    <br>
-    <% end %>
-</ul>
+    </div>
+<% end %>
+
 <br>
 <br>
 <% if @video %>
@@ -64,11 +63,29 @@ Cast:
 <% end %>
 <br>
 <br>
-Parole Chiave:
-<% @keywords.each do |kw| %>
-    <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank' do%>
-        <%= kw.name %>
+<h3> Parole Chiave: </h3>
+<div class = "cnt">
+    <% @keywords.each do |kw| %>
+        <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank' do%>
+            <%= kw.name %>
+        <% end %>
     <% end %>
+</div>
+<br>
+<br>
+
+
+<h1> COMMENTI </h1>
+<div class = "container cmnts">
+    <ul>
+        <%= render(partial: 'comment', collection: @found.comments) %>
+    </ul>
+</div>
+<h3>Commenta anche tu</h3>
+
+<%= form_for [@found, Comment.new] do |f| %>
+    <%= f.text_area :body, placeholder: "Aggiungi un commento..." %><br/>
+    <%= f.submit "Invio" %>
 <% end %>
 <br>
 <br>
@@ -91,25 +108,16 @@ Parole Chiave:
 
 
 
-<h1> COMMENTI </h1>
-<div class = "container cmnts">
-    <ul>
-        <%= render(partial: 'comment', collection: @found.comments) %>
-    </ul>
-</div>
-<h3>Commenta anche tu</h3>
-
-<%= form_for [@found, Comment.new] do |f| %>
-    <%= f.text_area :body, placeholder: "Aggiungi un commento..." %><br/>
-    <%= f.submit "Invio" %>
-<% end %>
-
 
 <style>
 .cmnts{
-    height: 500px;
+    height: 300px;
     border-style: groove;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.cnt{
+    border-style: groove;
 }
 </style>

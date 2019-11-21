@@ -10,20 +10,29 @@ Rails.application.routes.draw do
   get 'home'           => 'static_pages#home'
   get 'about'          => 'static_pages#about'
   get 'contact'        => 'static_pages#contact'
-  get 'chat'       => 'chat#index'
+  get 'chat'           => 'chat#index'
   get 'persona/:id', to: 'film#persona', as: 'persona'
-  get 'result/:id', to: 'film#result', as: 'result'
+  get 'movie/:id', to: 'film#result', as: 'result'
   post 'search'    => 'film#search'
   get 'search'     => 'film#search'
-  get 'film'       => 'film#index'
+  get 'index'       => 'film#index'
+  get 'tv/:id', to: 'film#tv', as: 'tv'
+  get 'tv/:id/season/:number', to: 'film#season', as: 'season'
+  get 'tv/:id/season/:number/episode/:episode', to: 'film#episode', as: 'episode'
   get 'film/persona'
   get 'film/result'
   get 'film/search'
   get 'film/index'
   get 'chat/index'
+  get 'film/tv'
 
   mount ActionCable.server => '/cable'
+
   resources :films do
+    resources :comments
+  end
+
+  resources :tvs do
     resources :comments
   end
 
@@ -31,6 +40,6 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :tweets
-  resources :users, :only =>[:show, :index]
+  resources :users, :only =>[:show, :index, :update, :edit]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

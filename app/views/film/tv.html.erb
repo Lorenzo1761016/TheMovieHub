@@ -1,0 +1,154 @@
+<br>
+<br>
+Titolo: <%= @serie.name %>
+<% if @serie.poster_path %>
+    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@serie.poster_path)%>' width = 22%>
+<%else%>
+    <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
+<% end %>
+<br>
+<br>
+Trama: <%= @serie.overview%>
+<br>
+<br>
+Status: <%= @serie.status %>
+<br>
+<br>
+Valutazione Media: <%= @serie.vote_average%>/10
+<br>
+<br>
+<div class = "container cnt">
+    Genere: °
+    <% @serie.genres.each do |g| %>
+        <%= g.name %> °
+    <% end %>
+</div>
+Produzione: °
+<% @serie.production_companies.each do |pc| %>
+    <%= pc.name %> °
+<% end %>
+<br>
+Ratings: °
+<% @ratings.each do |r| %>
+    Nazione: <%= r.iso_3166_1 %> - Rating: <%= r.rating %> °
+<% end %>
+<br>
+<h1> STAGIONI </h1>
+<div class = "container">
+    <% @serie.seasons.each do |s| %>
+        <div class = "container cmnts">
+            <%= link_to season_path(@serie.id,s.season_number) do %>    
+                <% if s.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 15%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 15%  %>
+                <% end %>
+                <%= s.name%>
+            <% end %>
+            - Numero Episodi: 
+            <%= s.episode_count %>
+            - Messa in onda: 
+            <%= s.air_date %>
+            <div>
+                Trama:
+                <%= s.overview %>
+            </div>
+        </div>
+    <% end %>
+</div>
+<h1> CREATORI </h1>
+<% @serie.created_by.each do |cb| %>
+    <div class="container cnt">
+        <%= link_to persona_path(cb.id) do %>
+            <% if cb.profile_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+cb.profile_path)%>' width = 10%>
+            <%else%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+            <% end %> 
+            <%= cb.name %>
+        <% end %>
+    </div>
+<% end %>
+
+<h1> CAST </h1>
+<div class = "container" style = "height: 900px;overflow-y: scroll;overflow-x:visible">
+    <% @cast.each do |c| %>
+        <div class="container cnt">
+            <%= link_to persona_path(c.id) do %>
+                <% if c.profile_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.profile_path)%>' width = 10%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %> 
+                <%= c.name %>
+            <% end %>
+             - Ruolo: <%= c.character %>
+        </div>
+    <% end %>
+</div>
+
+Parole Chiave:
+<% @keywords.each do |kw| %>
+    <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank' do%>
+        <%= kw.name %>
+    <% end %>
+<% end %>
+<br>
+<% if @videos %>
+    <% @videos.each do |video|%>
+    <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
+    <% end %>
+<% end %>
+
+<h1> COMMENTI </h1>
+<div class = "container cmnts">
+    <ul>
+        <%= render(partial: 'comment', collection: @ftv.comments) %>
+    </ul>
+</div>
+<h3>Commenta anche tu</h3>
+
+<%= form_for [@ftv, Comment.new] do |f| %>
+    <%= f.text_area :body, placeholder: "Aggiungi un commento..." %><br/>
+    <%= f.submit "Invio" %>
+<% end %>
+<br>
+<br>
+<br>
+
+<h1> POTREBBERO PIACERTI ANCHE </h1>
+<br>
+    <% @similar.results.each_slice(5) do |ss| %>
+        <% ss.each do |s| %>
+            <%= link_to result_path(s.id) do %>
+                <% if s.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 10%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+<br>
+<br>
+
+
+
+
+
+
+
+<style>
+.cmnts{
+    height: 250px;
+    border-style: groove;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.cnt{
+    border-style: groove;
+}
+</style>
+
+

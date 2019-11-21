@@ -1,15 +1,15 @@
 
 <!-- 'https://image.tmdb.org/t/p/original/' -->
 
-<% if @people %>
+<% if @people.results.size > 0%>
     <h1> PERSONE </h1>
-    <% @people.results.each_slice(3) do |p|%>
+    <% @people.results.each_slice(5) do |p|%>
         <% p.each do |person| %>
                 <%= link_to persona_path(person.id) do %>
                 <% if person.profile_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+person.profile_path)%>' width = 25%>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+person.profile_path)%>' width = 18%>
                 <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 25%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 18%>
                 <% end %>
         <% end %>
     <% end %>
@@ -17,15 +17,15 @@
         <br>
         <br>
     <% end %>
-<% if @movies %>
+<% if @movies.results.size > 0 %>
     <h1> FILM </h1>
-    <% @res.each_slice(3) do |q|%>
+    <% @movies.results.each_slice(5) do |q|%>
         <% q.each do |query| %>
             <%= link_to result_path(query.id) do %>
                 <% if query.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 25%>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 18%>
                 <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 25%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 18%>
                 <% end %>
             <% end %>
         <% end %>
@@ -33,3 +33,21 @@
         <br>
     <% end %>
 <% end %>
+<% if @series.results.size > 0 %>
+    <h1> SERIE TV </h1>
+    <% @series.results.each_slice(5) do |q|%>
+        <% q.each do |query| %>
+            <%= link_to tv_path(query.id) do %>
+                <% if query.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 18%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 18%>
+                <% end %>
+            <% end %>
+        <% end %>
+        <br>
+        <br>
+    <% end %>
+<% end %>
+
+
