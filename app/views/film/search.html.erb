@@ -49,5 +49,12 @@
         <br>
     <% end %>
 <% end %>
+<% if @people.results.size < 1%>
+    <% if @movies.results.size < 1%>
+        <% if @people.results.size < 1%>
+            <h1>Nessun risultato trovato.<%= link_to "Torna alla Home", index_path %></h1>
+        <% end %>
+    <% end %>
+<% end %>
 
 

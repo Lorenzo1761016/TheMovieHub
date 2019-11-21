@@ -2,7 +2,7 @@ Cerca il tuo film preferito:
 
 <%= form_tag search_path, :method => :get do %>
 
-    <%=text_field_tag :query %>
+    <%=text_field_tag :query, nil, :required => true %>
     <%= submit_tag "Cerca" %>
 
 <% end %>

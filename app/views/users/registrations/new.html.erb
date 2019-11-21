@@ -14,6 +14,22 @@
   </div>
 
   <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name, autofocous: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, autofocous: true %>
+  </div>
+  
+  <!--check gender-->
+  <div class="field">
+    <%= f.label :gender %><br/>
+    <%= f.select :gender, ["Not Telling", "Male", "Female", "Other"] %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
