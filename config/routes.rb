@@ -12,18 +12,27 @@ Rails.application.routes.draw do
   get 'contact'        => 'static_pages#contact'
   get 'chat'           => 'chat#index'
   get 'persona/:id', to: 'film#persona', as: 'persona'
-  get 'result/:id', to: 'film#result', as: 'result'
-  post 'search'        => 'film#search'
-  get 'search'         => 'film#search'
-  get 'film'           => 'film#index'
+  get 'movie/:id', to: 'film#result', as: 'result'
+  post 'search'    => 'film#search'
+  get 'search'     => 'film#search'
+  get 'index'       => 'film#index'
+  get 'tv/:id', to: 'film#tv', as: 'tv'
+  get 'tv/:id/season/:number', to: 'film#season', as: 'season'
+  get 'tv/:id/season/:number/episode/:episode', to: 'film#episode', as: 'episode'
   get 'film/persona'
   get 'film/result'
   get 'film/search'
   get 'film/index'
   get 'chat/index'
+  get 'film/tv'
 
   mount ActionCable.server => '/cable'
+
   resources :films do
+    resources :comments
+  end
+
+  resources :tvs do
     resources :comments
   end
 

@@ -1,0 +1,73 @@
+<h1> <%= link_to "Torna alla serie", tv_path(params[:id]) %> </h1>
+<h1> <%= link_to "Torna alla stagione "+params[:number].to_s, season_path(params[:id],params[:number]) %> </h1>
+
+
+<% if @episode.still_path %>
+    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@episode.still_path)%>' width = 40%>
+<%else%>
+    <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
+<% end %>
+Numero Episodio: <%= @episode.episode_number%> - Nome: <%= @episode.name %> - In Onda: <%= @episode.air_date %> - Valutazione Media: <%= @episode.vote_average %>/10
+<br>
+<br>
+Trama: <%= @episode.overview %>
+<br>
+<br>
+
+<h1> CAST </h1>
+<div class = "container" style = "height: 500px;overflow-y: scroll;overflow-x:visible">
+    <% @cast.each do |c| %>
+        <div class="container cnt">
+            <%= link_to persona_path(c.id) do %>
+                <% if c.profile_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.profile_path)%>' width = 10%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %> 
+                <%= c.name %>
+            <% end %>
+             - Ruolo: <%= c.character %>
+        </div>
+    <% end %>
+</div>
+
+
+<h1> GUEST STAR </h1>
+<div class = "container" style = "height: 500px;overflow-y: scroll;overflow-x:visible">
+    <% @episode.guest_stars.each do |gs| %>
+        <div class="container cnt">
+            <%= link_to persona_path(gs.id) do %>
+                <% if gs.profile_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+gs.profile_path)%>' width = 10%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %> 
+                <%= gs.name %>
+            <% end %>
+             - Ruolo: <%= gs.character %>
+        </div>
+    <% end %>
+</div>
+
+<h1> CREW </h1>
+<div class = "container" style = "height: 300px;overflow-y: scroll;overflow-x:visible">
+    <% @episode.crew.each do |c| %>
+        <div class="container cnt">
+            <%= link_to persona_path(c.id) do %>
+                <% if c.profile_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.profile_path)%>' width = 10%>
+                <%else%>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %> 
+                <%= c.name %>
+            <% end %>
+             - ruolo: <%= c.job %>
+        </div>
+    <% end %>
+</div>
+
+<% if @videos %>
+    <% @videos.each do |video|%>
+    <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
+    <% end %>
+<% end %>
