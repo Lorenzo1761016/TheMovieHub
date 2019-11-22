@@ -32,7 +32,6 @@ class CommentsController < ApplicationController
         @comment = Comment.find(params[:id])
         @comment.destroy
         redirect_back fallback_location: root_path, notice: "commento eliminato"
-
     end     
 
     private
@@ -44,6 +43,7 @@ class CommentsController < ApplicationController
     def find_commentable
         @commentable = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
         @commentable = Film.find_by_id(params[:film_id]) if params[:film_id]
+        @commentable = Tv.find_by_id(params[:tv_id]) if params[:tv_id]
     end
 
 end

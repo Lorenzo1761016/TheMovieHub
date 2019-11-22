@@ -1,0 +1,65 @@
+<h1> <%= link_to "Torna alla serie", tv_path(params[:id])%> </h1>
+<% if @season.poster_path %>
+    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@season.poster_path)%>' width = 22%>
+<%else%>
+    <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
+<% end %>
+Titolo: <%= @season.name %> - Numero Stagione: <%= @season.season_number %> - In Onda: <%= @season.air_date %>
+<br>
+Trama: <%= @season.overview %>
+<br>
+<h1> EPISODI </h1>
+<% @season.episodes.each do |ep|%>
+    <div class = "container cnt">
+        <%= link_to episode_path(ep.show_id,ep.season_number,ep.episode_number) do %>
+            <% if ep.still_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+ep.still_path)%>' width = 22%>
+            <%else%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
+            <% end %>
+            Numero Episodio: <%= ep.episode_number %>
+        <% end %>
+        - Nome: <%= ep.name %> - Valutazione Media: <%= ep.vote_average %>/10
+        <br>
+        Trama: <%= ep.overview %>
+        <br>
+        Crew: 
+        <% ep.crew.each do |c| %>
+        <%= link_to persona_path(c.id) do %>    
+            <%= c.name %> 
+        <% end %>
+        - ruolo: <%= c.job %> -
+        <% end %>
+        <br>
+        Guest Star:
+        <% ep.guest_stars.each do |gs| %>
+            <%= link_to persona_path(gs.id) do %>
+                <%= gs.name %>
+            <% end %>
+            - ruolo: <%= gs.character %>
+        <% end %>
+    </div>
+<% end %>
+<br>
+
+<% if @videos %>
+    <% @videos.each do |video| %>
+    <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
+    <% end %>
+<% end %>
+
+
+<style>
+.cmnts{
+    height: 250px;
+    border-style: groove;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.cnt{
+    border-style: groove;
+}
+</style>
+
+
