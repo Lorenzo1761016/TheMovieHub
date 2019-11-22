@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'chat'           => 'chat#index'
   get 'persona/:id', to: 'film#persona', as: 'persona'
   get 'result/:id', to: 'film#result', as: 'result'
+  get '/:id', to: 'twitter#create', as: 'result'
   post 'search'        => 'film#search'
   get 'search'         => 'film#search'
   get 'film'           => 'film#index'

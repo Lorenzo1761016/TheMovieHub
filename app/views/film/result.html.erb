@@ -20,6 +20,9 @@ Valutazione Media: <%= @film.vote_average%>/10
 Durata: <%= @film.runtime%> min.
 <br>
 <br>
+<%  button_to(name= "Guarda il feed"+@film.title+"su Twitter!", action: "create", method: "post", controller: "twitter", class: "btn btn-primary")  %>
+<br>
+<br>
 Regia:
 <ul>
     <% @directors.each do |d| %>
