@@ -26,7 +26,7 @@
   <!--check gender-->
   <div class="field">
     <%= f.label :gender %><br/>
-    <%= f.select :gender, ["Not Telling", "Male", "Female", "Other"] %>
+    <%= f.select(:gender, User.gender_types.map { |k,v| [k.capitalize, v] }) %>
   </div>
 
   <div class="field">

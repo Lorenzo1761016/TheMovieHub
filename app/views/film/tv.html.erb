@@ -17,6 +17,9 @@ Status: <%= @serie.status %>
 Valutazione Media: <%= @serie.vote_average%>/10
 <br>
 <br>
+<%= link_to 'Check feed on twitter!', tweets_path(obj_name: @serie.name), method: :post, class: "btn btn-primary"%>
+<br>
+<br>
 <div class = "container cnt">
     Genere: °
     <% @serie.genres.each do |g| %>

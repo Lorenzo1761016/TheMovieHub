@@ -20,7 +20,7 @@ Valutazione Media: <%= @film.vote_average%>/10
 Durata: <%= @film.runtime%> min.
 <br>
 <br>
-<%  button_to(name= "Guarda il feed"+@film.title+"su Twitter!", action: "create", method: "post", controller: "twitter", class: "btn btn-primary")  %>
+<%= link_to 'Check feed on twitter!', tweets_path(obj_name: @film.title), method: :post, class: "btn btn-primary"%>
 <br>
 <br>
 <h1> REGIA </h1>

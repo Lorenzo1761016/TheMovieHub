@@ -1,8 +1,5 @@
 class TweetsController < ApplicationController
-    require 'twitter'
-    def index
-        
-    end
+    require 'twitter'   
 
     def create
         client = @search_twitter = Twitter::REST::Client.new do |config|
@@ -12,7 +9,7 @@ class TweetsController < ApplicationController
             config.access_token_secret = "CyyqnVhwsdTcpzEruvMhmD5lE9fJBBTsgGjS1KGXuA903"
           end
           '%#{params[:tweet]}%'
-          @tweets = client.search(params[:tweet], tweet_mode: "extended").take(20)
+          @tweets = client.search(params[:obj_name], tweet_mode: "extended").take(20)
           rescue Twitter::Error::TooManyRequests => error
               # NOTE: Your process could go to sleep for up to 15 minutes but if you
               # retry any sooner, it will almost certainly fail with the same exception.
@@ -20,8 +17,4 @@ class TweetsController < ApplicationController
           retry
     end
     
-    #private
-    #def tweet_param
-    #    params.require(:tweets).permit(:text)
-    #end
 end
