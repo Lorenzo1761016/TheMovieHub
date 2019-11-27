@@ -8,6 +8,8 @@ gem 'rails', '~> 6.0.0'
 
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 
+gem 'acts_as_votable'
+# make for ruby rails
 gem 'rake', '~> 12.3.3'
 # titter api
 gem 'twitter'

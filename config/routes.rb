@@ -38,6 +38,9 @@ Rails.application.routes.draw do
 
   resources :comments do
     resources :comments
+    member do
+      put "like" => "comment#like"
+    end
   end
   resources :tweets
   resources :users, :only =>[:show, :index, :update, :edit]
