@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
     if params[:format] == 'like'
       @comment.liked_by current_user
     elsif params[:format] == 'unlike'
-      @post.unliked_by current_user
+      @comment.unliked_by current_user
     end
   end
 
