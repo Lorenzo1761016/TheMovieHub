@@ -2,26 +2,33 @@ Cerca un film, una serie tv, un attore o un regista:
 
 <%= form_tag search_path, :method => :get do %>
 
-    <%=text_field_tag :query, nil, :required => true %>
-    <%= submit_tag "Cerca" %>
+    <%=text_field_tag :query, nil, :required => true %> <%= submit_tag "Cerca" %>
 
 <% end %>
 
 
 <h2> FILM POPOLARI </h2>
-<%= @popular_films.results.each_slice(5) do |pp| %>
-    <% pp.each do |p|%>
-        <%= link_to result_path(p.id) do %>
-                <% if p.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>' width = 17%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 20%  %>
+<div class = "wrapper">
+    <%= @popular_films.results.each_slice(5) do |pp| %>
+        <% pp.each do |p|%>
+            <div class = "rad each-item">
+                <%= link_to result_path(p.id) do %>
+                    <% if p.poster_path %>
+                        <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>'>
+                    <%else%>
+                        <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                    <% end %>
+                    <div class="cap1">
+                        <h3 class = "text-center txt"><%= p.title %></h3>
+                    </div>
                 <% end %>
+                <div class="cap2">
+                    <h2 class="text-center txt">Film</h2>
+                </div>
+            </div>
         <% end %>
-    <% end %>
-<br>
-<br>
-<% end %>   
+    <% end %>   
+</div>
 
 
 
@@ -55,3 +62,73 @@ Cerca un film, una serie tv, un attore o un regista:
 <br>
 <br>
 <% end %>
+
+<style>
+
+
+.wrapper {
+    width: 100%;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(5, 210px);
+}
+
+.img {
+    width: 210px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.rad{
+    border-radius: 25px;
+    border: solid;
+    border-color: black;
+}
+
+.each-item
+{
+    position:relative;
+    overflow: hidden;
+}
+
+.each-item:hover .cap2, .each-item:hover .cap1
+{
+    left:0px;
+    overflow: hidden;
+   
+}
+
+.txt{
+    color: black;
+}
+
+.cap1
+{
+    position:absolute;
+    width: 100%;
+    height:80%;
+    background:rgba(255, 255, 255, 0.7);
+    top:0px;
+    left:-100%;
+    padding:10px;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+
+.cap2
+{
+    position:absolute;
+    width:100%;
+    height:20%;
+    background:rgba(108, 122, 137, 0.9);
+    bottom:0px;
+    left:100%;
+    padding:0px;
+    transition: all 1s;
+    overflow: hidden;
+}
+
+
+
+</style>
