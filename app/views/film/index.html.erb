@@ -6,62 +6,80 @@ Cerca un film, una serie tv, un attore o un regista:
 
 <% end %>
 
-
-<h2> FILM POPOLARI </h2>
-<div class = "wrapper">
-    <%= @popular_films.results.each_slice(5) do |pp| %>
-        <% pp.each do |p|%>
-            <div class = "rad each-item">
-                <%= link_to result_path(p.id) do %>
-                    <% if p.poster_path %>
-                        <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>'>
-                    <%else%>
-                        <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
-                    <% end %>
-                    <div class="cap1">
-                        <h3 class = "text-center txt"><%= p.title %></h3>
-                    </div>
-                <% end %>
-                <div class="cap2">
-                    <h2 class="text-center txt">Film</h2>
-                </div>
-            </div>
-        <% end %>
-    <% end %>   
+<br>
+<div class="row">
+  <div class="column rad" onclick="openTab('b1');" style="background:green;">Film</div>
+  <div class="column rad" onclick="openTab('b2');" style="background:blue;">Serie TV</div>
+  <div class="column rad" onclick="openTab('b3');" style="background:red;">Persone</div>
 </div>
 
+<!-- The expanding grid (hidden by default) -->
+<div id="b1" class="containerTab">
+  <!-- If you want the ability to close the container, add a close button -->
+    <h2> FILM POPOLARI </h2>
+    <div class = "wrapper">
+       <%= @popular_films.results.each_slice(5) do |pp| %>
+            <% pp.each do |p|%>
+                <div class = "rad each-item">
+                    <%= link_to result_path(p.id) do %>
+                        <% if p.poster_path %>
+                            <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>'>
+                        <%else%>
+                            <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                        <% end %>
+                        <div class="cap1">
+                            <h3 class = "text-center txt"><%= p.title %></h3>
+                        </div>
+                    <% end %>
+                   
+                </div>
+            <% end %>
+        <% end %>   
+    </div>
+</div>
 
-
-<h2> SERIE POPOLARI </h2>
-<%= @popular_series.results.each_slice(5) do |pp| %>
-    <% pp.each do |p|%>
-        <%= link_to tv_path(p.id) do %>
-                <% if p.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>' width = 17%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 20%  %>
-                <% end %>
+<div id="b2" class="containerTab" style="display:none">
+  
+    <h2> SERIE POPOLARI </h2>
+    <%= @popular_series.results.each_slice(5) do |pp| %>
+        <% pp.each do |p|%>
+            <%= link_to tv_path(p.id) do %>
+                    <% if p.poster_path %>
+                        <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>' width = 17%>
+                    <%else%>
+                        <img src = '<%= image_path('/no_locandina.webp')%>' width = 20%  %>
+                    <% end %>
+            <% end %>
         <% end %>
-    <% end %>
-<br>
-<br>
-<% end %>   
+    <br>
+    <br>
+    <% end %>   
 
+</div>
 
-<h2> PERSONE POPOLARI </h2>
-<%= @popular_people.results.each_slice(5) do |pp| %>
-    <% pp.each do |p|%>
-        <%= link_to persona_path(p.id) do %>
-                <% if p.profile_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.profile_path)%>' width = 17%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 20%  %>
-                <% end %>
+<div id="b3" class="containerTab" style="display:none;">
+ 
+    <h2> PERSONE POPOLARI </h2>
+        <div class ="wrapper">
+        <%= @popular_people.results.each_slice(5) do |pp| %>
+            <% pp.each do |p|%>
+                <div class = "each-item rad">
+                    <%= link_to persona_path(p.id) do %>
+                            <% if p.profile_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.profile_path)%>'>
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                            <% end %>
+                            <div class="cap1">
+                                <h3 class = "text-center txt"><%= p.name %></h3>
+                            </div>
+                    <% end %>
+                </div>
+            <% end %>
         <% end %>
-    <% end %>
-<br>
-<br>
-<% end %>
+    </div>
+</div>
+
 
 <style>
 
@@ -91,7 +109,7 @@ Cerca un film, una serie tv, un attore o un regista:
     overflow: hidden;
 }
 
-.each-item:hover .cap2, .each-item:hover .cap1
+.each-item:hover .cap1
 {
     left:0px;
     overflow: hidden;
@@ -106,7 +124,7 @@ Cerca un film, una serie tv, un attore o un regista:
 {
     position:absolute;
     width: 100%;
-    height:80%;
+    height:100%;
     background:rgba(255, 255, 255, 0.7);
     top:0px;
     left:-100%;
@@ -116,19 +134,47 @@ Cerca un film, una serie tv, un attore o un regista:
 }
 
 
-.cap2
-{
-    position:absolute;
-    width:100%;
-    height:20%;
-    background:rgba(108, 122, 137, 0.9);
-    bottom:0px;
-    left:100%;
-    padding:0px;
-    transition: all 1s;
-    overflow: hidden;
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 50px;
+  text-align: center;
+  font-size: 25px;
+  cursor: pointer;
+  color: white;
 }
 
+.containerTab {
+  padding: 20px;
+  color: white;
+}
 
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Closable button inside the image */
+.closebtn {
+  float: right;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
 
 </style>
+
+<script>
+
+// Hide all elements with class="containerTab", except for the one that matches the clickable grid column
+function openTab(tabName) {
+  var i, x;
+  x = document.getElementsByClassName("containerTab");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  document.getElementById(tabName).style.display = "block";
+}
+</script>
