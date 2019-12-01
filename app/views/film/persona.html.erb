@@ -15,12 +15,22 @@ Biografia: <%= @persona.biography %>
 <h1> CREDITI </h1>
 <% @mc.cast.each_slice(5) do |cc| %>
     <% cc.each do |c| %>
-        <%= link_to result_path(c.id) do %>
-            <% if c.poster_path %>
-                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.poster_path)%>' width = 10%>
-            <% else %>
-                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-            <% end %> 
+        <% if c.media_type == "movie" %>
+            <%= link_to result_path(c.id) do %>
+                <% if c.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.poster_path)%>' width = 10%>
+                <% else %>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %> 
+            <% end %>
+        <% else %>
+            <%= link_to tv_path(c.id) do %>
+                <% if c.poster_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.poster_path)%>' width = 10%>
+                <% else %>
+                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                <% end %> 
+            <% end %>
         <% end %>
     <% end %>
 <% end %>
