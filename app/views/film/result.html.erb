@@ -1,27 +1,50 @@
- <div class = "container" >  
-    <div class = "row">
-        <div class = "col-md">
-            <h1 class = "text-center"> <%= @film.title %> </h1>
-            Trama: <%= @film.overview%>
-            <br>
-            <br>
-            Data Di Uscita: <%= @film.release_date%>
-            <br>
-            <br>
-            Valutazione Media: <%= @film.vote_average%>/10
-            <br>
-            <br>
-            Durata: <%= @film.runtime%> min.
-        </div>
-        <div class = "col-md">
-            <% if @film.poster_path %>
-                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@film.poster_path)%>' width = 22%>
-            <%else%>
-                <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
-            <% end %>
-        </div>
+
+<div class="moviecard">
+  <div class="movie-poster play-trailer">
+  </div>
+  <div id="movie-content">
+    <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
+    <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button></span></div>
+    <div class="movie-details"><span class="movie-rating">R</span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">Action, Crime, Drama</span></div>
+    <div class="movie-castcrew"><span class="title">Director</span><span class="name">Denis Villeneuve</span></div>
+    <div class="movie-castcrew"><span class="title">Writer</span><span class="name">Taylor Sheridan</span></div>
+    <div class="movie-castcrew"><span class="nom">Cast</span>
+        <ul>
+            <div class="name">
+                <% @cast.each do |character| %>
+                    <% break if character.order > 5%>
+                    <li>
+                        <%= link_to persona_path(character.id), class: "nom" do %>
+                           <h4 class = "nom"> <%= character.name %> </h4>
+                        <% end %>
+                        <h5> <%= character.character %> </h5>
+                    </li>
+                <% end %>
+            </div>
     </div>
-</div>    
+    <div class="movie-synopsis"><span class="nom">Trama: </span><span class="name"><%= @film.overview %></span></div>
+  </div>
+  <div class="movie-trailer"><a class="back-btn">indietro   </a>
+    <div id="youvideo">
+            <% if @video.first %>
+                <iframe src='<%= "https://www.youtube.com/embed/"+@video.first.key %>' frameborder="0" allowScriptAccess="always"></iframe>
+            <% else %>
+                <iframe src='<%= image_path('/na.jpg')%>' frameborder = "0"></iframe>
+            <% end %>
+    </div>
+  </div>
+  <h1 style = "margin-left: 20%"> COMMENTI </h1>
+  <div class = "container cmnts">
+      <ul>
+          <%= render(partial: 'comment', collection: @found.comments) %>
+      </ul>
+  </div>
+  <h3>Commenta anche tu</h3>
+  <%= form_for [@found, Comment.new] do |f| %>
+    <%= f.text_area :body, placeholder: "Aggiungi un commento...", class: "ta" %><br/>
+    <%= f.submit "Invio", class: "inv" %>
+  <% end %>
+</div>
 
     <br>
     <h1> REGIA </h1>
@@ -42,40 +65,34 @@
 
     <br>
     <br>
-    <h1> CAST </h1>
-    <% @cast.each do |character| %>
-        <% break if character.order > 4%>
-        <div class="container cnt">
-            <%= link_to persona_path(character.id) do %>
-                <% if character.profile_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+character.profile_path)%>' width = 10%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-                <% end %> 
-                <%= character.name %>
-            <% end %>
-            - Ruolo: <%= character.character %>
-        </div>
-    <% end %>
-
-    <br>
     <br>
     <% if @video %>
         <% @video.each do |video|%>
         <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
         <% end %>
-    <% end %>
-    <br>
-    <br>
-    <h3> Parole Chiave: </h3>
-    <div class = "cnt">
-        <% @keywords.each do |kw| %>
-            <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank' do%>
-                <%= kw.name %>
-            <% end %>
-        <% end %>
+        - Ruolo: <%= character.character %>
     </div>
-   
+<% end %>
+
+<br>
+<br>
+<% if @video %>
+    <% @video.each do |video|%>
+    <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
+    <% end %>
+<% end %>
+<br>
+<br>
+<h3> Parole Chiave: </h3>
+<div class = "cnt">
+    <% @keywords.each do |kw| %>
+        <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank' do%>
+            <%= kw.name %>
+        <% end %>
+    <% end %>
+</div>
+<br>
+<br>
 
 
 <h1> COMMENTI </h1>
@@ -94,17 +111,24 @@
 <br>
 <h1> POTREBBERO PIACERTI ANCHE </h1>
 <br>
-    <% @similar.results.each_slice(5) do |ss| %>
-        <% ss.each do |s| %>
-            <%= link_to result_path(s.id) do %>
-                <% if s.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 10%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-                <% end %>
+    <div class = "wrapper">
+        <% @similar.results.each_slice(5) do |ss| %>
+            <% ss.each do |s| %>
+                <div class = "each-item rad">
+                    <%= link_to result_path(s.id) do %>
+                        <% if s.poster_path %>
+                            <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                        <%else%>
+                            <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                        <% end %>
+                        <div class = "cap1">
+                            <span class = "bt"><h4 class = "txt"> <%= s.title %></h4></span>
+                        </div>
+                    <% end %>
+                </div>
             <% end %>
         <% end %>
-    <% end %>
+    </div>
 <br>
 
 <br>
@@ -113,7 +137,41 @@
 
 
 <style>
+.inv{
+    width: 1030px;
+}
+.ta{
+    width: 1030px;
+    height: 70px;
+}
+.nom{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: -7px;
+}
+
+.nom:hover{
+    text-decoration: none;
+    
+}
+.trb{
+    border-radius: 10px;
+    border: 1px solid;
+    
+}
+
+.red{
+    color: black;
+}
+
+
+.trb:hover .red{
+     color: red;    
+}
+
 .cmnts{
+    width: 1030px;
     height: 300px;
     border-style: groove;
     overflow-y: auto;
@@ -123,4 +181,312 @@
 .cnt{
     border-style: groove;
 }
+
+
+.wrapper {
+    width: 100%;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(8, 130px);
+}
+
+.img {
+    width: 130px;
+    height: 180px;
+    overflow: hidden;
+}
+
+.rad{
+    border-radius: 25px;
+    border: solid;
+    border-color: black;
+}
+
+
+.each-item
+{
+    position:relative;
+    overflow: hidden;
+}
+
+
+.each-item:hover .cap1
+{
+    left:0px;
+    overflow: hidden;
+   
+}
+
+.txt{
+    color: black;
+}
+
+.bt{
+    position:  absolute;
+    bottom:0;
+    text-align: center;
+}
+
+.cap1
+{
+    position:absolute;
+    width: 100%;
+    height:100%;
+    background:rgba(255, 255, 255, 0.7);
+    left:-100%;
+    top: 0;
+    padding:10px;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #B5B5B5;
+}
+
+.moviecard {
+  font-family: 'Helvetica', sans-serif, 'Ariel';
+  position: relative;
+  background: #ffffff;
+  color: #555555;
+  margin: 50px auto;
+  width: 1100px;
+  max-width: 2000px;
+  min-height: 300px;
+  padding: 30px 290px 30px 30px;
+  -moz-box-shadow: -5px 5px 15px;
+  -webkit-box-shadow: -5px 5px 15px;
+  box-shadow: -5px 5px 15px;
+  border-radius: 5px;
+}
+.moviecard #movie-content {
+  opacity: 1;
+  width: 100%;
+  display: table;
+  transition: all 500ms ease-out;
+  position: relative;
+}
+.moviecard .movie-title {
+  font-size: 32px;
+  padding-bottom: 6px;
+  color: #333333;
+}
+.moviecard .movie-title .movie-year {
+  margin-left: 12px;
+  font-size: 16px;
+}
+.moviecard .movie-title a {
+  color: #333333;
+  text-decoration: none;
+}
+.moviecard .movie-title a:hover {
+  color: #858585;
+}
+.moviecard .movie-details {
+  font-size: 12px;
+  padding-bottom: 24px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span {
+  padding: 0px 6px;
+  border-right: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span:last-child {
+  border: none;
+}
+.moviecard .movie-castcrew {
+  padding-top: 12px;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.moviecard .movie-castcrew span.title {
+  color: #333333;
+  display: inline-block;
+  width: 80px;
+  font-weight: 600;
+}
+.moviecard .movie-synopsis {
+  margin: 24px 0px;
+  padding-top: 24px;
+  border-top: 1px solid #dbdbdb;
+  max-height: 130px;
+  height: 130px;
+  overflow-y: hidden;
+  width: 100%;
+}
+.moviecard .movie-ratings {
+  position: absolute;
+  right: -200px;
+}
+.moviecard .movie-ratings span.star {
+  display: inline-block;
+  margin-right: 12px;
+  color: #F0DE00;
+  font-size: 36px;
+}
+.moviecard .movie-ratings span.score {
+  font-size: 30px;
+  color: #333333;
+}
+.moviecard .movie-trailer-btn {
+  text-transform: uppercase;
+  outline: none;
+  padding: 15px 50px;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+.moviecard .movie-trailer-btn:hover {
+  text-decoration: underline;
+}
+.moviecard .movie-trailer-btn:hover:before {
+  color: #333333;
+}
+.moviecard .movie-trailer-btn:hover:after {
+  border-color: #333333;
+}
+.moviecard .movie-trailer-btn:before {
+  content: '▸';
+  font-size: 30px;
+  color: #333333;
+  position: absolute;
+  top: 2px;
+  left: 20px;
+}
+.moviecard .movie-trailer-btn:after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  border: 1px solid #333333;
+  border-radius: 50%;
+  position: absolute;
+  left: 18px;
+  top: 12px;
+}
+.moviecard .movie-trailer {
+  width: 0px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0px;
+  height: 100%;
+  transition: all 500ms;
+  background: none;
+  z-index: 1;
+  padding: 60px 40px 60px 60px;
+  border-radius: 5px;
+}
+.moviecard .movie-trailer a.back-btn {
+  color: #333333;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 12px 6px 18px;
+  position: absolute;
+  top: 12px;
+  left: 200px;
+  text-transform: uppercase;
+  font-size: 12px;
+  cursor: pointer;
+}
+.moviecard .movie-trailer a.back-btn:before {
+  content: '⌜';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  transform: rotate(-45deg);
+  font-size: 20px;
+}
+.moviecard .movie-trailer a.back-btn:hover {
+  color: #333;
+}
+.moviecard .movie-trailer iframe {
+  width: 100%;
+  height: 100%;
+}
+.moviecard .movie-poster {
+  background: url('<%= @poster_path %>');  
+  position: absolute;
+  background-color: #dbdbdb;
+  background-size: 360px 555px;
+  background-repeat: no-repeat;
+  height: 0;
+  width: 360px;
+  height: 555px;
+  right: -50px;
+  top: 100px;
+  -moz-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: all 500ms ease-out;
+  z-index: 10;
+}
+.moviecard .movie-poster:before {
+  content: '▸';
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 200px;
+  color: rgba(255, 255, 255, 0.4);
+}
+.moviecard .movie-poster:hover:before {
+  color: rgba(255, 255, 255, 0.8);
+}
+.moviecard.movie-view-trailer .movie-poster {
+  right: 800px;
+}
+.moviecard.movie-view-trailer #movie-content {
+  opacity: 0;
+  width: 0px;
+}
+.moviecard.movie-view-trailer .movie-trailer {
+  top: 8%;
+  width: 900px;
+  opacity: 1;
+  padding-left: 200px;
+}
+.moviecard.movie-view-trailer .movie-trailer #youvideo {
+  height: 380px;
+}
+
+
+
+
 </style>
+
+<script>
+
+$(document).ready(function(){
+	$(".play-trailer").click(function(){
+		toggleVideo('show');
+		$(".moviecard").addClass("movie-view-trailer");
+	});
+
+	$(".back-btn").click(function(){
+		$(".moviecard").removeClass("movie-view-trailer");
+		toggleVideo('hide');
+	});	
+});
+
+function toggleVideo(state) {
+    // if state == 'hide', hide. Else: show video
+    var div = document.getElementById("youvideo");
+    var iframe = div.getElementsByTagName("iframe")[0].contentWindow;
+    div.style.display = state == 'hide' ? 'none' : '';
+    func = state == 'hide' ? 'pauseVideo' : 'playVideo';
+    iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+}
+
+</script>
