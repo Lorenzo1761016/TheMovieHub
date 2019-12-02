@@ -1,81 +1,81 @@
-<br>
-<br>
-Titolo: <%= @film.title %>
-<% if @film.poster_path %>
-    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@film.poster_path)%>' width = 22%>
-<%else%>
-    <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
-<% end %>
-<br>
-<br>
-Trama: <%= @film.overview%>
-<br>
-<br>
-Data Di Uscita: <%= @film.release_date%>
-<br>
-<br>
-Valutazione Media: <%= @film.vote_average%>/10
-<br>
-<br>
-Durata: <%= @film.runtime%> min.
-<br>
-<br>
-<%= link_to 'Check feed on twitter!', tweets_path(obj_name: @film.title), method: :post, class: "btn btn-primary"%>
-<br>
-<br>
-<h1> REGIA </h1>
-<% @directors.each_slice(3) do |dd| %>
-    <div class = "container cnt">
-        <% dd.each do |d| %>
-            <%= link_to persona_path(d.id) do%>
-                <% if d.profile_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+d.profile_path)%>' width = 10%>
+ <div class = "container" >  
+    <div class = "row">
+        <div class = "col-md">
+            <h1 class = "text-center"> <%= @film.title %> </h1>
+            Trama: <%= @film.overview%>
+            <br>
+            <br>
+            Data Di Uscita: <%= @film.release_date%>
+            <br>
+            <br>
+            Valutazione Media: <%= @film.vote_average%>/10
+            <br>
+            <br>
+            Durata: <%= @film.runtime%> min.
+        </div>
+        <div class = "col-md">
+            <% if @film.poster_path %>
+                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@film.poster_path)%>' width = 22%>
+            <%else%>
+                <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
+            <% end %>
+        </div>
+    </div>
+</div>    
+
+    <br>
+    <h1> REGIA </h1>
+    <% @directors.each_slice(3) do |dd| %>
+        <div class = "container cnt">
+            <% dd.each do |d| %>
+                <%= link_to persona_path(d.id) do%>
+                    <% if d.profile_path %>
+                        <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+d.profile_path)%>' width = 10%>
+                    <%else%>
+                        <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
+                    <% end %>
+                    <%= d.name%>
+                <% end %>
+            <% end %>
+        </div>
+    <% end %>
+
+    <br>
+    <br>
+    <h1> CAST </h1>
+    <% @cast.each do |character| %>
+        <% break if character.order > 4%>
+        <div class="container cnt">
+            <%= link_to persona_path(character.id) do %>
+                <% if character.profile_path %>
+                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+character.profile_path)%>' width = 10%>
                 <%else%>
                     <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-                <% end %>
-                <%= d.name%>
+                <% end %> 
+                <%= character.name %>
+            <% end %>
+            - Ruolo: <%= character.character %>
+        </div>
+    <% end %>
+
+    <br>
+    <br>
+    <% if @video %>
+        <% @video.each do |video|%>
+        <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
+        <% end %>
+    <% end %>
+    <br>
+    <br>
+    <h3> Parole Chiave: </h3>
+    <div class = "cnt">
+        <% @keywords.each do |kw| %>
+            <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank' do%>
+                <%= kw.name %>
             <% end %>
         <% end %>
     </div>
-<% end %>
-
-<br>
-<br>
-<h1> CAST </h1>
-<% @cast.each do |character| %>
-    <% break if character.order > 4%>
-    <div class="container cnt">
-        <%= link_to persona_path(character.id) do %>
-            <% if character.profile_path %>
-                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+character.profile_path)%>' width = 10%>
-            <%else%>
-                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-            <% end %> 
-            <%= character.name %>
-        <% end %>
-        - Ruolo: <%= character.character %>
-    </div>
-<% end %>
-
-<br>
-<br>
-<% if @video %>
-    <% @video.each do |video|%>
-    <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
-    <% end %>
-<% end %>
-<br>
-<br>
-<h3> Parole Chiave: </h3>
-<div class = "cnt">
-    <% @keywords.each do |kw| %>
-        <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank' do%>
-            <%= kw.name %>
-        <% end %>
-    <% end %>
-</div>
-<br>
-<br>
+   
 
 
 <h1> COMMENTI </h1>

@@ -16,9 +16,7 @@ class FilmController < ApplicationController
     @popular_people = Tmdb::Person.popular
   end
   def search 
-    @people = Tmdb::Search.person(params[:query])
-    @movies = Tmdb::Search.movie(params[:query])
-    @series = Tmdb::Search.tv(params[:query])
+    @search = Tmdb::Search.multi(params[:query])
   end
   def result
     if Film.exists?(params[:id])
