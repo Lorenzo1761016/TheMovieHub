@@ -41,6 +41,7 @@ class FilmController < ApplicationController
     @keywords = Tmdb::Movie.keywords(params[:id])
     @similar = Tmdb::Movie.similar(params[:id])
     @directors = Tmdb::Movie.director(params[:id])
+    @poster_path = @film.poster_path ? 'https://image.tmdb.org/t/p/original/'+@film.poster_path : "/no_locandina.webp"
   end
   def tv
     if Tv.exists?(params[:id])

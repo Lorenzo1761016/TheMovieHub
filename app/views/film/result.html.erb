@@ -44,13 +44,34 @@
     <%= f.text_area :body, placeholder: "Aggiungi un commento...", class: "ta" %><br/>
     <%= f.submit "Invio", class: "inv" %>
   <% end %>
+  <h1 style = "margin-left: 25%"> Potrebbero Piacerti Anche </h1>
+  <div class = "wrapper">
+    <% @similar.results.each_slice(6) do |ss| %>
+        <% ss.each do |s| %>
+            <div class = "each-item rad">
+                <%= link_to result_path(s.id) do %>
+                    <% if s.poster_path %>
+                        <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                    <%else%>
+                        <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                    <% end %>
+                    <div class = "cap1">
+                        <span class = "bt"><h4 class = "txt"> <%= s.title %></h4></span>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+  </div>
+</div>
+<br>
+
 </div>
 
     <br>
     <h1> REGIA </h1>
-    <% @directors.each_slice(3) do |dd| %>
+    <% @directors.each do |d| %>
         <div class = "container cnt">
-            <% dd.each do |d| %>
                 <%= link_to persona_path(d.id) do%>
                     <% if d.profile_path %>
                         <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+d.profile_path)%>' width = 10%>
@@ -59,30 +80,10 @@
                     <% end %>
                     <%= d.name%>
                 <% end %>
-            <% end %>
         </div>
     <% end %>
 
     <br>
-    <br>
-    <br>
-    <% if @video %>
-        <% @video.each do |video|%>
-        <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
-        <% end %>
-        - Ruolo: <%= character.character %>
-    </div>
-<% end %>
-
-<br>
-<br>
-<% if @video %>
-    <% @video.each do |video|%>
-    <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
-    <% end %>
-<% end %>
-<br>
-<br>
 <h3> Parole Chiave: </h3>
 <div class = "cnt">
     <% @keywords.each do |kw| %>
@@ -95,40 +96,6 @@
 <br>
 
 
-<h1> COMMENTI </h1>
-<div class = "container cmnts">
-    <ul>
-        <%= render(partial: 'comment', collection: @found.comments) %>
-    </ul>
-</div>
-<h3>Commenta anche tu</h3>
-
-<%= form_for [@found, Comment.new] do |f| %>
-    <%= f.text_area :body, placeholder: "Aggiungi un commento..." %><br/>
-    <%= f.submit "Invio" %>
-<% end %>
-<br>
-<br>
-<h1> POTREBBERO PIACERTI ANCHE </h1>
-<br>
-    <div class = "wrapper">
-        <% @similar.results.each_slice(5) do |ss| %>
-            <% ss.each do |s| %>
-                <div class = "each-item rad">
-                    <%= link_to result_path(s.id) do %>
-                        <% if s.poster_path %>
-                            <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
-                        <%else%>
-                            <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
-                        <% end %>
-                        <div class = "cap1">
-                            <span class = "bt"><h4 class = "txt"> <%= s.title %></h4></span>
-                        </div>
-                    <% end %>
-                </div>
-            <% end %>
-        <% end %>
-    </div>
 <br>
 
 <br>
@@ -186,13 +153,13 @@
 .wrapper {
     width: 100%;
     display: grid;
-    grid-gap: 15px;
-    grid-template-columns: repeat(8, 130px);
+    grid-gap: 10px;
+    grid-template-columns: repeat(5, 200px);
 }
 
 .img {
-    width: 130px;
-    height: 180px;
+    width: 200px;
+    height: 300px;
     overflow: hidden;
 }
 
