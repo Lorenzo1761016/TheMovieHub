@@ -13,21 +13,15 @@
                 <div class="panel-body">
                     <%= comment.body %>
                 </div><!-- /panel-body -->
-                <span class='parent-likes'>
-                    <span class="like_count" <%= comment.id %>>
-                        <%= comment.get_likes.size %> &#128591
-                    </span>
-
-                    <a>
+                <div id="voting_section">
                         <% if current_user.liked? comment %>
-                            <div> <%= link_to like_comment_path(comment, 'unlike'), class: "preached-btn", method: :put, remote: :true do %> Dislike </div>
-                            <% end %>
+                          <%= link_to unlike_comment_path(comment), class: "fa-thumbs-down", id: "unlike_btn_"+comment.id.to_s, method: :put, remote: :true do %> Dislike <% end %>
+                          <%= comment.get_likes.size %> &#128591
                         <% else %>
-                          <div> <%= link_to like_comment_path(comment, 'like'), class: "preach-btn", method: :put, remote: :true do %> Like </div>
-                          <% end %>
+                          <%= link_to like_comment_path(comment), class: "fa-thumbs-up", id: "like_btn_"+comment.id.to_s, method: :put, remote: :true do %> Like <% end %>
+                          <%= comment.get_likes.size %> &#128591
                         <% end %>
-                    </a>
-                </span>
+                </div>
             </div><!-- /panel panel-default -->
         </div><!-- /col-sm-5 -->
     </div>
@@ -48,21 +42,24 @@
 </body>
 
 <script>
-$('.preached-btn').on('ajax:succes', function(){
-    $(this).parent().parent().find('.like_count')
-        .html('<%= comment.get_likes.size %> &#128591');
-        $(this).closest('.preached-btn').html('Preach');
-});
-
-$('.preach-btn').on('ajax:success', function(){
-    $(this).parent().parent().find('.like_count')
-    .html('<%= comment.get_likes.size %> &#128591');
-    $(this).closest('.preach-btn').html('Preached');
-});
     $(document).ready(function() {
         $('#a_<%= comment.id %>').click(function(event){
             event.preventDefault();
             $('#id_<%= comment.id%>').toggle();
+        });
+        $('#voting_section').on('click', '.fa-thumbs-up', function(event){
+            event.preventDefault();
+            var comment_id = this.id.split("_").pop();
+            $('#like_count').html('<%= comment.get_likes.size %> &#128591');
+            $(this).html('<%= unlike_to unlike_comment_path(comment), class: "fa-thumbs-down", id: "unlike_btn_"+comment_id.to_s,
+                method: :put, remote: :true do %> Dislike <% end %> <%= @comment.get_likes.size %> &#128591');
+        });
+        $('#voting_section').on('click', '.fa-thumbs-down',function(event){
+            event.preventDefault();
+            var comment_id = this.id.split("_").pop();
+            $('#like_count').html('<%= comment.get_likes.size %> &#128591');
+            $(this).html('<%= link_to like_comment_path(comment), class: "fa-thumbs-up", id: "like_btn_"+comment_id.to_s,
+                method: :put, remote: :true do %> Like <% end %> <%= comment.get_likes.size %> &#128591');
         });
     });   
 </script> 
