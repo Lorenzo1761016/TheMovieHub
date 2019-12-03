@@ -13,14 +13,18 @@
                 <div class="panel-body">
                     <%= comment.body %>
                 </div><!-- /panel-body -->
-                <div id="voting_section">
-                        <% if current_user.liked? comment %>
-                          <%= link_to unlike_comment_path(comment), class: "fa-thumbs-down", id: "unlike_btn_"+comment.id.to_s, method: :put, remote: :true do %> Dislike <% end %>
-                          <%= comment.get_likes.size %> &#128591
-                        <% else %>
-                          <%= link_to like_comment_path(comment), class: "fa-thumbs-up", id: "like_btn_"+comment.id.to_s, method: :put, remote: :true do %> Like <% end %>
-                          <%= comment.get_likes.size %> &#128591
+                <div id="votes", style="text-align:center;">
+                    <span id="comment_<%= comment.id %>", class="commentSection">    
+                        <%= link_to like_comment_path(comment), method: :put, remote: :true do %>
+                            <i class="fas fa-thumbs-up"></i>
                         <% end %>
+                        <span class="like_container", id="like_counter">
+                            <%=comment.get_likes.size%>
+                        </span>
+                        <%= link_to unlike_comment_path(comment), method: :put, remote: :true do %>
+                            <i class="fas fa-thumbs-down"></i>
+                        <% end %>
+                    </span>    
                 </div>
             </div><!-- /panel panel-default -->
         </div><!-- /col-sm-5 -->
@@ -35,10 +39,9 @@
         <% end %>
     </div> 
 
-
-  <ul>
+    <ul>
       <%= render partial: 'comment', collection: comment.comments %>
-  </ul> 
+    </ul> 
 </body>
 
 <script>
@@ -47,19 +50,11 @@
             event.preventDefault();
             $('#id_<%= comment.id%>').toggle();
         });
-        $('#voting_section').on('click', '.fa-thumbs-up', function(event){
-            event.preventDefault();
-            var comment_id = this.id.split("_").pop();
-            $('#like_count').html('<%= comment.get_likes.size %> &#128591');
-            $(this).html('<%= unlike_to unlike_comment_path(comment), class: "fa-thumbs-down", id: "unlike_btn_"+comment_id.to_s,
-                method: :put, remote: :true do %> Dislike <% end %> <%= @comment.get_likes.size %> &#128591');
-        });
-        $('#voting_section').on('click', '.fa-thumbs-down',function(event){
-            event.preventDefault();
-            var comment_id = this.id.split("_").pop();
-            $('#like_count').html('<%= comment.get_likes.size %> &#128591');
-            $(this).html('<%= link_to like_comment_path(comment), class: "fa-thumbs-up", id: "like_btn_"+comment_id.to_s,
-                method: :put, remote: :true do %> Like <% end %> <%= comment.get_likes.size %> &#128591');
+        $('#votes').on('click', function(event){
+            event.preventDefault()
+            var comment_id = $(this > 'span').attr("id")
+            alert(comment_id)
+            $('#like_counter_'+).html('<%= comment.get_likes.size %>')
         });
     });   
 </script> 
