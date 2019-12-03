@@ -19,6 +19,7 @@ body{
     //background: rgb(54, 53, 53);
 }
 
+
 .my-form
 {
     padding-top: 1.5rem;
@@ -29,4 +30,10 @@ body{
 {
     margin-left: 0;
     margin-right: 0;
+}
+
+#animation_6:hover {
+    border: 2px solid black;
+	transform:scale(0.95,0.95);  /*a fine animazione torna a questa grandezza*/
+    animation-duration:1s;
 }

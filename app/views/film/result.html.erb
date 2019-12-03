@@ -58,7 +58,7 @@
         <div class = "wrapper-1">
             <% @keywords.each do |kw| %>
                 <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank', class: "nom-1" do %>
-                    <%= kw.name %>
+                    #<%= kw.name %>
                 <% end %>
             <% end %>
         </div>
@@ -88,28 +88,39 @@
     <%= f.submit "Invio", class: "inv" %>
   <% end %>
   <h1 style = "margin-left: 25%"> Potrebbero Piacerti Anche </h1>
-  <div class = "wrapper">
-    <% @similar.results.each_slice(6) do |ss| %>
-        <% ss.each do |s| %>
-            <div class = "each-item rad">
-                <%= link_to result_path(s.id) do %>
-                    <% if s.poster_path %>
-                        <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
-                    <%else%>
-                        <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
-                    <% end %>
-                    <div class = "cap1">
-                        <span class = "bt"><h4 class = "txt"> <%= s.title %></h4></span>
-                    </div>
+  <div class="scrollmenu">
+    <% @similar.results.each do |s| %>
+            <%= link_to result_path(s.id), id: "animation_6",style: "overflow: hidden; border-radius: 25px" do %>
+                <% if s.poster_path %>
+                    <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                <%else%>
+                    <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
                 <% end %>
-            </div>
-        <% end %>
+            <% end %>
     <% end %>
   </div>
+ 
 </div>
 </div>
 
 <style>
+div.scrollmenu {
+  width: 1000px;
+  height: 280px;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  background-color: #777;
+}
 .inv{
     width: 1030px;
 }
@@ -136,6 +147,14 @@
     margin-bottom: 0px;
     margin-top: 5px;    
 }
+.nom-1:hover {
+    text-decoration: none;
+    color: gray;
+}
+.nom-1:visited{
+    text-decoration: none;
+    color: black;
+}
 
 .trb{
     border-radius: 10px;
@@ -154,7 +173,7 @@
 
 .cmnts{
     width: 1030px;
-    height: 300px;
+    height: 250px;
     border-style: groove;
     overflow-y: auto;
     overflow-x: hidden;
@@ -174,14 +193,15 @@
 
 .wrapper-1 {
     width: 100%;
+    height: auto;
     display: grid;
     grid-gap: 17px;
-    grid-template-columns: repeat(6, 130px);
+    grid-template-columns: repeat(5, 170px);
 }
 
 .img {
-    width: 200px;
-    height: 300px;
+    width: 163px;
+    height: 250px;
     overflow: hidden;
 }
 
@@ -219,7 +239,7 @@
 .cap1
 {
     position:absolute;
-    width: 100%;
+    width: 00%;
     height:100%;
     background:rgba(255, 255, 255, 0.7);
     left:-100%;
@@ -240,18 +260,20 @@ body {
 
 .moviecard {
   font-family: 'Helvetica', sans-serif, 'Ariel';
-  position: relative;
+  position: absolute;
   background: #ffffff;
   color: #555555;
   margin: 10px;
   width: 1100px;
   max-width: 2000px;
   min-height: 300px;
+  height: auto;
   padding: 30px 290px 30px 30px;
   -moz-box-shadow: -5px 5px 15px;
   -webkit-box-shadow: -5px 5px 15px;
   box-shadow: -5px 5px 15px;
-  border-radius: 5px;
+  border-radius: 10px;
+
 }
 .moviecard #movie-content {
   opacity: 1;
@@ -306,14 +328,14 @@ body {
   margin: 24px 0px;
   padding-top: 24px;
   border-top: 1px solid #dbdbdb;
-  max-height: 130px;
-  height: 130px;
+  max-height: 230px;
+  height:auto;
   overflow-y: hidden;
   width: 100%;
 }
 .moviecard .movie-ratings {
   position: absolute;
-  right: -170px;
+  right: -110px;
 }
 .moviecard .movie-ratings span.star {
   display: inline-block;
@@ -420,6 +442,7 @@ body {
   cursor: pointer;
   transition: all 500ms ease-out;
   z-index: 10;
+  border-radius: 10px;
 }
 .moviecard .movie-poster:before {
   content: '▸';
