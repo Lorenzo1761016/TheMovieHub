@@ -1,13 +1,33 @@
-
 <div class="moviecard">
   <div class="movie-poster play-trailer">
   </div>
   <div id="movie-content">
     <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
     <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button></span></div>
-    <div class="movie-details"><span class="movie-rating">R</span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">Action, Crime, Drama</span></div>
-    <div class="movie-castcrew"><span class="title">Director</span><span class="name">Denis Villeneuve</span></div>
-    <div class="movie-castcrew"><span class="title">Writer</span><span class="name">Taylor Sheridan</span></div>
+    <div class="movie-details"><span class="movie-rating"><%= @film.status %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
+            <% @film.genres.each do |g|%>
+                <%= g.name %>
+            <% end %>
+        </span>
+        <span class="movie-">
+            <% @film.spoken_languages.each do |g|%>
+                <%= g.iso_639_1 %>
+            <% end %>
+        </span>
+    </div>
+    <div class="movie-castcrew"><span class="nom">Regia</span>
+        <ul>
+            <div class="name">
+                <% @directors.each do |d| %>
+                    <li>
+                        <%= link_to persona_path(d.id), class: "nom" do%>
+                            <h4 class = "nom"><%= d.name%></h4>
+                        <% end %>
+                    </li>
+                <% end %>
+            </div>
+        </ul>
+    </div>
     <div class="movie-castcrew"><span class="nom">Cast</span>
         <ul>
             <div class="name">
@@ -22,15 +42,38 @@
                 <% end %>
             </div>
     </div>
-    <div class="movie-synopsis"><span class="nom">Trama: </span><span class="name"><%= @film.overview %></span></div>
-  </div>
-  <div class="movie-trailer"><a class="back-btn">indietro   </a>
-    <div id="youvideo">
-            <% if @video.first %>
-                <iframe src='<%= "https://www.youtube.com/embed/"+@video.first.key %>' frameborder="0" allowScriptAccess="always"></iframe>
-            <% else %>
-                <iframe src='<%= image_path('/na.jpg')%>' frameborder = "0"></iframe>
+    <div class="movie-castcrew"><span class="nom">Produzione</span>
+        <ul>
+            <div class="name">
+                <% @film.production_companies.each do |pc| %>
+                    <li>
+                        <h4 class = "nom"> <%= pc.name %> </h4>
+                    </li>
+                <% end %>
+            </div>
+        </ul>
+    </div>
+    <div class = "movie-details"></div>
+     <div class="movie-castcrew"><span class="nom">Parole Chiave</span>
+        <div class = "wrapper-1">
+            <% @keywords.each do |kw| %>
+                <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank', class: "nom-1" do %>
+                    <%= kw.name %>
+                <% end %>
             <% end %>
+        </div>
+    </div> 
+    <div class="movie-synopsis"><span class="nom">Trama</span>
+        <div><span style = "font-size: 16px"><%= @film.overview %></span></div>
+    </div>
+</div>
+<div class="movie-trailer"><a class="back-btn">indietro   </a>
+    <div id="youvideo">
+        <% if @video.first %>
+            <iframe src='<%= "https://www.youtube.com/embed/"+@video.first.key %>' frameborder="0" allowScriptAccess="always"></iframe>
+        <% else %>
+            <iframe src='<%= image_path('/na.jpg')%>' frameborder = "0"></iframe>
+        <% end %>
     </div>
   </div>
   <h1 style = "margin-left: 20%"> COMMENTI </h1>
@@ -64,44 +107,7 @@
     <% end %>
   </div>
 </div>
-<br>
-
 </div>
-
-    <br>
-    <h1> REGIA </h1>
-    <% @directors.each do |d| %>
-        <div class = "container cnt">
-                <%= link_to persona_path(d.id) do%>
-                    <% if d.profile_path %>
-                        <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+d.profile_path)%>' width = 10%>
-                    <%else%>
-                        <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-                    <% end %>
-                    <%= d.name%>
-                <% end %>
-        </div>
-    <% end %>
-
-    <br>
-<h3> Parole Chiave: </h3>
-<div class = "cnt">
-    <% @keywords.each do |kw| %>
-        <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank' do%>
-            <%= kw.name %>
-        <% end %>
-    <% end %>
-</div>
-<br>
-<br>
-
-
-<br>
-
-<br>
-
-
-
 
 <style>
 .inv{
@@ -122,6 +128,15 @@
     text-decoration: none;
     
 }
+
+.nom-1{
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 0px;
+    margin-top: 5px;    
+}
+
 .trb{
     border-radius: 10px;
     border: 1px solid;
@@ -155,6 +170,13 @@
     display: grid;
     grid-gap: 10px;
     grid-template-columns: repeat(5, 200px);
+}
+
+.wrapper-1 {
+    width: 100%;
+    display: grid;
+    grid-gap: 17px;
+    grid-template-columns: repeat(6, 130px);
 }
 
 .img {
@@ -221,7 +243,7 @@ body {
   position: relative;
   background: #ffffff;
   color: #555555;
-  margin: 50px auto;
+  margin: 10px;
   width: 1100px;
   max-width: 2000px;
   min-height: 300px;
@@ -291,7 +313,7 @@ body {
 }
 .moviecard .movie-ratings {
   position: absolute;
-  right: -200px;
+  right: -170px;
 }
 .moviecard .movie-ratings span.star {
   display: inline-block;
@@ -390,7 +412,7 @@ body {
   height: 0;
   width: 360px;
   height: 555px;
-  right: -50px;
+  right: -40px;
   top: 100px;
   -moz-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
@@ -419,7 +441,7 @@ body {
   width: 0px;
 }
 .moviecard.movie-view-trailer .movie-trailer {
-  top: 8%;
+  top: 5%;
   width: 900px;
   opacity: 1;
   padding-left: 200px;
