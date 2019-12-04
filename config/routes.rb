@@ -39,8 +39,8 @@ Rails.application.routes.draw do
   resources :comments do
     resources :comments
     member do
-      put "like"   => "comments#like"
-      put "unlike" => "comments#unlike"
+      put "like"    => "comments#like"
+      put "dislike" => "comments#dislike"
     end
   end
   resources :tweets

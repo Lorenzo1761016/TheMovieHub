@@ -34,22 +34,20 @@ class CommentsController < ApplicationController
 
   def like
     @comment = Comment.find(params[:id])
-    @comment.liked_by current_user
-  end
-
-  def unlike
-    @comment = Comment.find(params[:id])
-    @comment.unliked_by current_user
+    if current_user.voted_for? @comment
+        @comment.unliked_by current_user
+    else
+      @comment.liked_by current_user
+    end
   end
 
   def dislike
     @comment = Comment.find(params[:id])
-    @comment.dislike_by current_user
-  end
-
-  def undislike
-    @comment = Comment.find(params[:id])
-    @comment.undisliked_by current_user
+    if current_user.voted_for? @comment
+        @comment.undisliked_by current_user
+    else
+        @comment.dislike_by current_user
+    end
   end
 
   private

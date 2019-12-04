@@ -13,18 +13,18 @@
                 <div class="panel-body">
                     <%= comment.body %>
                 </div><!-- /panel-body -->
-                <div id="votes", style="text-align:center;">
-                    <span id="comment_<%= comment.id %>", class="commentSection">    
+                <div id="comment_n<%= comment.id %>%", style="text-align:center;", data-id="<%=comment.id%>", class="comment"> 
                         <%= link_to like_comment_path(comment), method: :put, remote: :true do %>
                             <i class="fas fa-thumbs-up"></i>
                         <% end %>
-                        <span class="like_container", id="like_counter">
-                            <%=comment.get_likes.size%>
+                        <span class="score">
+                           <span class="score_num",>
+                             <%=comment.votes_for.size%>
+                           </span>
                         </span>
-                        <%= link_to unlike_comment_path(comment), method: :put, remote: :true do %>
-                            <i class="fas fa-thumbs-down"></i>
+                        <%= link_to dislike_comment_path(comment), method: :put, remote: :true do %>
+                            <i class="fas fa-thumbs-up fa-rotate-180"></i>              
                         <% end %>
-                    </span>    
                 </div>
             </div><!-- /panel panel-default -->
         </div><!-- /col-sm-5 -->
@@ -50,11 +50,10 @@
             event.preventDefault();
             $('#id_<%= comment.id%>').toggle();
         });
-        $('#votes').on('click', function(event){
-            event.preventDefault()
-            var comment_id = $(this > 'span').attr("id")
+        $('.comment').click(function(){
+            comment_id = $(this).attr("data-id")
             alert(comment_id)
-            $('#like_counter_'+).html('<%= comment.get_likes.size %>')
+            $('.score-num').html('<%= @comment.get_likes.size %>')
         });
     });   
 </script> 
