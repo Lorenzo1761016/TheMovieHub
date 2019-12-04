@@ -3,13 +3,13 @@
   </div>
   <div id="movie-content">
     <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
-    <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button></span></div>
-    <div class="movie-details"><span class="movie-rating"><%= @film.status %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
+    <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.original_title%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button></span></div>
+    <div class="movie-details"><span class="movie-rating"><%= @film.release_date %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
             <% @film.genres.each do |g|%>
                 <%= g.name %>
             <% end %>
         </span>
-        <span class="movie-">
+        <span class="movie-details">
             <% @film.spoken_languages.each do |g|%>
                 <%= g.iso_639_1 %>
             <% end %>
@@ -105,8 +105,11 @@
 
 <style>
 div.scrollmenu {
-  width: 1000px;
+  position: fixed;
+  width: 1030px;
+  max-width: 1030px;
   height: 280px;
+  max-height: 280px;
   overflow: auto;
   white-space: nowrap;
 }
@@ -137,6 +140,7 @@ div.scrollmenu a:hover {
 
 .nom:hover{
     text-decoration: none;
+    color: gray;
     
 }
 
@@ -200,8 +204,8 @@ div.scrollmenu a:hover {
 }
 
 .img {
-    width: 163px;
-    height: 250px;
+    width: 159px;
+    height: 240px;
     overflow: hidden;
 }
 

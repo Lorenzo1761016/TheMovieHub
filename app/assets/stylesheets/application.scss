@@ -32,8 +32,11 @@ body{
     margin-right: 0;
 }
 
-#animation_6:hover {
+#animation_6 {
     border: 2px solid black;
-	transform:scale(0.95,0.95);  /*a fine animazione torna a questa grandezza*/
-    animation-duration:1s;
 }
+
+#animation_6:hover {
+    border: 2px solid gray;
+}
+

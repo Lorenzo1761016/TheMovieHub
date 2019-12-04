@@ -65,6 +65,7 @@ class FilmController < ApplicationController
     @keywords = Tmdb::TV.keywords(params[:id])
     @videos = Tmdb::TV.videos(params[:id])
     @similar = Tmdb::TV.similar(params[:id])
+    @poster_path = @serie.poster_path ? 'https://image.tmdb.org/t/p/original/'+@serie.poster_path : "/no_locandina.webp"
 
   end
   def season
