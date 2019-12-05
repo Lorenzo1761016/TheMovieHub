@@ -1,5 +1,10 @@
+
 <div class="moviecard">
-  <div class="movie-poster play-trailer">
+    <div>
+        <div style = "overflow: hidden"id = "dv" class="movie-poster play-trailer">
+        <div class = "cap2">
+            <div><span style = "font-size: 16px"><%= @serie.overview %></span></div>
+        </div>
   </div>
   <div id="movie-content">
     <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @serie.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
@@ -46,11 +51,31 @@
             <div class="name">
                 <% @serie.production_companies.each do |pc| %>
                     <li>
-                        <h4 class = "nom"> <%= pc.name %> </h4>
+                        <h4 class = "nom-2"> <%= pc.name %> </h4>
                     </li>
                 <% end %>
             </div>
         </ul>
+    </div>
+    <div class = "kw"></div>
+    <h1> STAGIONI </h1>
+    <div class = "wrapper-2">
+        <% @serie.seasons.each do |s| %>
+            <div class = "each-item rad">
+                <%= link_to season_path(@serie.id,s.season_number) do %>    
+                    <% if s.poster_path %>
+                        <img class = "img-1" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 15%>
+                    <%else%>
+                        <img class = "img-1" src = '<%= image_path('/no_locandina.webp')%>' width = 15%  %>
+                    <% end %>
+                    <div class = "cap1">
+                        <h4 class = "text-center"style = "color: black"><%= s.name%> </h4>
+                        <h5 style = "color: black"> <%= s.episode_count %> episodi </h5>
+                        <h5 style = "color: black"> On Air: <%= s.air_date %> </h5>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
     </div>
     <div class = "kw"></div>
      <div class="movie-castcrew"><span class="nom">Parole Chiave</span>
@@ -62,11 +87,9 @@
             <% end %>
         </div>
     </div> 
-    <div class="movie-synopsis"><span class="nom">Trama</span>
-        <div><span style = "font-size: 16px"><%= @serie.overview %></span></div>
-    </div>
+  
 </div>
-  <h1 style = "margin-left: 20%"> COMMENTI </h1>
+  <h1 style = "margin-left: 30%"> COMMENTI </h1>
   <div class = "container cmnts"> 
 
       <ul>
@@ -81,45 +104,19 @@
   <h1 style = "margin-left: 25%"> Potrebbero Piacerti Anche </h1>
   <div class="scrollmenu">
     <% @similar.results.each do |s| %>
-            <%= link_to tv_path(s.id), id: "animation_6",style: "overflow: hidden; border-radius: 25px" do %>
-                <% if s.poster_path %>
-                    <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
-                <%else%>
-                    <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
-                <% end %>
+        <%= link_to tv_path(s.id), id: "animation_6",style: "overflow: hidden; border-radius: 25px" do %>
+            <% if s.poster_path %>
+                <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+            <%else%>
+                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
             <% end %>
+        <% end %>
     <% end %>
   </div>
  
 </div>
 </div>
-<div style = "margin-top: 1500px">
-
-<h1> STAGIONI </h1>
-<div class = "container">
-    <% @serie.seasons.each do |s| %>
-        <div class = "container cmnts">
-            <%= link_to season_path(@serie.id,s.season_number) do %>    
-                <% if s.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' width = 15%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 15%  %>
-                <% end %>
-                <%= s.name%>
-            <% end %>
-            - Numero Episodi: 
-            <%= s.episode_count %>
-            - Messa in onda: 
-            <%= s.air_date %>
-            <div>
-                Trama:
-                <%= s.overview %>
-            </div>
-        </div>
-    <% end %>
-</div>
-
-</div>
+    
 
 
 
@@ -127,6 +124,17 @@
 
 
 <style>
+
+#dv:hover .cap2{
+    bottom: 0;
+    overflow-y: scroll;
+
+}
+#dv:hover .cap2::-webkit-scrollbar {
+  display: none;
+}
+
+
 div.scrollmenu {
   width: 1000px;
   height: 280px;
@@ -137,7 +145,12 @@ div.scrollmenu {
 
 div.scrollmenu a {
   display: inline-block;
-  color: white;
+  color: white;.nom{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: -7px;
+}
   text-align: center;
   text-decoration: none;
 }
@@ -149,13 +162,13 @@ div.scrollmenu a {
     width: 1030px;
     height: 70px;
     border-radius: 5px;
-    border: 1px solid;
+    border: 1px solid; 
 }
 
 .kw{
   font-size: 12px;
   padding-bottom: 24px;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 40px;
   border-bottom: 1px solid #dbdbdb;
 }
@@ -168,8 +181,7 @@ div.scrollmenu a {
 
 .nom:hover{
     text-decoration: none;
-    color: gray;
-    
+    color: gray;  
 }
 
 .nom-1{
@@ -183,6 +195,14 @@ div.scrollmenu a {
     text-decoration: none;
     color: gray;
 }
+
+.nom-2{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: -7px;
+}
+
 .nom-1:visited{
     text-decoration: none;
     color: black;
@@ -234,18 +254,34 @@ div.scrollmenu a {
     grid-template-columns: repeat(5, 170px);
 }
 
+.wrapper-2 {
+    margin-top: 30px;
+    margin-left: 60px;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-gap: 17px;
+    grid-template-columns: repeat(5, 170px);
+}
 .img {
     width: 159px;
     height: 240px;
     overflow: hidden;
 }
-
+.img-1 {
+    width: 170px;
+    height: 220px;
+    overflow: hidden;
+}
 .rad{
     border-radius: 25px;
     border: solid;
     border-color: black;
 }
 
+.rad:hover{
+    border-color: gray;
+}
 
 .each-item
 {
@@ -274,11 +310,24 @@ div.scrollmenu a {
 .cap1
 {
     position:absolute;
-    width: 00%;
+    width: 100%;
     height:100%;
     background:rgba(255, 255, 255, 0.7);
     left:-100%;
     top: 0;
+    padding:10px;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+
+.cap2
+{
+    position:absolute;
+    width: 100%;
+    height:100%;
+    background:rgba(255, 255, 255, 0.7);
+    bottom:-100%;   
     padding:10px;
     overflow: hidden;
     transition: all 1s;
@@ -308,7 +357,6 @@ body {
   -webkit-box-shadow: -5px 5px 15px;
   box-shadow: -5px 5px 15px;
   border-radius: 10px;
-
 }
 .moviecard #movie-content {
   opacity: 1;
@@ -348,7 +396,7 @@ body {
 }
 .moviecard .movie-castcrew {
   padding-top: 12px;
-  width: 1100%;
+  width: 100%;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -370,7 +418,7 @@ body {
 }
 .moviecard .movie-ratings {
   position: absolute;
-  right: -110px;
+  right: -7%;
 }
 .moviecard .movie-ratings span.star {
   display: inline-block;
