@@ -19,6 +19,7 @@ body{
     //background: rgb(54, 53, 53);
 }
 
+
 .my-form
 {
     padding-top: 1.5rem;
@@ -30,6 +31,16 @@ body{
     margin-left: 0;
     margin-right: 0;
 }
+
+#animation_6 {
+    border: 2px solid black;
+}
+
+#animation_6:hover {
+    border: 2px solid gray;
+}
+
+
 
 .score {
         width: 10px;

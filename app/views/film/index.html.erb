@@ -1,16 +1,18 @@
-Cerca un film, una serie tv, un attore o un regista:
+<h1 class =  "hp" >MoviePedia</h1>
+<br>
+<h4 style = "margin-left:60px">Cerca un film, una serie tv, un attore o un regista: </h4>
 
 <%= form_tag search_path, :method => :get do %>
-
-    <%=text_field_tag :query, nil, :required => true %> <%= submit_tag "Cerca" %>
-
+    <div>
+        <%=text_field_tag :query, nil, :required => true, class: "bar"%> <button type="submit"><i class="fa fa-search"></i></button>
+    </div>
 <% end %>
 
 <br>
-<div class="row" style = "left:50%">
-  <div class="column rad" onclick="openTab('b1');" >Film</div>
-  <div class="column rad" onclick="openTab('b2');" >Serie TV</div>
-  <div class="column rad" onclick="openTab('b3');" >Persone</div>
+<div class="row">
+  <div class="button" onclick="openTab('b1');" ><span>Film</span></div>
+  <div class="button" onclick="openTab('b2');" ><span>Serie TV</span></div>
+  <div class="button" onclick="openTab('b3');" ><span>Persone</span></div>
 </div>
 
 <!-- The expanding grid (hidden by default) -->
@@ -87,7 +89,65 @@ Cerca un film, una serie tv, un attore o un regista:
 
 <style>
 
+.hp {
+    left: 25%;
+	display: inline;
+	position: relative;
+	font: 100px Helvetica, Sans-Serif;
+	letter-spacing: -5px;
+	color: rgba(0,0,0,0.2); 
+}
 
+.hp:after {
+	content: "MoviePedia";
+	position: absolute; left: 10px; top: 5px;
+	color: rgba(0,0,0,1);   
+}
+
+.bar{
+    margin-left: 60px;
+    width: 900px;
+}
+.button {
+  float: left;
+  border-radius: 8px;
+  border: 2px solid black;
+  background-color: gray;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 30%;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-left: 25px;
+  margin-right: 10px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 1.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
 .wrapper {
     width: 100%;
     display: grid;
@@ -141,24 +201,6 @@ Cerca un film, una serie tv, un attore o un regista:
     padding:10px;
     overflow: hidden;
     transition: all 1s;
-}
-
-
-
-.column {
-  float: left;
-  width: 30%;
-  margin-right: 10px;
-  margin-left: 25px;
-  text-align: center;
-  font-size: 25px;
-  cursor: pointer;
-  color: white;
-  background: grey;
-}
-
-.column:hover {
-    background: green;
 }
 
 .containerTab {

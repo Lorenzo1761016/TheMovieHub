@@ -2,13 +2,13 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
-            <div class="panel panel-default">
+            <div class="panel panel-default marg">
                 <div class="panel-heading">
                     <strong id = "user"> <%= comment.username %> </strong> <span class="text-muted"><small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small></span>
                     <% if current_user.username == comment.username %> 
                         <%= link_to "Elimina", comment, :method => :delete,:class => "link"%> 
                     <% end %>
-                   <a id = 'a_<%= comment.id %>' > Rispondi </a>
+                   <a id = 'a_<%= comment.id %>' style = "cursor: pointer"> Rispondi </a>
                 </div>
                 <div class="panel-body">
                     <%= comment.body %>
@@ -57,3 +57,10 @@
         });
     });   
 </script> 
+
+<style>
+.marg{
+    margin-top: 20px;
+    margin-left: -40px;
+}
+</style>
