@@ -1,3 +1,4 @@
+
 <div class="moviecard">
   <div class="movie-poster play-trailer">
   </div>
@@ -15,7 +16,7 @@
             <% end %>
         </span>
     </div>
-    <div class="movie-castcrew"><span class="nom">Regia</span>
+    <div class="movie-castcrew"><span class="nom-2">Regia</span>
         <ul>
             <div class="name">
                 <% @directors.each do |d| %>
@@ -28,10 +29,10 @@
             </div>
         </ul>
     </div>
-    <div class="movie-castcrew"><span class="nom">Cast</span>
+    <div class="movie-castcrew"><span class="nom-2">Cast</span>
         <ul>
             <div class="name">
-                <% @cast.each do |character| %>
+                <%= @cast.each do |character| %>
                     <% break if character.order > 5%>
                     <li>
                         <%= link_to persona_path(character.id), class: "nom" do %>
@@ -42,12 +43,12 @@
                 <% end %>
             </div>
     </div>
-    <div class="movie-castcrew"><span class="nom">Produzione</span>
+    <div class="movie-castcrew"><span class="nom-2">Produzione</span>
         <ul>
             <div class="name">
                 <% @film.production_companies.each do |pc| %>
                     <li>
-                        <h4 class = "nom"> <%= pc.name %> </h4>
+                        <h4 class = "nom-2"> <%= pc.name %> </h4>
                     </li>
                 <% end %>
             </div>
@@ -87,9 +88,39 @@
     <%= f.text_area :body, placeholder: "Aggiungi un commento...", class: "ta" %><br/>
     <%= f.submit "Invio", class: "inv" %>
   <% end %>
+  <% if @film.belongs_to_collection%>
+    <div style = "margin-left:30%"><h1> Altri titoli di: "<%= @collection.name %>" </h1> </div>
+    <div style = "width: 1150px;height: 250px;margin-left:0px">
+      <% if @collection.parts.size > 6 %>
+        <div>
+            <button class = "xbt" id = "left-1">  <i id = "aw" class="arrow left"></i></button>
+        </div>
+      <% end %>
+      <div id = "coll" style = "background-image: url('https://image.tmdb.org/t/p/original/<%= @collection.backdrop_path%>')"class="scrollmenu-1 bg-image">
+          <% @collection.parts.each do |s| %>
+              <%= link_to result_path(s.id), id: "animation_6",style: "margin-top: 3%;margin-left: 20px;margin-right: 25px;overflow: hidden; border-radius: 30px" do %>
+                  <% if s.poster_path %>
+                      <img class ="img-2" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                  <%else%>
+                      <img class = "img-2" src = '<%= image_path('/no_locandina.webp')%>'>
+                  <% end %>
+              <% end %>
+          <% end %>
+      </div>
+      <% if @collection.parts.size > 6 %>
+        <div >
+            <button class = "xbt" id = "right-1"><i id = "aw" class="arrow right"></i></button>
+        </div>
+      <% end %>
+    </div>
+  <% end%>
   <h1 style = "margin-left: 25%"> Potrebbero Piacerti Anche </h1>
-  <div class="scrollmenu">
-    <% @similar.results.each do |s| %>
+ <div style = "width: 1150px;margin-left:0px;">
+    <div>
+        <button class = "xbt" id = "left">  <i id = "aw" class="arrow left"></i></button>
+    </div>
+    <div id = "pot" class="scrollmenu">
+        <% @similar.results.each do |s| %>
             <%= link_to result_path(s.id), id: "animation_6",style: "overflow: hidden; border-radius: 25px" do %>
                 <% if s.poster_path %>
                     <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
@@ -97,15 +128,30 @@
                     <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
                 <% end %>
             <% end %>
-    <% end %>
-  </div>
- 
+        <% end %>
+    </div>
+    <div >
+        <button class = "xbt" id = "right"><i id = "aw" class="arrow right"></i></button>
+    </div>
+    
+   
+</div>
 </div>
 </div>
 
 <style>
+
+
+
+ #aw{
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
 div.scrollmenu {
-  width: 1030px;
+  float: left;
+  width: 1000px;
   max-width: 1030px;
   height: 280px;
   max-height: 280px;
@@ -119,6 +165,79 @@ div.scrollmenu a {
   text-align: center;
   text-decoration: none;
 }
+
+
+.scrollmenu::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+.xbt{
+    border: none;
+    background-color: white;
+    outline: none;
+}
+
+
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  
+  
+  .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  #left{
+   float: left;
+   margin-top: 110px;
+  }
+  
+  #right{
+      float: left;
+      margin-top: 110px;
+  }
+  
+   #left-1{
+   float: left;
+   margin-top: 225px;
+  }
+  
+  #right-1{
+      float: left;
+      margin-top: 225px;
+  }
+  
+.scrollmenu-1{
+  background-size: 1000px 450px;
+  border: 2px solid black;
+  float: left;
+  width: 1000px;
+  max-width: 1030px;
+  height: 450px;
+  max-height: 450px;
+  overflow: auto;
+  white-space: nowrap;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+div.scrollmenu-1 a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+
+.scrollmenu-1::-webkit-scrollbar {
+  display: none;
+}
+
+
 
 div.scrollmenu a:hover {
   background-color: #777;
@@ -144,7 +263,7 @@ div.scrollmenu a:hover {
 }
 
 .nom-1{
-    font-size: 16px;
+    font-size: 15px;
     text-decoration: none;
     color: black;
     margin-bottom: 0px;
@@ -159,10 +278,18 @@ div.scrollmenu a:hover {
     color: black;
 }
 
+.nom-2{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: -7px;
+}
+
+
 .trb{
     border-radius: 10px;
     border: 1px solid;
-    
+    outline: none;
 }
 
 .red{
@@ -191,15 +318,16 @@ div.scrollmenu a:hover {
     width: 100%;
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(5, 200px);
+    grid-template-columns: rfilter: blur(8px);
+  -webkit-filter: blur(8px);epeat(5, 200px);
 }
 
 .wrapper-1 {
     width: 100%;
     height: auto;
     display: grid;
-    grid-gap: 17px;
-    grid-template-columns: repeat(5, 170px);
+    grid-gap: 25px;
+    grid-template-columns: repeat(5, 180px);
 }
 
 .img {
@@ -207,6 +335,13 @@ div.scrollmenu a:hover {
     height: 240px;
     overflow: hidden;
 }
+
+.img-2 {
+    width: 280px;
+    height: 380px;
+    overflow: hidden;
+}
+
 
 .rad{
     border-radius: 25px;
@@ -292,7 +427,7 @@ body {
 }
 .moviecard .movie-title .movie-year {
   margin-left: 12px;
-  font-size: 16px;
+  font-size: 13px;
 }
 .moviecard .movie-title a {
   color: #333333;
@@ -338,7 +473,7 @@ body {
 }
 .moviecard .movie-ratings {
   position: absolute;
-  right: -110px;
+  right: -50px;
 }
 .moviecard .movie-ratings span.star {
   display: inline-block;
@@ -394,7 +529,7 @@ body {
   overflow: hidden;
   position: absolute;
   right: 0px;
-  height: 100%;
+  height: auto;
   transition: all 500ms;
   background: none;
   z-index: 1;
@@ -482,6 +617,36 @@ body {
 </style>
 
 <script>
+
+
+$(document).ready(function(){
+    $("#right").click(function() {
+        $('#pot').animate({
+                scrollLeft: "+=167%"
+        }, "fast");
+    })
+    $("#left").click(function() {
+        $('#pot').animate({
+                scrollLeft: "-=166%"
+        }, "fast");
+    })
+})
+
+
+
+$(document).ready(function(){
+    $("#right-1").click(function() {
+        $('#coll').animate({
+                scrollLeft: "+=335%"
+        }, "fast");
+    })
+    $("#left-1").click(function() {
+        $('#coll').animate({
+                scrollLeft: "-=335%"
+        }, "fast");
+    })
+})
+
 
 $(document).ready(function(){
 	$(".play-trailer").click(function(){

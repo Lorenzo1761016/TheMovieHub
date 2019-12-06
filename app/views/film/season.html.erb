@@ -1,13 +1,19 @@
-<h1> <%= link_to "Torna alla serie", tv_path(params[:id])%> </h1>
-<% if @season.poster_path %>
-    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@season.poster_path)%>' width = 22%>
-<%else%>
-    <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
-<% end %>
-Titolo: <%= @season.name %> - Numero Stagione: <%= @season.season_number %> - In Onda: <%= @season.air_date %>
-<br>
-Trama: <%= @season.overview %>
-<br>
+<div class="moviecard">
+  <div class="movie-poster play-trailer">
+  </div>
+  <h3> <%= link_to "Torna alla serie", tv_path(params[:id]), class: "nom"%> </h3>
+  <div id="movie-content">
+    <div class="movie-title"><%=@season.name %></div>
+    <div class="movie-details"><span class="movie-rating"><%= @season.air_date %></span><span class="movie-duration"><%= @season.episodes.size %> episodi </span></div>
+    <div class="movie-synopsis"><span class="nom">Trama</span>
+        <% if @season.overview != ""%>
+            <div style = "margin-left: 5px"><span style = "font-size: 14px"><%= @season.overview %></span></div>
+        <% else %>
+            <div><span style = "font-size: 14px">La trama non è disponibile</span></div>
+        <% end %>
+    </div>
+</div>
+
 <h1> EPISODI </h1>
 <% @season.episodes.each do |ep|%>
     <div class = "container cnt">
@@ -42,24 +48,306 @@ Trama: <%= @season.overview %>
 <% end %>
 <br>
 
-<% if @videos %>
-    <% @videos.each do |video| %>
-    <iframe width="560" height="315" src='<%="https://www.youtube.com/embed/"+video.key %>'></iframe>
-    <% end %>
-<% end %>
-
 
 <style>
+
+.inv{
+    width: 1030px;
+}
+.ta{
+    width: 1030px;
+    height: 70px;
+    border-radius: 5px;
+    border: 1px solid; 
+}
+
+.kw{
+  font-size: 12px;
+  padding-bottom: 24px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid #dbdbdb;
+}
+.nom{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: -7px;
+}
+
+.nom:hover{
+    text-decoration: none;
+    color: gray;  
+}
+
+.nom-1{
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 0px;
+    margin-top: 5px;    
+}
+.nom-1:hover {
+    text-decoration: none;
+    color: gray;
+}
+
+.nom-2{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: -7px;
+}
+
+.nom-1:visited{
+    text-decoration: none;
+    color: black;
+}
+
+.trb{
+    border-radius: 10px;
+    border: 1px solid;
+    
+}
+
+.red{
+    color: black;
+}
+
+
+.trb:hover .red{
+     color: red;    
+}
+
 .cmnts{
+    width: 1030px;
     height: 250px;
-    border-style: groove;
+    border: 1px solid;
     overflow-y: auto;
     overflow-x: hidden;
+    border-radius: 5px;
 }
 
 .cnt{
     border-style: groove;
 }
+
+
+.wrapper {
+    width: 100%;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(5, 200px);
+}
+
+.wrapper-1 {
+    margin-top: 10px;
+    margin-left: 13px;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-gap: 17px;
+    grid-template-columns: repeat(5, 170px);
+}
+
+.wrapper-2 {
+    margin-top: 30px;
+    margin-left: 60px;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-gap: 17px;
+    grid-template-columns: repeat(5, 170px);
+}
+.img {
+    width: 159px;
+    height: 240px;
+    overflow: hidden;
+}
+.img-1 {
+    width: 170px;
+    height: 220px;
+    overflow: hidden;
+}
+.rad{
+    border-radius: 25px;
+    border: solid;
+    border-color: black;
+}
+
+.rad:hover{
+    border-color: gray;
+}
+
+.each-item
+{
+    position:relative;
+    overflow: hidden;
+}
+
+
+.each-item:hover .cap1
+{
+    left:0px;
+    overflow: hidden;
+   
+}
+
+.txt{
+    color: black;
+}
+
+.bt{
+    position:  absolute;
+    bottom:0;
+    text-align: center;
+}
+
+.cap1
+{
+    position:absolute;
+    width: 100%;
+    height:100%;
+    background:rgba(255, 255, 255, 0.7);
+    left:-100%;
+    top: 0;
+    padding:10px;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+
+.cap2
+{
+    position:absolute;
+    width: 100%;
+    height:100%;
+    background:rgba(255, 255, 255, 0.7);
+    bottom:-100%;   
+    padding:10px;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #B5B5B5;
+}
+
+.moviecard {
+  font-family: 'Helvetica', sans-serif, 'Ariel';
+  position: absolute;
+  background: #ffffff;
+  color: #555555;
+  margin: 10px;
+  width: 1100px;
+  max-width: 2000px;
+  min-height: 300px;
+  height: auto;
+  padding: 30px 290px 30px 30px;
+  -moz-box-shadow: -5px 5px 15px;
+  -webkit-box-shadow: -5px 5px 15px;
+  box-shadow: -5px 5px 15px;
+  border-radius: 10px;
+}
+.moviecard #movie-content {
+  opacity: 1;
+  width: 100%;
+  display: table;
+  transition: all 500ms ease-out;
+  position: relative;
+}
+.moviecard .movie-title {
+  font-size: 32px;
+  padding-bottom: 6px;
+  color: #333333;
+}
+.moviecard .movie-title .movie-year {
+  margin-left: 12px;
+  font-size: 16px;
+}
+.moviecard .movie-title a {
+  color: #333333;
+  text-decoration: none;
+}
+.moviecard .movie-title a:hover {
+  color: #858585;
+}
+.moviecard .movie-details {
+  font-size: 12px;
+  padding-bottom: 24px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span {
+  padding: 0px 6px;
+  border-right: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span:last-child {
+  border: none;
+}
+.moviecard .movie-castcrew {
+  padding-top: 12px;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.moviecard .movie-castcrew span.title {
+  color: #333333;
+  display: inline-block;
+  width: 80px;
+  font-weight: 600;
+}
+.moviecard .movie-synopsis {
+  margin-top: 10px;    
+  padding-top: 10px;
+  max-height: 230px;
+  height:auto;
+  overflow-y: hidden;
+  width: 95%;
+}
+.moviecard .movie-ratings {
+  position: absolute;
+  right: -7%;
+}
+.moviecard .movie-ratings span.star {
+  display: inline-block;
+  margin-right: 12px;
+  color: #F0DE00;
+  font-size: 36px;
+}
+.moviecard .movie-ratings span.score {
+  font-size: 30px;
+  color: #333333;
+}
+
+.moviecard .movie-poster {
+  background: url('<%= @poster_path %>');  
+  position: absolute;
+  background-color: #dbdbdb;
+  background-size: 200px 300px;
+  background-repeat: no-repeat;
+  height: 0;
+  width: 200px;
+  height: 300px;
+  right: 40px;
+  top: 40px;
+  -moz-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  transition: all 500ms ease-out;
+  z-index: 10;
+  border-radius: 10px;
+}
+
+
+
+
 </style>
 
 

@@ -41,7 +41,10 @@ class FilmController < ApplicationController
     @keywords = Tmdb::Movie.keywords(params[:id])
     @similar = Tmdb::Movie.similar(params[:id])
     @directors = Tmdb::Movie.director(params[:id])
-    @poster_path = @film.poster_path ? 'https://image.tmdb.org/t/p/original/'+@film.poster_path : "/no_locandina.webp"
+    @poster_path = @film.poster_path ? 'https://image.tmdb.org/t/p/original/'+@film.poster_path : "/no_locandina.webp";
+    if @film.belongs_to_collection
+      @collection = Tmdb::Collection.detail(@film.belongs_to_collection.id);
+    end
   end
   def tv
     if Tv.exists?(params[:id])
@@ -71,6 +74,7 @@ class FilmController < ApplicationController
   def season
     @season = Tmdb::Tv::Season.detail(params[:id],params[:number])
     @videos = Tmdb::Tv::Season.videos(params[:id],params[:number])
+    @poster_path = @season.poster_path ? 'https://image.tmdb.org/t/p/original/'+@season.poster_path : "/no_locandina.webp";
   end
   def episode
     @episode = Tmdb::Tv::Episode.detail(params[:id], params[:number], params[:episode])
