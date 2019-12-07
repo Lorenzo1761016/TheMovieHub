@@ -75,11 +75,8 @@ class FilmController < ApplicationController
     @season = Tmdb::Tv::Season.detail(params[:id],params[:number])
     @videos = Tmdb::Tv::Season.videos(params[:id],params[:number])
     @poster_path = @season.poster_path ? 'https://image.tmdb.org/t/p/original/'+@season.poster_path : "/no_locandina.webp";
-  end
-  def episode
-    @episode = Tmdb::Tv::Episode.detail(params[:id], params[:number], params[:episode])
-    @cast = Tmdb::Tv::Episode.cast(params[:id], params[:number], params[:episode])
-    @videos = Tmdb::Tv::Episode.videos(params[:id], params[:number], params[:episode])
+    @serie = Tmdb::TV.detail(params[:id])
+
   end
   def persona
     @persona = Tmdb::Person.detail(params[:id])

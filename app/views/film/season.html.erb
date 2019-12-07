@@ -12,44 +12,138 @@
             <div><span style = "font-size: 14px">La trama non è disponibile</span></div>
         <% end %>
     </div>
-</div>
-
-<h1> EPISODI </h1>
-<% @season.episodes.each do |ep|%>
-    <div class = "container cnt">
-        <%= link_to episode_path(ep.show_id,ep.season_number,ep.episode_number) do %>
-            <% if ep.still_path %>
-                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+ep.still_path)%>' width = 22%>
-            <%else%>
-                <img src = '<%= image_path('/no_locandina.webp')%>' width = 22%  %>
-            <% end %>
-            Numero Episodio: <%= ep.episode_number %>
-        <% end %>
-        - Nome: <%= ep.name %> - Valutazione Media: <%= ep.vote_average %>/10
-        <br>
-        Trama: <%= ep.overview %>
-        <br>
-        Crew: 
-        <% ep.crew.each do |c| %>
-        <%= link_to persona_path(c.id) do %>    
-            <%= c.name %> 
-        <% end %>
-        - ruolo: <%= c.job %> -
-        <% end %>
-        <br>
-        Guest Star:
-        <% ep.guest_stars.each do |gs| %>
-            <%= link_to persona_path(gs.id) do %>
-                <%= gs.name %>
-            <% end %>
-            - ruolo: <%= gs.character %>
+    <h1> EPISODI </h1>
+    <div class = "wrapper-2">
+        <% @season.episodes.each do |s| %>
+            <div id = "dv" class = "each-item rad">
+                <% if s.still_path %>
+                    <img class = "img-1" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.still_path) %>'>
+                <%else%>
+                    <img class = "img-1" src = '<%= image_path('/no_locandina.webp')%>' >
+                <% end %>
+                <div class = "cap1">
+                    <h4 class = "text-center"style = "color: black">Episodio <%= s.episode_number %> - <%= s.name%> </h4>
+                    <h5 style = "color: black"> Trama: 
+                        <% if s.overview != "" %>
+                            <%= s.overview %>
+                        <% else %>
+                            non disponibile
+                        <% end %>
+                    </h5>
+                    <h5 style = "color: black"> Crew: 
+                        <ul>
+                            <% s.crew.take(5).each do |c| %>
+                                <li>
+                                    <%= link_to persona_path(c.id), class: "nom-1" do %>    
+                                        <span class = "nom-1"><%= c.name %></span>
+                                    <% end %>
+                                    - <span style = "font-size: 14px;"><%= c.job %></span>
+                                </li>
+                            <% end %>
+                        </ul>
+                    </h5>
+                    <h5 style = "color: black"> Guest Stars: 
+                        <ul>
+                            <% s.guest_stars.take(5).each do |c| %>
+                                <li>
+                                    <%= link_to persona_path(c.id), class: "nom-1" do %>    
+                                        <span class = "nom-1"><%= c.name %></span>
+                                    <% end %>
+                                    - <span style = "font-size: 14px;"><%= c.character %></span>
+                                </li>
+                            <% end %>
+                        </ul>
+                    </h5>
+                </div>
+            </div>
         <% end %>
     </div>
-<% end %>
-<br>
+    <h1> Stagioni di <%= @serie.name %> </h1>
+    <div style = "width: 1100px;margin-left:-7px;">
+        <div>
+            <button class = "xbt" id = "left">  <i class="arrow left"></i></button>
+        </div>
+        <div class="scrollmenu">
+            <% @serie.seasons.each do |s| %>
+                <%= link_to tv_path(s.id), id: "animation_6",style: "overflow: hidden; border-radius: 25px" do %>
+                    <% if s.poster_path %>
+                        <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                    <%else%>
+                        <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+        <div >
+            <button class = "xbt" id = "right"><i class="arrow right"></i></button>
+        </div>
+    </div>
+</div>
 
 
 <style>
+
+
+div.scrollmenu {
+  margin-left: 3px;
+  float: left;
+  width: 1000px;
+  height: 280px;
+  max-height: 280px;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+.scrollmenu::-webkit-scrollbar {
+  display: none;
+}
+
+
+i {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  
+  
+  .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  #left{
+   float: left;
+   margin-top: 100px;
+  }
+  
+  #right{
+      float: left;
+      margin-top: 100px;
+  }
+  
+
+
+.xbt{
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+
 
 .inv{
     width: 1030px;
@@ -81,7 +175,8 @@
 }
 
 .nom-1{
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: bold;
     text-decoration: none;
     color: black;
     margin-bottom: 0px;
@@ -92,12 +187,6 @@
     color: gray;
 }
 
-.nom-2{
-    font-size: 18px;
-    text-decoration: none;
-    color: black;
-    margin-bottom: -7px;
-}
 
 .nom-1:visited{
     text-decoration: none;
@@ -133,40 +222,27 @@
 }
 
 
-.wrapper {
-    width: 100%;
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(5, 200px);
-}
-
-.wrapper-1 {
-    margin-top: 10px;
-    margin-left: 13px;
-    width: 100%;
-    height: auto;
-    display: grid;
-    grid-gap: 17px;
-    grid-template-columns: repeat(5, 170px);
-}
 
 .wrapper-2 {
     margin-top: 30px;
-    margin-left: 60px;
+    margin-left: -8px;
     width: 100%;
     height: auto;
     display: grid;
     grid-gap: 17px;
-    grid-template-columns: repeat(5, 170px);
+    grid-template-columns: repeat(3, 340px);
 }
+
 .img {
     width: 159px;
     height: 240px;
     overflow: hidden;
 }
+
+
 .img-1 {
-    width: 170px;
-    height: 220px;
+    width: 340px;
+    height: 210px;
     overflow: hidden;
 }
 .rad{
@@ -188,7 +264,7 @@
 
 .each-item:hover .cap1
 {
-    left:0px;
+    top:0;
     overflow: hidden;
    
 }
@@ -209,25 +285,22 @@
     width: 100%;
     height:100%;
     background:rgba(255, 255, 255, 0.7);
-    left:-100%;
-    top: 0;
+    top: 100%;
     padding:10px;
     overflow: hidden;
     transition: all 1s;
 }
 
 
-.cap2
-{
-    position:absolute;
-    width: 100%;
-    height:100%;
-    background:rgba(255, 255, 255, 0.7);
-    bottom:-100%;   
-    padding:10px;
-    overflow: hidden;
-    transition: all 1s;
+#dv:hover .cap1{
+    bottom: 0;
+    overflow-y: scroll;
+
 }
+#dv:hover .cap1::-webkit-scrollbar {
+  display: none;
+}
+
 
 @charset "UTF-8";
 * {
@@ -309,7 +382,7 @@ body {
   max-height: 230px;
   height:auto;
   overflow-y: hidden;
-  width: 95%;
+  width: 75%;
 }
 .moviecard .movie-ratings {
   position: absolute;
@@ -345,9 +418,24 @@ body {
   border-radius: 10px;
 }
 
-
-
-
 </style>
 
 
+<script>
+
+
+$(document).ready(function(){
+    $("#right").click(function() {
+        $('.scrollmenu').animate({
+                scrollLeft: "+=167%"
+        }, "fast");
+    })
+    $("#left").click(function() {
+        $('.scrollmenu').animate({
+                scrollLeft: "-=168%"
+        }, "fast");
+    })
+})
+
+
+</script>

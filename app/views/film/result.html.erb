@@ -32,8 +32,7 @@
     <div class="movie-castcrew"><span class="nom-2">Cast</span>
         <ul>
             <div class="name">
-                <%= @cast.each do |character| %>
-                    <% break if character.order > 5%>
+                <%= @cast.take(5).each do |character| %>
                     <li>
                         <%= link_to persona_path(character.id), class: "nom" do %>
                            <h4 class = "nom"> <%= character.name %> </h4>
