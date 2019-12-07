@@ -1,142 +1,142 @@
 
-<div class="moviecard">
-  <div class="movie-poster play-trailer">
+  <div class="moviecard">
+    <div class="movie-poster play-trailer">
+    </div>
+    <div id="movie-content">
+      <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
+      <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.original_title%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button></span></div>
+      <div class="movie-details"><span class="movie-rating"><%= @film.release_date %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
+              <% @film.genres.each do |g|%>
+                  <%= g.name %>
+              <% end %>
+          </span>
+          <span class="movie-details">
+              <% @film.spoken_languages.each do |g|%>
+                  <%= g.iso_639_1 %>
+              <% end %>
+          </span>
+      </div>
+      <div class="movie-castcrew"><span class="nom-2">Regia</span>
+          <ul>
+              <div class="name">
+                  <% @directors.each do |d| %>
+                      <li>
+                          <%= link_to persona_path(d.id), class: "nom" do%>
+                              <h4 class = "nom"><%= d.name%></h4>
+                          <% end %>
+                      </li>
+                  <% end %>
+              </div>
+          </ul>
+      </div>
+      <div class="movie-castcrew"><span class="nom-2">Cast</span>
+          <ul>
+              <div class="name">
+                  <% @cast.take(5).each do |character| %>
+                      <li>
+                          <%= link_to persona_path(character.id), class: "nom" do %>
+                            <h4 class = "nom"> <%= character.name %> </h4>
+                          <% end %>
+                          <h5> <%= character.character %> </h5>
+                      </li>
+                  <% end %>
+              </div>
+      </div>
+      <div class="movie-castcrew"><span class="nom-2">Produzione</span>
+          <ul>
+              <div class="name">
+                  <% @film.production_companies.each do |pc| %>
+                      <li>
+                          <h4 class = "nom-2"> <%= pc.name %> </h4>
+                      </li>
+                  <% end %>
+              </div>
+          </ul>
+      </div>
+      <div class = "movie-details"></div>
+      <div class="movie-castcrew"><span class="nom">Parole Chiave</span>
+          <div class = "wrapper-1">
+              <% @keywords.each do |kw| %>
+                  <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank', class: "nom-1" do %>
+                      #<%= kw.name %>
+                  <% end %>
+              <% end %>
+          </div>
+      </div> 
+      <div class="movie-synopsis"><span class="nom">Trama</span>
+          <div><span style = "font-size: 16px"><%= @film.overview %></span></div>
+      </div>
   </div>
-  <div id="movie-content">
-    <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
-    <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.original_title%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button></span></div>
-    <div class="movie-details"><span class="movie-rating"><%= @film.release_date %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
-            <% @film.genres.each do |g|%>
-                <%= g.name %>
-            <% end %>
-        </span>
-        <span class="movie-details">
-            <% @film.spoken_languages.each do |g|%>
-                <%= g.iso_639_1 %>
-            <% end %>
-        </span>
+  <div class="movie-trailer"><a class="back-btn">indietro   </a>
+      <div id="youvideo">
+          <% if @video.first %>
+              <iframe src='<%= "https://www.youtube.com/embed/"+@video.first.key %>' frameborder="0" allowScriptAccess="always"></iframe>
+          <% else %>
+              <iframe src='<%= image_path('/na.jpg')%>' frameborder = "0"></iframe>
+          <% end %>
+      </div>
     </div>
-    <div class="movie-castcrew"><span class="nom-2">Regia</span>
+    <h1 style = "margin-left: 20%"> COMMENTI </h1>
+    <div class = "container cmnts">
         <ul>
-            <div class="name">
-                <% @directors.each do |d| %>
-                    <li>
-                        <%= link_to persona_path(d.id), class: "nom" do%>
-                            <h4 class = "nom"><%= d.name%></h4>
-                        <% end %>
-                    </li>
-                <% end %>
-            </div>
+            <%= render(partial: 'comment', collection: @found.comments) %>
         </ul>
     </div>
-    <div class="movie-castcrew"><span class="nom-2">Cast</span>
-        <ul>
-            <div class="name">
-                <%= @cast.take(5).each do |character| %>
-                    <li>
-                        <%= link_to persona_path(character.id), class: "nom" do %>
-                           <h4 class = "nom"> <%= character.name %> </h4>
-                        <% end %>
-                        <h5> <%= character.character %> </h5>
-                    </li>
-                <% end %>
-            </div>
-    </div>
-    <div class="movie-castcrew"><span class="nom-2">Produzione</span>
-        <ul>
-            <div class="name">
-                <% @film.production_companies.each do |pc| %>
-                    <li>
-                        <h4 class = "nom-2"> <%= pc.name %> </h4>
-                    </li>
-                <% end %>
-            </div>
-        </ul>
-    </div>
-    <div class = "movie-details"></div>
-     <div class="movie-castcrew"><span class="nom">Parole Chiave</span>
-        <div class = "wrapper-1">
-            <% @keywords.each do |kw| %>
-                <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank', class: "nom-1" do %>
-                    #<%= kw.name %>
-                <% end %>
-            <% end %>
-        </div>
-    </div> 
-    <div class="movie-synopsis"><span class="nom">Trama</span>
-        <div><span style = "font-size: 16px"><%= @film.overview %></span></div>
-    </div>
-</div>
-<div class="movie-trailer"><a class="back-btn">indietro   </a>
-    <div id="youvideo">
-        <% if @video.first %>
-            <iframe src='<%= "https://www.youtube.com/embed/"+@video.first.key %>' frameborder="0" allowScriptAccess="always"></iframe>
-        <% else %>
-            <iframe src='<%= image_path('/na.jpg')%>' frameborder = "0"></iframe>
+    <h3>Commenta anche tu</h3>
+    <%= form_for [@found, Comment.new] do |f| %>
+      <%= f.text_area :body, placeholder: "Aggiungi un commento...", class: "ta" %><br/>
+      <%= f.submit "Invio", class: "inv" %>
+    <% end %>
+    <% if @film.belongs_to_collection%>
+      <div style = "margin-left:30%"><h1> Altri titoli di: "<%= @collection.name %>" </h1> </div>
+      <div style = "width: 1150px;height: 250px;margin-left:0px">
+        <% if @collection.parts.size > 6 %>
+          <div>
+              <button class = "xbt" id = "left-1">  <i id = "aw" class="arrow left"></i></button>
+          </div>
         <% end %>
-    </div>
-  </div>
-  <h1 style = "margin-left: 20%"> COMMENTI </h1>
-  <div class = "container cmnts">
-      <ul>
-          <%= render(partial: 'comment', collection: @found.comments) %>
-      </ul>
-  </div>
-  <h3>Commenta anche tu</h3>
-  <%= form_for [@found, Comment.new] do |f| %>
-    <%= f.text_area :body, placeholder: "Aggiungi un commento...", class: "ta" %><br/>
-    <%= f.submit "Invio", class: "inv" %>
-  <% end %>
-  <% if @film.belongs_to_collection%>
-    <div style = "margin-left:30%"><h1> Altri titoli di: "<%= @collection.name %>" </h1> </div>
-    <div style = "width: 1150px;height: 250px;margin-left:0px">
-      <% if @collection.parts.size > 6 %>
-        <div>
-            <button class = "xbt" id = "left-1">  <i id = "aw" class="arrow left"></i></button>
+        <div id = "coll" style = "background-image: url('https://image.tmdb.org/t/p/original/<%= @collection.backdrop_path%>')"class="scrollmenu-1">
+            <% @collection.parts.each do |s| %>
+                <%= link_to result_path(s.id), id: "animation_6",style: "margin-top: 3%;margin-left: 20px;margin-right: 25px;overflow: hidden; border-radius: 30px" do %>
+                    <% if s.poster_path %>
+                        <img class ="img-2" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                    <%else%>
+                        <img class = "img-2" src = '<%= image_path('/no_locandina.webp')%>'>
+                    <% end %>
+                <% end %>
+            <% end %>
         </div>
-      <% end %>
-      <div id = "coll" style = "background-image: url('https://image.tmdb.org/t/p/original/<%= @collection.backdrop_path%>')"class="scrollmenu-1">
-          <% @collection.parts.each do |s| %>
-              <%= link_to result_path(s.id), id: "animation_6",style: "margin-top: 3%;margin-left: 20px;margin-right: 25px;overflow: hidden; border-radius: 30px" do %>
+        <% if @collection.parts.size > 6 %>
+          <div >
+              <button class = "xbt" id = "right-1"><i id = "aw" class="arrow right"></i></button>
+          </div>
+        <% end %>
+      </div>
+    <% end%>
+    <h1 style = "margin-left: 25%"> Potrebbero Piacerti Anche </h1>
+  <div style = "width: 1150px;margin-left:0px;">
+      <div>
+          <button class = "xbt" id = "left">  <i id = "aw" class="arrow left"></i></button>
+      </div>
+      <div id = "pot" class="scrollmenu">
+          <% @similar.results.each do |s| %>
+              <%= link_to result_path(s.id), id: "animation_6",style: "overflow: hidden; border-radius: 25px" do %>
                   <% if s.poster_path %>
-                      <img class ="img-2" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                      <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
                   <%else%>
-                      <img class = "img-2" src = '<%= image_path('/no_locandina.webp')%>'>
+                      <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
                   <% end %>
               <% end %>
           <% end %>
       </div>
-      <% if @collection.parts.size > 6 %>
-        <div >
-            <button class = "xbt" id = "right-1"><i id = "aw" class="arrow right"></i></button>
-        </div>
-      <% end %>
-    </div>
-  <% end%>
-  <h1 style = "margin-left: 25%"> Potrebbero Piacerti Anche </h1>
- <div style = "width: 1150px;margin-left:0px;">
-    <div>
-        <button class = "xbt" id = "left">  <i id = "aw" class="arrow left"></i></button>
-    </div>
-    <div id = "pot" class="scrollmenu">
-        <% @similar.results.each do |s| %>
-            <%= link_to result_path(s.id), id: "animation_6",style: "overflow: hidden; border-radius: 25px" do %>
-                <% if s.poster_path %>
-                    <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
-                <%else%>
-                    <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
-                <% end %>
-            <% end %>
-        <% end %>
-    </div>
-    <div >
-        <button class = "xbt" id = "right"><i id = "aw" class="arrow right"></i></button>
-    </div>
+      <div >
+          <button class = "xbt" id = "right"><i id = "aw" class="arrow right"></i></button>
+      </div>
+      
     
-   
-</div>
-</div>
-</div>
+  </div>
+  </div>
+  </div>
 
 <style>
 

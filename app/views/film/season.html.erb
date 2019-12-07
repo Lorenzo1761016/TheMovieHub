@@ -43,18 +43,20 @@
                             <% end %>
                         </ul>
                     </h5>
-                    <h5 style = "color: black"> Guest Stars: 
-                        <ul>
-                            <% s.guest_stars.take(5).each do |c| %>
-                                <li>
-                                    <%= link_to persona_path(c.id), class: "nom-1" do %>    
-                                        <span class = "nom-1"><%= c.name %></span>
-                                    <% end %>
-                                    - <span style = "font-size: 14px;"><%= c.character %></span>
-                                </li>
-                            <% end %>
-                        </ul>
-                    </h5>
+                    <% if s.guest_stars.size > 0 %>
+                        <h5 style = "color: black"> Guest Stars: 
+                            <ul>
+                                <% s.guest_stars.take(5).each do |c| %>
+                                    <li>
+                                        <%= link_to persona_path(c.id), class: "nom-1" do %>    
+                                            <span class = "nom-1"><%= c.name %></span>
+                                        <% end %>
+                                        - <span style = "font-size: 14px;"><%= c.character %></span>
+                                    </li>
+                                <% end %>
+                            </ul>
+                        </h5>
+                    <% end %>
                 </div>
             </div>
         <% end %>

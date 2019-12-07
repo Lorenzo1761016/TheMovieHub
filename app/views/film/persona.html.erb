@@ -1,36 +1,266 @@
-<h1> <%= @persona.name %> </h1>
-<% if @persona.profile_path %>
-    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@persona.profile_path)%>' width = 20%>
-<% else %>
-    <img src = '<%= image_path('/no_locandina.webp')%>' width = 20%  %>
-<% end %> 
-Data Di Nascita: <%= @persona.birthday %>, Luogo Di Nascita: <%= @persona.place_of_birth%>
-<br>
-Professione: <%= @persona.known_for_department %>
-<br>
-<br>
-Biografia: <%= @persona.biography %>
-<br>
-<br>
-<h1> CREDITI </h1>
-<% @mc.cast.each_slice(5) do |cc| %>
-    <% cc.each do |c| %>
-        <% if c.media_type == "movie" %>
-            <%= link_to result_path(c.id) do %>
-                <% if c.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.poster_path)%>' width = 10%>
-                <% else %>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-                <% end %> 
+<div class="moviecard">
+  <div class="movie-poster play-trailer">
+  </div>
+  <div id="movie-content">
+    <div class="movie-title"><%=@persona.name %><span class="movie-year">(<%= @persona.also_known_as.first %>)</span></div>
+    <div class="movie-details">
+        <span class="movie-rating"> <%= @persona.place_of_birth %> </span>
+        <span class="movie-rating"><%= @persona.birthday %>
+            <% if  @persona.deathday%>
+                - <%= @persona.deathday %>
             <% end %>
+        </span><span class="movie-genre"> <%= @persona.known_for_department %></span>
+        <span class="movie-genre"> 
+            <% if @persona.gender == 2 %>
+                M
+            <% elsif @persona.gender == 1 %>
+                F
+            <% else %>
+                not telling
+            <% end %>
+        <span class="movie-details">
+            
+        </span>
+    </div>
+    <div class="movie-castcrew"><span class="nom-2">Biografia</span>
+        <% if @persona.biography !=  "" %>
+            <div><span style = "font-size: 16px"><%= @persona.biography %></span></div>
         <% else %>
-            <%= link_to tv_path(c.id) do %>
-                <% if c.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.poster_path)%>' width = 10%>
-                <% else %>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-                <% end %> 
-            <% end %>
+            <span style = "margin-left: 5px;font-size: 14px"> non disponibile </span>
         <% end %>
-    <% end %>
-<% end %>
+    </div>
+    <div class="movie-synopsis">
+    </div>
+
+     <h1 style = "margin-left: 10%;margin-top: 80px;margin-bottom: 40px;"> CREDITI </h1>
+
+    <div class = "wrapper">
+       <% @mc.cast.each do |p| %>
+                <div class = "rad each-item">
+                    <% if p.media_type == "movie"%>
+                        <%= link_to result_path(p.id) do %>
+                            <% if p.poster_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>'>
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                            <% end %>
+                            <div class="cap1">
+                                <span><h3 class = "text-center txt"><%= p.title %></h3></span>
+                            </div>
+                        <% end %>
+                        <div class="cap2">
+                            <h2 class="text-center txt">Film</h2>
+                        </div>
+                    <% else %>
+                        <%= link_to tv_path(p.id) do %>
+                            <% if p.poster_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>'>
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                            <% end %>
+                            <div class="cap1">
+                                <span><h3 class = "text-center txt"><%= p.name %></h3></span>
+                            </div>
+                        <% end %>
+                        <div class="cap2">
+                            <h2 class="text-center txt">Serie TV</h2>
+                        </div>
+                    <% end %>
+                </div>
+        <% end %>   
+    </div>
+ 
+</div>
+
+  
+
+<style>
+
+
+.txt{
+    color: black;
+}
+
+
+
+.nom-2{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: -7px;
+}
+
+
+.wrapper {
+    margin-left: 4%;
+    height: auto;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(5, 180px);
+
+}
+
+.img {
+    width: 180px;
+    height: 270px;
+    overflow: hidden;
+}
+
+.rad{
+    border-radius: 25px;
+    border: solid;
+    border-color: black;
+}
+
+
+.cap1
+{
+    position:absolute;
+    width: 100%;
+    height:80%;
+    background:rgba(255, 255, 255, 0.7);
+    left:-100%;
+    top: 0;
+    padding:10px;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+
+.cap2
+{
+    position:absolute;
+    width:100%;
+    height:20%;
+    background:rgba(108, 122, 137, 0.9);
+    bottom:0px;
+    left:100%;
+    padding:0px;
+    transition: all 1s;
+    overflow: hidden;
+}
+
+
+
+.each-item
+{
+    position:relative;
+    overflow: hidden;
+}
+
+.each-item:hover .cap1, .each-item:hover .cap2
+{
+    left:0px;
+    overflow: hidden;
+   
+}
+
+
+
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #B5B5B5;
+}
+
+
+.moviecard {
+  font-family: 'Helvetica', sans-serif, 'Ariel';
+  position: absolute;
+  background: #ffffff;
+  color: #555555;
+  margin: 10px;
+  width: 1100px;
+  max-width: 2000px;
+  min-height: 300px;
+  height: auto;
+  padding: 30px 290px 30px 30px;
+  -moz-box-shadow: -5px 5px 15px;
+  -webkit-box-shadow: -5px 5px 15px;
+  box-shadow: -5px 5px 15px;
+  border-radius: 10px;
+
+}
+.moviecard #movie-content {
+  opacity: 1;
+  width: 100%;
+  display: table;
+  transition: all 500ms ease-out;
+  position: relative;
+}
+.moviecard .movie-title {
+  font-size: 32px;
+  padding-bottom: 6px;
+  color: #333333;
+}
+.moviecard .movie-title .movie-year {
+  margin-left: 12px;
+  font-size: 13px;
+}
+.moviecard .movie-title a {
+  color: #333333;
+  text-decoration: none;
+}
+.moviecard .movie-title a:hover {
+  color: #858585;
+}
+.moviecard .movie-details {
+  width: 80%;
+  font-size: 12px;
+  padding-bottom: 24px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span {
+  padding: 0px 6px;
+  border-right: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span:last-child {
+  border: none;
+}
+.moviecard .movie-castcrew {
+  padding-top: 40px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 50px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.moviecard .movie-castcrew span.title {
+  color: #333333;
+  display: inline-block;
+  width: 80px;
+  font-weight: 600;
+}
+.moviecard .movie-synopsis {
+  margin: 24px 0px;
+  padding-top: 24px;
+  border-top: 1px solid #dbdbdb;
+  max-height: 230px;
+  height:auto;
+  overflow-y: hidden;
+  width: 80%;
+}
+.moviecard .movie-poster {
+  background: url('<%= @profile_path %>');  
+  position: absolute;
+  background-color: #dbdbdb;
+  background-size: 200px 300px;
+  background-repeat: no-repeat;
+  height: 0;
+  width: 200px;
+  height: 300px;
+  right: 30px;
+  top: 40px;
+  -moz-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  transition: all 500ms ease-out;
+  z-index: 10;
+  border-radius: 10px;
+}
+</style>

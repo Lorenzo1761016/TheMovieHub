@@ -81,5 +81,6 @@ class FilmController < ApplicationController
   def persona
     @persona = Tmdb::Person.detail(params[:id])
     @mc = Tmdb::Person.combined_credits(params[:id])
+    @profile_path = @persona.profile_path ? 'https://image.tmdb.org/t/p/original/'+@persona.profile_path : "/no_locandina.webp";
   end
 end
