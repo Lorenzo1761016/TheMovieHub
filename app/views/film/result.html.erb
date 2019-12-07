@@ -95,7 +95,7 @@
             <button class = "xbt" id = "left-1">  <i id = "aw" class="arrow left"></i></button>
         </div>
       <% end %>
-      <div id = "coll" style = "background-image: url('https://image.tmdb.org/t/p/original/<%= @collection.backdrop_path%>')"class="scrollmenu-1 bg-image">
+      <div id = "coll" style = "background-image: url('https://image.tmdb.org/t/p/original/<%= @collection.backdrop_path%>')"class="scrollmenu-1">
           <% @collection.parts.each do |s| %>
               <%= link_to result_path(s.id), id: "animation_6",style: "margin-top: 3%;margin-left: 20px;margin-right: 25px;overflow: hidden; border-radius: 30px" do %>
                   <% if s.poster_path %>
