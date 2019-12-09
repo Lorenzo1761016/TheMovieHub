@@ -32,12 +32,19 @@
     <div class="movie-synopsis">
     </div>
 
-     <h1 style = "margin-left: 10%;margin-top: 80px;margin-bottom: 40px;"> CREDITI </h1>
-
-    <div class = "wrapper">
-       <% @mc.cast.each do |p| %>
-                <div class = "rad each-item">
-                    <% if p.media_type == "movie"%>
+    <div style = "margin-bottom: 40px; margin-left: 70px;margin-top: 60px;">
+        <span>
+            <button class="btn btn-primary filter-button" data-filter="all">Tutto</button>
+            <button class="btn btn-default filter-button" data-filter="tv">Serie TV</button>
+            <button class="btn btn-default filter-button" data-filter="movie">Film</button>
+            <span style = "margin-left: 200px;font-size: 30px"> Crediti </span>
+        </span>
+    </div>
+    <div class = "scrl">
+        <div class = "wrapper">
+        <% @mc.cast.each do |p| %>
+                <% if p.media_type == "movie"%>
+                    <div class = "filter movie rad each-item">
                         <%= link_to result_path(p.id) do %>
                             <% if p.poster_path %>
                                 <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>'>
@@ -45,13 +52,17 @@
                                 <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
                             <% end %>
                             <div class="cap1">
-                                <span><h3 class = "text-center txt"><%= p.title %></h3></span>
+                                <span>
+                                    <h5 class = "text-center txt"><%= p.title %></h5>
+                                    <% if p.release_date %>
+                                        <h5 class = "text-center txt"> <%= p.release_date[0..3] %></h5>
+                                    <% end %>
+                                </span>
                             </div>
                         <% end %>
-                        <div class="cap2">
-                            <h2 class="text-center txt">Film</h2>
-                        </div>
-                    <% else %>
+                    </div>
+                <% else %>
+                    <div class = "filter tv rad each-item">
                         <%= link_to tv_path(p.id) do %>
                             <% if p.poster_path %>
                                 <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>'>
@@ -59,26 +70,34 @@
                                 <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
                             <% end %>
                             <div class="cap1">
-                                <span><h3 class = "text-center txt"><%= p.name %></h3></span>
+                                <span><h5 class = "text-center txt"><%= p.name %></h5></span>
                             </div>
                         <% end %>
-                        <div class="cap2">
-                            <h2 class="text-center txt">Serie TV</h2>
-                        </div>
-                    <% end %>
-                </div>
-        <% end %>   
+                    </div>
+                <% end %>
+            <% end %>   
+        </div>
     </div>
- 
 </div>
 
   
 
 <style>
 
+.scrl{
+    width: 1000px;
+    height: 340px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-left: 30px;
+}
+
+
 
 .txt{
     color: black;
+    font-size: 11px;
+    font-weight: bold;
 }
 
 
@@ -93,16 +112,15 @@
 
 .wrapper {
     margin-left: 4%;
-    height: auto;
     display: grid;
     grid-gap: 15px;
-    grid-template-columns: repeat(5, 180px);
+    grid-template-columns: repeat(8, 100px);
 
 }
 
 .img {
-    width: 180px;
-    height: 270px;
+    width: 100px;
+    height: 150px;
     overflow: hidden;
 }
 
@@ -117,7 +135,7 @@
 {
     position:absolute;
     width: 100%;
-    height:80%;
+    height:100%;
     background:rgba(255, 255, 255, 0.7);
     left:-100%;
     top: 0;
@@ -127,18 +145,44 @@
 }
 
 
-.cap2
-{
-    position:absolute;
-    width:100%;
-    height:20%;
-    background:rgba(108, 122, 137, 0.9);
-    bottom:0px;
-    left:100%;
-    padding:0px;
-    transition: all 1s;
-    overflow: hidden;
+#aw{
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
+
+
+
+.xbt{
+    border: none;
+    background-color: white;
+    outline: none;
+}
+
+
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  
+  
+  .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  #left{
+   float: left;
+   margin-top: 110px;
+  }
+  
+  #right{
+      float: left;
+      margin-top: 110px;
+  }
+  
 
 
 
@@ -223,12 +267,11 @@ body {
 }
 .moviecard .movie-castcrew {
   padding-top: 40px;
-  width: 100%;
+  width: 80%;
   height: auto;
   margin-bottom: 50px;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  text-align: justify;
 }
 .moviecard .movie-castcrew span.title {
   color: #333333;
@@ -264,3 +307,29 @@ body {
   border-radius: 10px;
 }
 </style>
+
+<script>
+
+$(document).ready(function(){
+
+    $(".filter-button").click(function(){
+        var value = $(this).attr('data-filter');
+        
+        if(value == "all")
+        {
+            //$('.filter').removeClass('hidden');
+            $('.filter').show('3000');
+        }
+        else
+        {
+//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+            $(".filter").not('.'+value).hide('3000');
+            $('.filter').filter('.'+value).show('3000');
+            
+        }
+    });
+
+});
+
+</script>

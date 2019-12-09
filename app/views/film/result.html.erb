@@ -4,8 +4,8 @@
     </div>
     <div id="movie-content">
       <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
-      <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.original_title%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button></span></div>
-      <div class="movie-details"><span class="movie-rating"><%= @film.release_date %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
+      <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date[0..3]%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button></span></div>
+      <div class="movie-details"><span class="movie-rating"><%= @film.original_title %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
               <% @film.genres.each do |g|%>
                   <%= g.name %>
               <% end %>
@@ -426,7 +426,7 @@ body {
 }
 .moviecard .movie-title .movie-year {
   margin-left: 12px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .moviecard .movie-title a {
   color: #333333;
