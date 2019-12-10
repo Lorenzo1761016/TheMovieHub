@@ -5,7 +5,7 @@
             <div class="panel panel-default marg">
                 <div class="panel-heading">
                     <strong id = "user"> <%= comment.username %> </strong> <span class="text-muted"><small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small></span>
-                    <% if current_user.username == comment.username %> 
+                    <% if current_user.username == comment.username || current_user.admin? %> 
                         <%= link_to "Elimina", comment, :method => :delete,:class => "link"%> 
                     <% end %>
                    <a id = 'a_<%= comment.id %>' style = "cursor: pointer"> Rispondi </a>

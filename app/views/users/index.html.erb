@@ -1,5 +1,18 @@
 <% @users = User.all %>
+  BAN
 <% @users.each do |user| %>
+  <% if user.banned? %>
+  BANNED
   Username: <%= user.username %><br/>
   E-mail: <%= user.email %><br/>
+  <%end%>
+<% end %>
+
+  NOT BAN
+<% @users.each do |user| %>
+  <% if user.banned == false %>
+  NOT BANNED
+  Username: <%= user.username %><br/>
+  E-mail: <%= user.email %><br/>
+  <%end%>
 <% end %>
