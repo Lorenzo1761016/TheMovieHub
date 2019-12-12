@@ -1,18 +1,22 @@
 <% @users = User.all %>
-  BAN
-<% @users.each do |user| %>
-  <% if user.banned? %>
-  BANNED
-  Username: <%= user.username %><br/>
-  E-mail: <%= user.email %><br/>
-  <%end%>
-<% end %>
+  <br>
+  <ul>
+    <% @users.each do |user| %>
+      <% if user.banned? %>
+        <li>
+          BANNED - Username: <%= user.username %> - E-mail: <%= user.email %> <%= link_to "Sblocca", unban_path(user.id) %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
 
-  NOT BAN
-<% @users.each do |user| %>
-  <% if user.banned == false %>
-  NOT BANNED
-  Username: <%= user.username %><br/>
-  E-mail: <%= user.email %><br/>
-  <%end%>
-<% end %>
+  <br>
+  <ul>
+    <% @users.each do |user| %>
+          <% if user.banned != true && user.admin != true %>
+                <li>
+                  NOT BANNED - Username: <%= user.username %> - E-mail: <%= user.email %> <%= link_to "Blocca", ban_path(user.id) %>
+                </li>
+            <% end %>
+    <% end %>
+  </ul>

@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   get 'film/index'
   get 'chat/index'
   get 'film/tv'
+  get '/unban/:id', to: 'users#unban', as: 'unban'
+  get '/ban/:id', to: 'users#ban', as: 'ban'
+
 
   mount ActionCable.server => '/cable'
 

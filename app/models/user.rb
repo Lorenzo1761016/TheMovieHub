@@ -29,5 +29,13 @@ class User < ActiveRecord::Base
     super && provider.blank?
   end
 
+  def active_for_authentication?
+    super && !self.banned?
+  end
+
+  def inactive_message
+    active_for_authentication? ? super : :locked
+  end
+
 end
   
