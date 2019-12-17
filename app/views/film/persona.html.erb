@@ -1,26 +1,335 @@
-<h1> <%= @persona.name %> </h1>
-<% if @persona.profile_path %>
-    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+@persona.profile_path)%>' width = 20%>
-<% else %>
-    <img src = '<%= image_path('/no_locandina.webp')%>' width = 20%  %>
-<% end %> 
-Data Di Nascita: <%= @persona.birthday %>, Luogo Di Nascita: <%= @persona.place_of_birth%>
-<br>
-Professione: <%= @persona.known_for_department %>
-<br>
-<br>
-Biografia: <%= @persona.biography %>
-<br>
-<br>
-<h1> CREDITI </h1>
-<% @mc.cast.each_slice(5) do |cc| %>
-    <% cc.each do |c| %>
-        <%= link_to result_path(c.id) do %>
-            <% if c.poster_path %>
-                <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+c.poster_path)%>' width = 10%>
+<div class="moviecard">
+  <div class="movie-poster play-trailer">
+  </div>
+  <div id="movie-content">
+    <div class="movie-title"><%=@persona.name %><span class="movie-year">(<%= @persona.also_known_as.first %>)</span></div>
+    <div class="movie-details">
+        <span class="movie-rating"> <%= @persona.place_of_birth %> </span>
+        <span class="movie-rating"><%= @persona.birthday %>
+            <% if  @persona.deathday%>
+                - <%= @persona.deathday %>
+            <% end %>
+        </span><span class="movie-genre"> <%= @persona.known_for_department %></span>
+        <span class="movie-genre"> 
+            <% if @persona.gender == 2 %>
+                M
+            <% elsif @persona.gender == 1 %>
+                F
             <% else %>
-                <img src = '<%= image_path('/no_locandina.webp')%>' width = 10%  %>
-            <% end %> 
+                not telling
+            <% end %>
+        <span class="movie-details">
+            
+        </span>
+    </div>
+    <div class="movie-castcrew"><span class="nom-2">Biografia</span>
+        <% if @persona.biography !=  "" %>
+            <div><span style = "font-size: 16px"><%= @persona.biography %></span></div>
+        <% else %>
+            <span style = "margin-left: 5px;font-size: 14px"> non disponibile </span>
         <% end %>
-    <% end %>
-<% end %>
+    </div>
+    <div class="movie-synopsis">
+    </div>
+
+    <div style = "margin-bottom: 40px; margin-left: 70px;margin-top: 60px;">
+        <span>
+            <button class="btn btn-primary filter-button" data-filter="all">Tutto</button>
+            <button class="btn btn-default filter-button" data-filter="tv">Serie TV</button>
+            <button class="btn btn-default filter-button" data-filter="movie">Film</button>
+            <span style = "margin-left: 200px;font-size: 30px"> Crediti </span>
+        </span>
+    </div>
+    <div class = "scrl">
+        <div class = "wrapper">
+        <% @mc.cast.each do |p| %>
+                <% if p.media_type == "movie"%>
+                    <div class = "filter movie rad each-item">
+                        <%= link_to result_path(p.id) do %>
+                            <% if p.poster_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>'>
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                            <% end %>
+                            <div class="cap1">
+                                <span>
+                                    <h5 class = "text-center txt"><%= p.title %></h5>
+                                    <% if p.release_date %>
+                                        <h5 class = "text-center txt"> <%= p.release_date[0..3] %></h5>
+                                    <% end %>
+                                </span>
+                            </div>
+                        <% end %>
+                    </div>
+                <% else %>
+                    <div class = "filter tv rad each-item">
+                        <%= link_to tv_path(p.id) do %>
+                            <% if p.poster_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+p.poster_path)%>'>
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                            <% end %>
+                            <div class="cap1">
+                                <span><h5 class = "text-center txt"><%= p.name %></h5></span>
+                            </div>
+                        <% end %>
+                    </div>
+                <% end %>
+            <% end %>   
+        </div>
+    </div>
+</div>
+
+  
+
+<style>
+
+.scrl{
+    width: 1000px;
+    height: 340px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-left: 30px;
+}
+
+
+
+.txt{
+    color: black;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+
+
+.nom-2{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: -7px;
+}
+
+
+.wrapper {
+    margin-left: 4%;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(8, 100px);
+
+}
+
+.img {
+    width: 100px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.rad{
+    border-radius: 25px;
+    border: solid;
+    border-color: black;
+}
+
+
+.cap1
+{
+    position:absolute;
+    width: 100%;
+    height:100%;
+    background:rgba(255, 255, 255, 0.7);
+    left:-100%;
+    top: 0;
+    padding:10px;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+
+#aw{
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+
+
+.xbt{
+    border: none;
+    background-color: white;
+    outline: none;
+}
+
+
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  
+  
+  .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  #left{
+   float: left;
+   margin-top: 110px;
+  }
+  
+  #right{
+      float: left;
+      margin-top: 110px;
+  }
+  
+
+
+
+.each-item
+{
+    position:relative;
+    overflow: hidden;
+}
+
+.each-item:hover .cap1, .each-item:hover .cap2
+{
+    left:0px;
+    overflow: hidden;
+   
+}
+
+
+
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #B5B5B5;
+}
+
+
+.moviecard {
+  font-family: 'Helvetica', sans-serif, 'Ariel';
+  position: absolute;
+  background: #ffffff;
+  color: #555555;
+  margin: 10px;
+  width: 1100px;
+  max-width: 2000px;
+  min-height: 300px;
+  height: auto;
+  padding: 30px 290px 30px 30px;
+  -moz-box-shadow: -5px 5px 15px;
+  -webkit-box-shadow: -5px 5px 15px;
+  box-shadow: -5px 5px 15px;
+  border-radius: 10px;
+
+}
+.moviecard #movie-content {
+  opacity: 1;
+  width: 100%;
+  display: table;
+  transition: all 500ms ease-out;
+  position: relative;
+}
+.moviecard .movie-title {
+  font-size: 32px;
+  padding-bottom: 6px;
+  color: #333333;
+}
+.moviecard .movie-title .movie-year {
+  margin-left: 12px;
+  font-size: 13px;
+}
+.moviecard .movie-title a {
+  color: #333333;
+  text-decoration: none;
+}
+.moviecard .movie-title a:hover {
+  color: #858585;
+}
+.moviecard .movie-details {
+  width: 80%;
+  font-size: 12px;
+  padding-bottom: 24px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span {
+  padding: 0px 6px;
+  border-right: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span:last-child {
+  border: none;
+}
+.moviecard .movie-castcrew {
+  padding-top: 40px;
+  width: 80%;
+  height: auto;
+  margin-bottom: 50px;
+  text-overflow: ellipsis;
+  text-align: justify;
+}
+.moviecard .movie-castcrew span.title {
+  color: #333333;
+  display: inline-block;
+  width: 80px;
+  font-weight: 600;
+}
+.moviecard .movie-synopsis {
+  margin: 24px 0px;
+  padding-top: 24px;
+  border-top: 1px solid #dbdbdb;
+  max-height: 230px;
+  height:auto;
+  overflow-y: hidden;
+  width: 80%;
+}
+.moviecard .movie-poster {
+  background: url('<%= @profile_path %>');  
+  position: absolute;
+  background-color: #dbdbdb;
+  background-size: 200px 300px;
+  background-repeat: no-repeat;
+  height: 0;
+  width: 200px;
+  height: 300px;
+  right: 30px;
+  top: 40px;
+  -moz-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+  transition: all 500ms ease-out;
+  z-index: 10;
+  border-radius: 10px;
+}
+</style>
+
+<script>
+
+$(document).ready(function(){
+
+    $(".filter-button").click(function(){
+        var value = $(this).attr('data-filter');
+        
+        if(value == "all")
+        {
+            //$('.filter').removeClass('hidden');
+            $('.filter').show('3000');
+        }
+        else
+        {
+//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+            $(".filter").not('.'+value).hide('3000');
+            $('.filter').filter('.'+value).show('3000');
+            
+        }
+    });
+
+});
+
+</script>

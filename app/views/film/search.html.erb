@@ -1,60 +1,164 @@
 
-<!-- 'https://image.tmdb.org/t/p/original/' -->
-
-<% if @people.results.size > 0%>
-    <h1> PERSONE </h1>
-    <% @people.results.each_slice(5) do |p|%>
-        <% p.each do |person| %>
-                <%= link_to persona_path(person.id) do %>
-                <% if person.profile_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+person.profile_path)%>' width = 18%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 18%>
-                <% end %>
-        <% end %>
-    <% end %>
-<% end %>
-        <br>
-        <br>
-    <% end %>
-<% if @movies.results.size > 0 %>
-    <h1> FILM </h1>
-    <% @movies.results.each_slice(5) do |q|%>
-        <% q.each do |query| %>
-            <%= link_to result_path(query.id) do %>
-                <% if query.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 18%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 18%>
-                <% end %>
+    <div>
+        <button class="btn btn-primary filter-button" data-filter="all">Tutto</button>
+        <button class="btn btn-default filter-button" data-filter="person">Persone</button>
+        <button class="btn btn-default filter-button" data-filter="movie">Film</button>
+        <button class="btn btn-default filter-button" data-filter="tv">Serie TV</button>
+    </div>
+    <br>
+<div class = "wrapper">
+        <% @search.results.each do |s|%>
+            <% if s.media_type == "movie" %>
+                <div class = "filter movie">
+                    <div class = "rad each-item">
+                        <%= link_to result_path(s.id) do %>
+                            <% if s.poster_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                            <% end %>
+                            <div class="cap1">
+                                <h3 class = "text-center txt"><%= s.title %></h3>
+                            </div>
+                        <% end %>
+                        <div class="cap2">
+                            <h2 class="text-center txt">Film</h2>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            <% if s.media_type == "tv" %>
+                <div class = "filter tv">
+                    <div class = "rad each-item">
+                        <%= link_to tv_path(s.id), class: "filter tv" do %>
+                            <% if s.poster_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' >
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>' width = 210px>
+                            <% end %>
+                            <div class="cap1">
+                                <h3 class = "text-center txt"><%= s.name %></h3>
+                            </div>
+                        <% end %>
+                        <div class="cap2">
+                            <h2 class="text-center txt">Serie TV</h2>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            <% if s.media_type == "person" %>
+                <div class = "filter person">
+                    <div class = "rad each-item">
+                        <%= link_to persona_path(s.id), class: "filter person" do %>
+                            <% if s.profile_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.profile_path)%>' >
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>' >
+                            <% end %>
+                            <div class="cap1">
+                                <h3 class = "text-center txt"><%= s.name %></h3>
+                            </div>
+                        <% end %>
+                        <div class="cap2">
+                            <h2 class="text-center txt">Persona</h2>
+                        </div>
+                    </div>
+                </div>
             <% end %>
         <% end %>
-        <br>
-        <br>
-    <% end %>
-<% end %>
-<% if @series.results.size > 0 %>
-    <h1> SERIE TV </h1>
-    <% @series.results.each_slice(5) do |q|%>
-        <% q.each do |query| %>
-            <%= link_to tv_path(query.id) do %>
-                <% if query.poster_path %>
-                    <img src= '<%= image_path('https://image.tmdb.org/t/p/original/'+query.poster_path)%>' width = 18%>
-                <%else%>
-                    <img src = '<%= image_path('/no_locandina.webp')%>' width = 18%>
-                <% end %>
-            <% end %>
-        <% end %>
-        <br>
-        <br>
-    <% end %>
-<% end %>
-<% if @people.results.size < 1%>
-    <% if @movies.results.size < 1%>
-        <% if @people.results.size < 1%>
-            <h1>Nessun risultato trovato.<%= link_to "Torna alla Home", index_path %></h1>
-        <% end %>
-    <% end %>
-<% end %>
+</div>
 
 
+<script>
+$(document).ready(function(){
+
+    $(".filter-button").click(function(){
+        var value = $(this).attr('data-filter');
+        
+        if(value == "all")
+        {
+            //$('.filter').removeClass('hidden');
+            $('.filter').show('3000');
+        }
+        else
+        {
+//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+            $(".filter").not('.'+value).hide('3000');
+            $('.filter').filter('.'+value).show('3000');
+            
+        }
+    });
+
+});
+</script>
+
+<style>
+
+.each-item
+{
+    position:relative;
+    overflow: hidden;
+
+}
+
+.each-item:hover .cap2, .each-item:hover .cap1
+{
+    left:0px;
+    overflow: hidden;
+   
+}
+
+.txt{
+    color: black;
+}
+
+.cap1
+{
+    position:absolute;
+    width: 100%;
+    height:80%;
+    background:rgba(255, 255, 255, 0.7);
+    top:0px;
+    left:-100%;
+    padding:10px;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+
+.cap2
+{
+    position:absolute;
+    width:100%;
+    height:20%;
+    background:rgba(108, 122, 137, 0.9);
+    bottom:0px;
+    left:100%;
+    padding:0px;
+    transition: all 1s;
+    overflow: hidden;
+}
+
+
+.wrapper {
+    width: 100%;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(5, 210px);
+}
+
+.img {
+    width: 210px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.rad{
+    border-radius: 25px;
+    border: solid;
+    border-color: black;
+}
+
+
+</style>

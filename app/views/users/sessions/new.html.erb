@@ -1,27 +1,100 @@
-<% provide(:title, 'Sign up') %>
-<h2>Logpèorcopeorin</h2>
+<% provide(:title, 'Log In') %>
+<div class = "moviecard">
+  <div class = "card bg-light corp">
+    <article class="card-body mx-auto" style="max-width: 600px;">
+      <h2 class="card-title mt-3 text-center">Effettua l'accesso</h2>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        
+         
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          <%= f.label :username %><br />
+          <%= f.text_field :username, autofocus: true, size: "50", autocomplete: "username" %>
+        </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+         <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          <%= f.label :password %><br />
+          <%= f.text_field :password, size: "50", autocomplete: "current-password" %>
+        </div>
+        
+  
+
+        <% if devise_mapping.rememberable? %>
+          <div class="form-group input-group wid" style = "margin-left: 35%">
+            <span class="input-group-text"> <i class="fa fa-bookmark"></i> </span>
+            <%= f.label :remember_me %>
+            <%= f.check_box :remember_me %>
+          </div>
+        <% end %>
+
+        <div class="form-group actions">
+          <%= f.submit "Accedi", class:"btn btn-primary btn-block" %>
+        </div>    
+        <p class="text-center">Non hai ancora un account? <%= link_to "Registrati", new_user_registration_path %> </p>    
+
+      <% end %>
+    </article>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
 
-<%= render "users/shared/links" %>
+<style>
+
+body {
+  background: #B5B5B5;
+}
+
+.moviecard {
+  font-family: 'Helvetica', sans-serif, 'Ariel';
+  position: absolute;
+  background: #ffffff;
+  color: #555555;
+  margin: 10px;
+  top: 100px;
+  width: 1100px;
+  max-width: 2000px;
+  min-height: 300px;
+  height: auto;
+  padding: 30px 290px 30px 30px;
+  -moz-box-shadow: -5px 5px 15px;
+  -webkit-box-shadow: -5px 5px 15px;
+  box-shadow: -5px 5px 15px;
+  border-radius: 10px;
+
+}
+
+
+.wid{
+  margin-left: 15%;
+}
+
+.corp{
+  margin-left: 200px;
+}
+
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divider-text span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;   
+    z-index: 2;
+}
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+}
+
+</style>

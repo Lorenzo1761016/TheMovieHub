@@ -16,9 +16,7 @@ class FilmController < ApplicationController
     @popular_people = Tmdb::Person.popular
   end
   def search 
-    @people = Tmdb::Search.person(params[:query])
-    @movies = Tmdb::Search.movie(params[:query])
-    @series = Tmdb::Search.tv(params[:query])
+    @search = Tmdb::Search.multi(params[:query])
   end
   def result
     if Film.exists?(params[:id])
@@ -43,6 +41,10 @@ class FilmController < ApplicationController
     @keywords = Tmdb::Movie.keywords(params[:id])
     @similar = Tmdb::Movie.similar(params[:id])
     @directors = Tmdb::Movie.director(params[:id])
+    @poster_path = @film.poster_path ? 'https://image.tmdb.org/t/p/original/'+@film.poster_path : "/no_locandina.webp";
+    if @film.belongs_to_collection
+      @collection = Tmdb::Collection.detail(@film.belongs_to_collection.id);
+    end
   end
   def tv
     if Tv.exists?(params[:id])
@@ -66,19 +68,19 @@ class FilmController < ApplicationController
     @keywords = Tmdb::TV.keywords(params[:id])
     @videos = Tmdb::TV.videos(params[:id])
     @similar = Tmdb::TV.similar(params[:id])
+    @poster_path = @serie.poster_path ? 'https://image.tmdb.org/t/p/original/'+@serie.poster_path : "/no_locandina.webp"
 
   end
   def season
     @season = Tmdb::Tv::Season.detail(params[:id],params[:number])
     @videos = Tmdb::Tv::Season.videos(params[:id],params[:number])
-  end
-  def episode
-    @episode = Tmdb::Tv::Episode.detail(params[:id], params[:number], params[:episode])
-    @cast = Tmdb::Tv::Episode.cast(params[:id], params[:number], params[:episode])
-    @videos = Tmdb::Tv::Episode.videos(params[:id], params[:number], params[:episode])
+    @poster_path = @season.poster_path ? 'https://image.tmdb.org/t/p/original/'+@season.poster_path : "/no_locandina.webp";
+    @serie = Tmdb::TV.detail(params[:id])
+
   end
   def persona
     @persona = Tmdb::Person.detail(params[:id])
     @mc = Tmdb::Person.combined_credits(params[:id])
+    @profile_path = @persona.profile_path ? 'https://image.tmdb.org/t/p/original/'+@persona.profile_path : "/no_locandina.webp";
   end
 end

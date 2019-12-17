@@ -1,5 +1,150 @@
-<% @users = User.all %>
-<% @users.each do |user| %>
-  Username: <%= user.username %><br/>
-  E-mail: <%= user.email %><br/>
-<% end %>
+<h1> UTENTI </h1>
+
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box no-header clearfix">
+                <div class="main-box-body clearfix">
+                    <div class="table-responsive">
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                <th><span>User</span></th>
+                                <th><span>Name</span></th>
+                                <th><span>Created</span></th>
+                                <th class="text-center"><span>Status</span></th>
+                                <th><span>Email</span></th>
+                                <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <% @users = User.all %>
+                                <% @users.each do |user|%>
+                                  <tr>
+                                    <td>
+                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
+                                        <%= link_to user_path(user.id), class: "nom user-link" do %>
+                                          <%= user.username %>
+                                        <% end %>
+                                    </td>
+                                    <td><span style = "font-size: 14px"><%= user.first_name %> <%= user.last_name %></span></td>
+                                    <td> <span style = "font-size: 14px"><%= user.created_at %></span></td>
+                                    <td class="text-center">
+                                      <% if user.banned? %>
+                                        <span class="label label-danger">Sospeso</span>
+                                      <% elsif user.admin? %>
+                                        <span class="label label-success">Admin</span>
+                                      <% else %>
+                                        <span class="label label-default">Utente</span>
+                                      <% end %>
+                                    </td>
+                                    <td>
+                                        <span style = "font-size: 14px"> <%= user.email %></span>
+                                    </td>
+                                    <td style="width: 15%;padding-left: 50px">
+                                      <% if !user.admin?%>
+                                        <% if user.banned?%>
+                                          <%= link_to unban_path(user.id), class:"table-link danger", data: {confirm: "vuoi sbloccare "+user.username+"?"} do %>
+                                              <i class="fas fa-user-check" style="color: green;font-size:26px"></i>
+                                          <% end %> 
+                                        <% else %>
+                                          <%= link_to ban_path(user.id), class:"table-link danger", data: {confirm: "vuoi sospendere "+user.username+"?"} do %>
+                                              <i class="fas fa-user-lock" style="color: red;font-size:26px"></i>
+                                          <% end %>
+                                        <% end %>
+                                        <%= link_to destroy_path(user), class:"table-link danger", data: {confirm: "vuoi eliminare definitivamente "+user.username+"?"} do %>
+                                            <i class="fas fa-user-times" style="font-size:26px"></i>
+                                        <% end %>
+                                      <% end %>
+                                    </td>
+                                  </tr>
+                                <% end %>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+body{
+    background:#eee;    
+}
+.main-box.no-header {
+    padding-top: 20px;
+}
+.main-box {
+    background: #FFFFFF;
+    -webkit-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -moz-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -o-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -ms-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    box-shadow: 1px 1px 2px 0 #CCCCCC;
+    margin-bottom: 16px;
+    -webikt-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.table a.table-link.danger {
+    color: black;
+}
+.label {
+    border-radius: 3px;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+.user-list tbody td .user-subhead {
+    font-size: 0.875em;
+    font-style: italic;
+}
+.user-list tbody td .user-link {
+    display: block;
+    font-size: 1.25em;
+    padding-top: 3px;
+    margin-left: 60px;
+}
+a {
+    color: #3498db;
+    outline: none!important;
+}
+.user-list tbody td>img {
+    position: relative;
+    max-width: 50px;
+    float: left;
+    margin-right: 15px;
+}
+
+.table thead tr th {
+    text-transform: uppercase;
+    font-size: 0.875em;
+}
+.table thead tr th {
+    border-bottom: 2px solid #e7ebee;
+}
+.table tbody tr td:first-child {
+    font-size: 1.125em;
+    font-weight: 300;
+}
+.table tbody tr td {
+    font-size: 0.875em;
+    vertical-align: middle;
+    border-top: 1px solid #e7ebee;
+    padding: 12px 8px;
+}                    
+
+.nom{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+}
+
+.nom:hover{
+    text-decoration: none;
+    color: gray;  
+}
+</style>
