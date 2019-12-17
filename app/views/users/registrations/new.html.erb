@@ -38,6 +38,16 @@
           <%= f.text_field :first_name, size: "51", autofocus: true %>
         </div>
 
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, autofocous: true %>
+  </div>
+  
+  <!--check gender-->
+  <div class="field">
+    <%= f.label :gender %><br/>
+    <%= f.select(:gender, User.gender_types.map { |k,v| [k.capitalize, v] }) %>
+  </div>
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-info"></i> </span>
           <%= f.label :last_name %><br />

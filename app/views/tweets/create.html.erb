@@ -2,26 +2,27 @@
 <div class="row">
     <div class="col-lg-12">
         <ul class="timeline">
-            <% @tweets.each do |tweet| %>
-                    <div class="container blockquote-twitter-tweet">
-                        <div class="timeline-image">
-                            <!-- Show user avatar (profile pic)-->
-                            <img class="img-circle" src= '<%= image_path(tweet.user.profile_image_url_https.to_s.gsub('_normal','')) %>' alt="" style="width: 10%;height: 10%;">
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <!-- Show user name -->
-                                <h4> <%= tweet.user.name %> </h4> 
-                                <a href="https://twitter.com/<%= tweet.user.screen_name %>", target="_blank"> <%= "@#{tweet.user.screen_name}" %> </a>
+            <%= @tweets.each_slice(2) do |t| %>
+                <% t.each do |tweet| %>
+                        <div class="container blockquote-twitter-tweet" style="background-color: lightblue; width: 70%">
+                            <div class="timeline-image">
+                                <!-- Show user avatar (profile pic)-->
+                                <img class="img-circle" src= '<%= image_path(tweet.user.profile_image_url_https.to_s.gsub('_normal','')) %>' alt="" style="width: 10%;height: 10%;">
                             </div>
-                            <div class="timeline-body">
-                                <p class="text-muted"> <%= tweet.text%> </p>
-                                <i class="fa fa-retweet"> <%= tweet.retweet_count %> </i>
-                                <i class="fa fa-heart"> <%= tweet.favorite_count %> </i>                                        
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <!-- Show user name -->
+                                    <h4> <%= tweet.user.name %> </h4> 
+                                    <a href="https://twitter.com/<%= tweet.user.screen_name %>", target="_blank"> <%= "@#{tweet.user.screen_name}" %> </a>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted"> <%= tweet.attrs[:full_text]%> </p>
+                                    <i class="fa fa-retweet"> <%= tweet.retweet_count %> </i>
+                                    <i class="fa fa-heart"> <%= tweet.favorite_count %> </i>                                        
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
+                <% end %>
             <% end %>
         </ul>
     </div>

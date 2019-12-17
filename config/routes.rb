@@ -12,13 +12,13 @@ Rails.application.routes.draw do
   get 'contact'        => 'static_pages#contact'
   get 'chat'           => 'chat#index'
   get 'persona/:id', to: 'film#persona', as: 'persona'
-  get 'movie/:id', to: 'film#result', as: 'result'
-  post 'search'    => 'film#search'
-  get 'search'     => 'film#search'
-  get 'index'       => 'film#index'
-  get 'tv/:id', to: 'film#tv', as: 'tv'
-  get 'tv/:id/season/:number', to: 'film#season', as: 'season'
   get 'tv/:id/season/:number/episode/:episode', to: 'film#episode', as: 'episode'
+  get 'tv/:id/season/:number', to: 'film#season', as: 'season'
+  get 'tv/:id', to: 'film#tv', as: 'tv'
+  get 'movie/:id', to: 'film#result', as: 'result'
+  post 'search'     => 'film#search'
+  get 'search'      => 'film#search'
+  get 'index'       => 'film#index'
   get 'film/persona'
   get 'film/result'
   get 'film/search'
@@ -41,6 +41,10 @@ Rails.application.routes.draw do
 
   resources :comments do
     resources :comments
+    member do
+      put "like"    => "comments#like"
+      put "dislike" => "comments#dislike"
+    end
   end
   resources :tweets
   resources :users, :only =>[:show, :index, :update, :edit]

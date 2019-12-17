@@ -1,7 +1,0 @@
-<% provide(:title, 'Tweets') %>
-
-<%= form_tag(tweets_path method: :post) do %>
-    search for tweets <%= text_field_tag :tweet %>
-    <%= submit_tag 'Search' %>
-<% end %>
-

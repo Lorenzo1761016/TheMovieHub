@@ -62,6 +62,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
+    acts_as_votable (0.12.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     archive-zip (0.12.0)
@@ -307,6 +308,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store (~> 1.0)
+  acts_as_votable
   bcrypt-ruby (= 3.1.1.rc1)
   bootsnap (>= 1.1.0)
   bootstrap-sass (~> 3.2.0.0)

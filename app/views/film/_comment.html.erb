@@ -13,6 +13,19 @@
                 <div class="panel-body">
                     <%= comment.body %>
                 </div><!-- /panel-body -->
+                <div id="comment_n<%= comment.id %>%", style="text-align:center;", data-id="<%=comment.id%>", class="comment"> 
+                        <%= link_to like_comment_path(comment), method: :put, remote: :true do %>
+                            <i class="fas fa-thumbs-up"></i>
+                        <% end %>
+                        <span class="score">
+                           <span class="score_num",>
+                             <%=comment.votes_for.size%>
+                           </span>
+                        </span>
+                        <%= link_to dislike_comment_path(comment), method: :put, remote: :true do %>
+                            <i class="fas fa-thumbs-up fa-rotate-180"></i>              
+                        <% end %>
+                </div>
             </div><!-- /panel panel-default -->
         </div><!-- /col-sm-5 -->
     </div>
@@ -26,10 +39,9 @@
         <% end %>
     </div> 
 
-
-  <ul>
+    <ul>
       <%= render partial: 'comment', collection: comment.comments %>
-  </ul> 
+    </ul> 
 </body>
 
 <script>
@@ -37,6 +49,11 @@
         $('#a_<%= comment.id %>').click(function(event){
             event.preventDefault();
             $('#id_<%= comment.id%>').toggle();
+        });
+        $('.comment').click(function(){
+            comment_id = $(this).attr("data-id")
+            alert(comment_id)
+            $('.score-num').html('<%= @comment.get_likes.size %>')
         });
     });   
 </script> 
