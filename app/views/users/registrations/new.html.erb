@@ -1,50 +1,140 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocous: true %>
-  </div>
+<div class = "moviecard">
+  <div class = "card bg-light corp">
+    <article class="card-body mx-auto" style="max-width: 600px;">
+      <h2 class="card-title mt-3 text-center">Crea Un Account</h2>
+      
+      <%- if devise_mapping.omniauthable? %>
+        <%- resource_class.omniauth_providers.each do |provider| %>
+          <%= link_to omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-twitter" do %>
+            <i class="fab fa-<%=provider%>"></i>
+            Sign in with <%= OmniAuth::Utils.camelize(provider) %>
+          <% end %><br />
+        <% end %>
+      <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <p class="divider-text">
+        <span class="bg-light">OR</span>
+      </p>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocous: true %>
-  </div>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>      	
+        
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          <%= f.label :username %>
+          <%= f.text_field :username, size: "40", autofocous: true %>
+        </div>
+        
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+          <%= f.label :email %><br />
+          <%= f.email_field :email, size: "51", autofocus: true, autocomplete: "email" %>  
+        </div>
+        
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-info"></i> </span>
+          <%= f.label :first_name %><br />
+          <%= f.text_field :first_name, size: "51", autofocus: true %>
+        </div>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocous: true %>
-  </div>
-  
-  <!--check gender-->
-  <div class="field">
-    <%= f.label :gender %><br/>
-    <%= f.select :gender, ["Not Telling", "Male", "Female", "Other"] %>
-  </div>
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-info"></i> </span>
+          <%= f.label :last_name %><br />
+          <%= f.text_field :last_name,size: "51", autofocus: true %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+      
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-venus-mars"></i> </span>
+          <%= f.label :gender %><br/>
+          <%= f.select :gender, ["Not Telling", "Male", "Female", "Other"]%>
+        </div>
+            
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, size: "51", autocomplete: "new-password" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, size: "51", autocomplete: "new-password" %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+                      
+        <div class="form-group actions">
+          <%= f.submit "Crea Account", class:"btn btn-primary btn-block" %>
+        </div>    
+        <p class="text-center">Hai già un account? <%= link_to "Log In", new_user_session_path %> </p>             
+          <% end %>
+        </div>
+      </div>
+    </article>
   </div>
-<% end %>
+</div>
+<style>
 
-<%= render "users/shared/links" %>
+body {
+  background: #B5B5B5;
+}
+
+.moviecard {
+  font-family: 'Helvetica', sans-serif, 'Ariel';
+  position: absolute;
+  background: #ffffff;
+  color: #555555;
+  margin: 10px;
+  width: 1100px;
+  max-width: 2000px;
+  min-height: 300px;
+  height: auto;
+  padding: 30px 290px 30px 30px;
+  -moz-box-shadow: -5px 5px 15px;
+  -webkit-box-shadow: -5px 5px 15px;
+  box-shadow: -5px 5px 15px;
+  border-radius: 10px;
+
+}
+
+
+.wid{
+  margin-left: 15%;
+}
+
+.corp{
+  margin-left: 200px;
+}
+
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divider-text span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;   
+    z-index: 2;
+}
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+}
+
+.btn-twitter {
+    background-color: #42AEEC;
+    color: #fff;
+}
+
+</style>

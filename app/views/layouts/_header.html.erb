@@ -4,6 +4,7 @@
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
   
   <div class="container">
@@ -13,8 +14,8 @@
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Database", index_path %></li>
         <li><%= link_to "Tweets", tweets_path %></li>
-        <li><%= link_to "Chat", chat_path %></li>
         <% if user_signed_in? %>
+          <li><%= link_to "Chat", chat_path %></li>
           <li><%= link_to "Profile", user_path(current_user) %></li>
           <% if current_user.admin? %>
             <li><%= link_to "All Users", users_path %></li>
