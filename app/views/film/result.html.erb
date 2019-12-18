@@ -4,7 +4,12 @@
     </div>
     <div id="movie-content">
       <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
-      <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date[0..3]%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button></span></div>
+      <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date[0..3]%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button>
+        <%= link_to tweets_path(obj_name: @film.title), method: :post, class: "btn btn-primary btn-twitter", style: "border-radius: 10px;margin-bottom:3px;border: 1px solid black" do%>
+          Feed
+          <i class="fab fa-twitter"></i>
+        <% end %>
+      </span></div>
       <div class="movie-details"><span class="movie-rating"><%= @film.original_title %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
               <% @film.genres.each do |g|%>
                   <%= g.name %>
@@ -113,36 +118,37 @@
         <% end %>
       </div>
     <% end%>
-    <h1 style = "margin-left: 25%"> Potrebbero Piacerti Anche </h1>
-  <div style = "width: 1150px;margin-left:0px;">
-      <div>
-          <button class = "xbt" id = "left">  <i id = "aw" class="arrow left"></i></button>
-      </div>
-      <div id = "pot" class="scrollmenu">
-          <% @similar.results.each do |s| %>
-              <%= link_to result_path(s.id), id: "animation_6",style: "overflow: hidden; border-radius: 25px" do %>
-                  <% if s.poster_path %>
-                      <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
-                  <%else%>
-                      <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+    <% if @similar.results.size > 0%>
+      <h1 style = "margin-left: 25%"> Potrebbero Piacerti Anche </h1>
+      <div style = "width: 1150px;margin-left:0px;">
+          <div>
+              <button class = "xbt" id = "left">  <i id = "aw" class="arrow left"></i></button>
+          </div>
+          <div id = "pot" class="scrollmenu">
+              <% @similar.results.each do |s| %>
+                  <%= link_to result_path(s.id), id: "animation_6",style: "overflow: hidden; border-radius: 25px" do %>
+                      <% if s.poster_path %>
+                          <img class ="img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                      <%else%>
+                          <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                      <% end %>
                   <% end %>
               <% end %>
-          <% end %>
+          </div>
+          <div >
+              <button class = "xbt" id = "right"><i id = "aw" class="arrow right"></i></button>
+          </div>
+          
+        
       </div>
-      <div >
-          <button class = "xbt" id = "right"><i id = "aw" class="arrow right"></i></button>
-      </div>
-      
-    
-  </div>
-  </div>
+    <% end %>
+    </div>
   </div>
 
 <style>
 
 
-
- #aw{
+#aw{
   border: solid black;
   border-width: 0 3px 3px 0;
   display: inline-block;
@@ -291,6 +297,8 @@ div.scrollmenu a:hover {
     outline: none;
 }
 
+
+
 .red{
     color: black;
 }
@@ -427,13 +435,6 @@ body {
 .moviecard .movie-title .movie-year {
   margin-left: 12px;
   font-size: 15px;
-}
-.moviecard .movie-title a {
-  color: #333333;
-  text-decoration: none;
-}
-.moviecard .movie-title a:hover {
-  color: #858585;
 }
 .moviecard .movie-details {
   font-size: 12px;

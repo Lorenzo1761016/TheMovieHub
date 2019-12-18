@@ -7,15 +7,15 @@
         
          
         <div class="form-group input-group wid">
-          <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-          <%= f.label :username %><br />
-          <%= f.text_field :username, autofocus: true, size: "50", autocomplete: "username" %>
+          <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+          <%= f.label :email %><br />
+          <%= f.email_field :email, size: "51", autofocus: true, autocomplete: "email" %>  
         </div>
 
          <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
           <%= f.label :password %><br />
-          <%= f.text_field :password, size: "50", autocomplete: "current-password" %>
+          <%= f.password_field :password, size: "50", autocomplete: "current-password" %>
         </div>
         
   
