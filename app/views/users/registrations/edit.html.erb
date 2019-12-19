@@ -1,75 +1,140 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <!--change username, first name and last name-->
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocous: true %>
-  </div>
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocous: true %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocous: true %>
-  </div>
-  <!--check gender-->
-  <div class="field">
-    <%= f.label :gender %><br />
-    <%= f.select(:gender, User.gender_types.map { |k,v| [k.capitalize, v] }) %>
-  </div>
-  <!--change phone number-->
-  <div class="field">
-    <%= f.label :Phone_Number %><br />
-    <%= f.number_field :phone_number, autofocous: true %>
-  </div>
-  <!--change user birth date-->
-  <div class="field">
-    <%= date_field(:user, :date_of_birth) %>
-  </div>
-  <!--necessary for twitter linking-->
-  <div class="field">
-    <%= f.label :Twitter_Name %><br />
-    <%= f.text_field :twittername, autofocous: true %>
-  </div>
-  <!--change user email-->
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+<div class = "moviecard">
+  <div class = "card bg-light corp">
+    <article class="card-body mx-auto" style="max-width: 600px;">
+      <h2 class="card-title mt-3 text-center">Modifica Account</h2>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <!--change username, first name and last name-->
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          <%= f.label :username %><br />
+          <%= f.text_field :username, size: "63", autofocous: true %>
+        </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-  <!--change user password-->
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-info"></i> </span>
+          <%= f.label :first_name %><br />
+          <%= f.text_field :first_name, size: "63", autofocous: true %>
+        </div>
+
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-info"></i> </span>
+          <%= f.label :last_name %><br />
+          <%= f.text_field :last_name, size: "63", autofocous: true %>
+        </div>
+        <!--check gender-->
+        <div class="form-group input-group wid" style = "margin-left: 45%">
+          <span class="input-group-text"> <i class="fa fa-venus-mars"></i> </span>
+          <%= f.label :gender %><br />
+          <%= f.select(:gender, User.gender_types.map { |k,v| [k.capitalize, v] }) %>
+        </div>
+       
+        <!--change user email-->
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+          <%= f.label :email %><br />
+          <%= f.email_field :email, size: "63", autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+        <!--change user password-->
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+          <%= f.password_field :password, size: "63", autocomplete: "new-password" %>
+          <% if @minimum_password_length %>
+            <br />
+            <em><%= @minimum_password_length %> characters minimum</em>
+          <% end %>
+        </div>
+
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, size: "63", autocomplete: "new-password" %>
+        </div>
+
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+          <%= f.password_field :current_password, size: "63", autocomplete: "current-password" %>
+        </div>
+
+        <div class="actions form-group wid">
+          <%= f.submit "Update", class:"btn btn-primary btn-block" %>
+        </div>
+      <% end %>
+      <div class = "wid">
+        <h3>Cancel my account</h3>
+
+        <p><%= button_to "Cancella account", destroy_path(resource_name), class:"btn btn-primary btn-block",data: { confirm: "Sei sicuro di voler eliminare il tuo account?" }, method: :delete %></p>
+      </div>
+    </article>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+<style>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
+body {
+  background: #B5B5B5;
+}
 
-<h3>Cancel my account</h3>
+.moviecard {
+  font-family: 'Helvetica', sans-serif, 'Ariel';
+  position: absolute;
+  background: #ffffff;
+  color: #555555;
+  margin: 10px;
+  width: 1100px;
+  max-width: 2000px;
+  min-height: 300px;
+  height: auto;
+  padding: 30px 290px 30px 30px;
+  -moz-box-shadow: -5px 5px 15px;
+  -webkit-box-shadow: -5px 5px 15px;
+  box-shadow: -5px 5px 15px;
+  border-radius: 10px;
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+}
 
-<%= link_to "Back", :back %>
+
+.wid{
+  margin-left: 15%;
+}
+
+.corp{
+  margin-left: 200px;
+}
+
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divider-text span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;   
+    z-index: 2;
+}
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+}
+
+.btn-twitter {
+    background-color: #42AEEC;
+    color: #fff;
+}
+
+</style>

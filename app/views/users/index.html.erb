@@ -43,17 +43,20 @@
                                         <span style = "font-size: 14px"> <%= user.email %></span>
                                     </td>
                                     <td style="width: 15%;padding-left: 50px">
+                                      <%= link_to "#", class:"table-link danger",title: "Modifica" do %>
+                                          <i class="fas fa-user-edit" style="color: #0A1F73;font-size:26px"></i>
+                                      <% end %>
                                       <% if !user.admin?%>
                                         <% if user.banned?%>
-                                          <%= link_to unban_path(user.id), class:"table-link danger", data: {confirm: "vuoi sbloccare "+user.username+"?"} do %>
+                                          <%= link_to unban_path(user.id), class:"table-link danger",title: "Sblocca", data: {confirm: "vuoi sbloccare "+user.username+"?"} do %>
                                               <i class="fas fa-user-check" style="color: green;font-size:26px"></i>
                                           <% end %> 
                                         <% else %>
-                                          <%= link_to ban_path(user.id), class:"table-link danger", data: {confirm: "vuoi sospendere "+user.username+"?"} do %>
-                                              <i class="fas fa-user-lock" style="color: red;font-size:26px"></i>
+                                          <%= link_to ban_path(user.id), class:"table-link danger", title: "Blocca", data: {confirm: "vuoi sospendere "+user.username+"?"} do %>
+                                              <i class="fas fa-user-lock" style="color: #A21717;font-size:26px"></i>
                                           <% end %>
                                         <% end %>
-                                        <%= link_to destroy_path(user), class:"table-link danger", data: {confirm: "vuoi eliminare definitivamente "+user.username+"?"} do %>
+                                        <%= link_to destroy_path(user), class:"table-link danger",title: "Elimina", data: {confirm: "vuoi eliminare definitivamente "+user.username+"?"} do %>
                                             <i class="fas fa-user-times" style="font-size:26px"></i>
                                         <% end %>
                                       <% end %>

@@ -1,88 +1,114 @@
-
-<div class="container emp-profile">
-        <form method="post">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="profile-img">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="profile-head">
-                                <h1><%= @user.username %></h1>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <%= link_to 'Edit', edit_user_registration_path %>
-                </div>
-                <div class="col-md-2">
-                    Banned: <%= @user.banned %>
-                </div>
-            </div>
-            <div class="row">
+<div class = "moviecard">
+    <div class="container emp-profile">
+            <form method="post">
+                <div class="row">
                     <div class="col-md-4">
-                    </div>
-                <div class="col-md-8">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Name</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><%= @user.first_name%> <%= @user.last_name%></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Gender</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p> <%= User.gender_types.key(@user.gender) %> </p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Date of Birth</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><%= @user.date_of_birth%></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Email</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><%= @user.email%></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Phone</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><%= @user.phone_number%></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Social Account</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Web Developer and Designer</p>
-                                        </div>
-                                    </div>
+                        <div class="profile-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
                         </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Your Bio</label><br/>
-                                    <p></p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h1><%= @user.username %></h1>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-block btn-primary" %>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><%= @user.first_name%> <%= @user.last_name%></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Gender</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p> <%= User.gender_types.key(@user.gender) %> </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Date of Birth</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><%= @user.date_of_birth%></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><%= @user.email%></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><%= @user.phone_number%></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Social Account</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Web Developer and Designer</p>
+                                            </div>
+                                        </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Your Bio</label><br/>
+                                        <p></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>           
+            </form>           
+        </div>
     </div>
+
+<style>
+
+
+body {
+  background: #B5B5B5;
+}
+
+.moviecard {
+  font-family: 'Helvetica', sans-serif, 'Ariel';
+  position: absolute;
+  background: #ffffff;
+  color: #555555;
+  margin-left: -70px;
+  width: 1300px;
+  max-width: 2000px;
+  min-height: 300px;
+  height: auto;
+  padding: 30px 290px 30px 30px;
+  -moz-box-shadow: -5px 5px 15px;
+  -webkit-box-shadow: -5px 5px 15px;
+  box-shadow: -5px 5px 15px;
+  border-radius: 10px;
+
+}
+
+
+</style>

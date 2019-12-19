@@ -14,7 +14,11 @@
         <li><%= link_to "Database", index_path %></li>
         <% if user_signed_in? %>
           <li><%= link_to "Chat", chat_path %></li>
-          <li><%= link_to "Profile", user_path(current_user) %></li>
+          <li>
+            <%= link_to user_path(current_user) do %>
+              <%= current_user.first_name %>
+            <% end %>
+          </li>
           <% if current_user.admin? %>
             <li><%= link_to "All Users", users_path %></li>
           <% end %>
