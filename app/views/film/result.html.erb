@@ -5,7 +5,7 @@
     <div id="movie-content">
       <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
       <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date[0..3]%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button>
-        <%= link_to tweets_path(obj_name: @film.title), method: :post, class: "btn btn-primary btn-twitter", style: "border-radius: 10px;margin-bottom:3px;border: 1px solid black" do%>
+        <%= link_to tweets_path(obj_name: @film.title), method: :post, class: "btn btn-primary btn-twitter", target: '_blank', style: "border-radius: 10px;margin-bottom:3px;border: 1px solid black" do%>
           Feed
           <i class="fab fa-twitter"></i>
         <% end %>
