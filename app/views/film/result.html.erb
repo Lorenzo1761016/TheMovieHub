@@ -62,8 +62,9 @@
       <div class="movie-castcrew"><span class="nom">Parole Chiave</span>
           <div class = "wrapper-1">
               <% @keywords.each do |kw| %>
-                  <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank', class: "nom-1" do %>
-                      #<%= kw.name %>
+                  <%= link_to tweets_path(obj_name: "#"+kw.name), method: :post, class: "btn btn-primary btn-twitter", target: '_blank', style: "border-radius: 10px;margin-bottom:3px;border: 1px solid black" do%>
+                    #<%= kw.name %>
+                    <i class="fab fa-twitter"></i>
                   <% end %>
               <% end %>
           </div>

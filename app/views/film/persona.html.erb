@@ -2,7 +2,13 @@
   <div class="movie-poster play-trailer">
   </div>
   <div id="movie-content">
-    <div class="movie-title"><%=@persona.name %><span class="movie-year">(<%= @persona.also_known_as.first %>)</span></div>
+    <div class="movie-title"><%=@persona.name %><span class="movie-year">(<%= @persona.also_known_as.first %>)
+            <%= link_to tweets_path(obj_name: @persona.name), method: :post, class: "btn btn-primary btn-twitter", target: '_blank', style: "border-radius: 10px;margin-bottom:3px;border: 1px solid black" do%>
+                Feed
+                <i class="fab fa-twitter"></i>
+            <% end %>
+        </span>
+    </div>
     <div class="movie-details">
         <span class="movie-rating"> <%= @persona.place_of_birth %> </span>
         <span class="movie-rating"><%= @persona.birthday %>
@@ -243,13 +249,6 @@ body {
 .moviecard .movie-title .movie-year {
   margin-left: 12px;
   font-size: 13px;
-}
-.moviecard .movie-title a {
-  color: #333333;
-  text-decoration: none;
-}
-.moviecard .movie-title a:hover {
-  color: #858585;
 }
 .moviecard .movie-details {
   width: 80%;

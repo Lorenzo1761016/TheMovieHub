@@ -8,7 +8,13 @@
   </div>
   <div id="movie-content">
     <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @serie.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
-    <div class="movie-title"><%=@serie.name %><span class="movie-year">(<%= @serie.original_name%>)</span></div>
+    <div class="movie-title"><%=@serie.name %><span class="movie-year">(<%= @serie.original_name%>)
+            <%= link_to tweets_path(obj_name: @serie.name), method: :post, class: "btn btn-primary btn-twitter", target: '_blank', style: "border-radius: 10px;margin-bottom:3px;border: 1px solid black" do%>
+                Feed
+                <i class="fab fa-twitter"></i>
+            <% end %>
+        </span>
+    </div>
     <div class="movie-details"><span class="movie-rating"><%= @serie.first_air_date %> - <%= @serie.last_air_date %> (<%= @serie.status %>)</span><span class="movie-duration"><%= @serie.number_of_episodes %> episodi </span><span class="movie-genre">
             <% @serie.genres.each do |g|%>
                 <%= g.name %>
@@ -81,8 +87,9 @@
      <div class="movie-castcrew"><span class="nom">Parole Chiave</span>
         <div class = "wrapper-1">
             <% @keywords.each do |kw| %>
-                <%= link_to 'http://www.twitter.com/hashtag/'+kw.name, target: '_blank', class: "nom-1" do %>
-                    #<%= kw.name %>
+                <%= link_to tweets_path(obj_name: kw.name), method: :post, class: "btn btn-primary btn-twitter", target: '_blank', style: "border-radius: 10px;margin-bottom:3px;border: 1px solid black" do%>
+                    #<%= kw.name%>
+                    <i class="fab fa-twitter"></i>
                 <% end %>
             <% end %>
         </div>
@@ -104,7 +111,7 @@
 <h1 style = "margin-left: 25%"> Potrebbero Piacerti Anche </h1>
 <div style = "width: 1100px;margin-left:-7px;">
     <div>
-        <button class = "xbt" id = "left">  <i class="arrow left"></i></button>
+        <button class = "xbt" id = "left">  <i id = "arw" class="arrow left"></i></button>
     </div>
     <div class="scrollmenu">
         <% @similar.results.each do |s| %>
@@ -118,13 +125,13 @@
         <% end %>
     </div>
     <div >
-        <button class = "xbt" id = "right"><i class="arrow right"></i></button>
+        <button class = "xbt" id = "right"><i id = "arw" class="arrow right"></i></button>
     </div>
 </div>
 <style>
 
 
-i {
+#arw {
   border: solid black;
   border-width: 0 3px 3px 0;
   display: inline-block;
@@ -415,13 +422,6 @@ body {
 .moviecard .movie-title .movie-year {
   margin-left: 12px;
   font-size: 16px;
-}
-.moviecard .movie-title a {
-  color: #333333;
-  text-decoration: none;
-}
-.moviecard .movie-title a:hover {
-  color: #858585;
 }
 .moviecard .movie-details {
   font-size: 12px;

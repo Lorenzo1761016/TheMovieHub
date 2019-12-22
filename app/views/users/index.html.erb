@@ -43,8 +43,10 @@
                                         <span style = "font-size: 14px"> <%= user.email %></span>
                                     </td>
                                     <td style="width: 15%;padding-left: 50px">
-                                      <%= link_to "#", class:"table-link danger",title: "Modifica" do %>
-                                          <i class="fas fa-user-edit" style="color: #0A1F73;font-size:26px"></i>
+                                      <% if user.username == current_user.username %>
+                                        <%= link_to "#", class:"table-link danger",title: "Modifica" do %>
+                                            <i class="fas fa-user-edit" style="color: #0A1F73;font-size:26px"></i>
+                                        <% end %>
                                       <% end %>
                                       <% if !user.admin?%>
                                         <% if user.banned?%>
