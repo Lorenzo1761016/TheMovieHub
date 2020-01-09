@@ -2,6 +2,8 @@ class CommentsController < ApplicationController
     before_action :find_commentable
     before_action :require_login
     respond_to :js, :html, :json
+
+
   def require_login
     unless current_user != nil
     flash[:error] =  "DEVI EFFETTUARE L'ACCESSO PER VISUALIZZARE I FILM"
@@ -37,7 +39,12 @@ class CommentsController < ApplicationController
     if current_user.voted_for? @comment
         @comment.unliked_by current_user
     else
-      @comment.liked_by current_user
+        @comment.liked_by current_user
+    end
+    redirect_back fallback_location: @comment
+    respond_to do |format|
+      format.html
+      format.json { render json: { count: @comment.votes_for.size } }
     end
   end
 
@@ -47,6 +54,10 @@ class CommentsController < ApplicationController
         @comment.undisliked_by current_user
     else
         @comment.dislike_by current_user
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: { count: @comment.votes_for.size } }
     end
   end
 
