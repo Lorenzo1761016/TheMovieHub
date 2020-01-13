@@ -1,11 +1,34 @@
-<div class="center jumbotron">
-  <h1>Welcome to the Sample App</h1>
+<div class="center jumbotron main-cont">
+  <h1>Welcome to </h1>
+  <h1 id="movie"> MOVIEPEDIA </h1>
 
   <h2>
-    This is the home page for the
-    <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
-    sample application.
+    Start searching your favourite film 
+  </h2>
+
+  <h2>
+    If you are already signed up,
+    <h2> 
+    <%= link_to 'Log In', new_user_session_path %> 
+    to start searching films
+    <h2>
+    or 
+    <%= link_to 'Sign Up', new_user_registration_path %>
+
   </h2>
 
 </div>
 
+<style>
+  body{
+    background: #B5B5B5;
+  }
+
+  .main-cont{
+    margin-top:5%;
+  }
+
+  #movie{
+    color: #ff6666 ;
+  }
+</style>
