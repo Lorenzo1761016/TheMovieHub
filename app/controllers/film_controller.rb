@@ -15,9 +15,11 @@ class FilmController < ApplicationController
     @popular_series = Tmdb::TV.popular
     @popular_people = Tmdb::Person.popular
   end
+
   def search 
     @search = Tmdb::Search.multi(params[:query])
   end
+
   def result
     if Film.exists?(params[:id])
       # your truck exists in the database
@@ -46,6 +48,7 @@ class FilmController < ApplicationController
       @collection = Tmdb::Collection.detail(@film.belongs_to_collection.id);
     end
   end
+
   def tv
     if Tv.exists?(params[:id])
       # your truck exists in the database
@@ -69,15 +72,15 @@ class FilmController < ApplicationController
     @videos = Tmdb::TV.videos(params[:id])
     @similar = Tmdb::TV.similar(params[:id])
     @poster_path = @serie.poster_path ? 'https://image.tmdb.org/t/p/original/'+@serie.poster_path : "/no_locandina.webp"
-
   end
+
   def season
     @season = Tmdb::Tv::Season.detail(params[:id],params[:number])
     @videos = Tmdb::Tv::Season.videos(params[:id],params[:number])
     @poster_path = @season.poster_path ? 'https://image.tmdb.org/t/p/original/'+@season.poster_path : "/no_locandina.webp";
     @serie = Tmdb::TV.detail(params[:id])
-
   end
+
   def persona
     @persona = Tmdb::Person.detail(params[:id])
     @mc = Tmdb::Person.combined_credits(params[:id])

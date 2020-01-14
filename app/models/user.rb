@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
       female: 2,
       other: 3
       }
+      
   def self.create_from_provider_data(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       puts(auth)

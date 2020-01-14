@@ -29,6 +29,7 @@ class UsersController < ApplicationController
   end
 
   private
+  
   def require_admin
   unless current_user
     flash[:error] =  "DEVI ESSERE ADMIN"
