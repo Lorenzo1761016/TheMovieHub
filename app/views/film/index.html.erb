@@ -1,18 +1,21 @@
 <h1 class =  "hp" >MoviePedia</h1>
 <br>
-<h4 style = "margin-left:60px">Cerca un film, una serie tv, un attore o un regista: </h4>
-
-<%= form_tag search_path, :method => :get do %>
-    <div>
-        <%=text_field_tag :query, nil, :required => true, class: "bar"%> <button class = "sbm" type="submit"><i class="fa fa-search"></i></button>
-    </div>
-<% end %>
-
-<br>
-<div class="row">
-  <div class="button" onclick="openTab('b1');" ><span>Film</span></div>
-  <div class="button" onclick="openTab('b2');" ><span>Serie TV</span></div>
-  <div class="button" onclick="openTab('b3');" ><span>Persone</span></div>
+<div style="margin-top:5%;margin-bottom:3%">
+    <h3 style = "margin-left:20px;  "> Cerca liberamente un film, una serie tv o un regista: </h3>
+    <%= form_tag search_path, :method => :get do %>
+        <div class="form-inline " style="margin-bottom:3%">
+            <form>
+                <%=text_field_tag :query, nil, :required => true, class: "form-control mr-sm-2", style: "width:86%; margin-left:20px" %> 
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width:10%"> Search </button>
+            </form>
+        </div>
+    <% end %>
+    <br>
+    <div class="row">
+        <div class="button" onclick="openTab('b1');" ><span>Film</span></div>
+        <div class="button" onclick="openTab('b2');" ><span>Serie TV</span></div>
+        <div class="button" onclick="openTab('b3');" ><span>Persone</span></div>
+    </div>    
 </div>
 
 <div id="b1" class="containerTab">
@@ -115,8 +118,9 @@
   float: left;
   border-radius: 8px;
   border: 2px solid black;
-  background-color: gray;
+  background-color: #e68a00;
   color: #FFFFFF;
+  text-shadow: 0 0 2px black;
   text-align: center;
   font-size: 28px;
   padding: 20px;
