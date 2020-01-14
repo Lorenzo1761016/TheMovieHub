@@ -1,7 +1,5 @@
 
   <div class="moviecard">
-    <div class="movie-poster play-trailer">
-    </div>
     <div id="movie-content">
       <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
       <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date[0..3]%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button>
@@ -21,43 +19,52 @@
               <% end %>
           </span>
       </div>
-      <div class="movie-castcrew"><span class="nom-2">Regia</span>
-          <ul>
-              <div class="name">
-                  <% @directors.each do |d| %>
-                      <li>
-                          <%= link_to persona_path(d.id), class: "nom" do%>
-                              <h4 class = "nom"><%= d.name%></h4>
-                          <% end %>
-                      </li>
-                  <% end %>
-              </div>
-          </ul>
+
+      <div style="min-height:550px">
+
+        <div class="movie-poster play-trailer">
+        </div>
+        <div style="max-width: 50%">
+          <div class="movie-castcrew"><span class="nom-2">Regia</span>
+              <ul>
+                  <div class="name">
+                      <% @directors.each do |d| %>
+                          <li>
+                              <%= link_to persona_path(d.id), class: "nom" do%>
+                                  <h4 class = "nom"><%= d.name%></h4>
+                              <% end %>
+                          </li>
+                      <% end %>
+                  </div>
+              </ul>
+          </div>
+          <div class="movie-castcrew"><span class="nom-2">Cast</span>
+              <ul>
+                  <div class="name">
+                      <% @cast.take(5).each do |character| %>
+                          <li>
+                              <%= link_to persona_path(character.id), class: "nom" do %>
+                                <h4 class = "nom"> <%= character.name %> </h4>
+                              <% end %>
+                              <h5> <%= character.character %> </h5>
+                          </li>
+                      <% end %>
+                  </div>
+          </div>
+          <div class="movie-castcrew"><span class="nom-2">Produzione</span>
+              <ul>
+                  <div class="name">
+                      <% @film.production_companies.each do |pc| %>
+                          <li>
+                              <h4 class = "nom-2"> <%= pc.name %> </h4>
+                          </li>
+                      <% end %>
+                  </div>
+              </ul>
+          </div>
+        </div>
       </div>
-      <div class="movie-castcrew"><span class="nom-2">Cast</span>
-          <ul>
-              <div class="name">
-                  <% @cast.take(5).each do |character| %>
-                      <li>
-                          <%= link_to persona_path(character.id), class: "nom" do %>
-                            <h4 class = "nom"> <%= character.name %> </h4>
-                          <% end %>
-                          <h5> <%= character.character %> </h5>
-                      </li>
-                  <% end %>
-              </div>
-      </div>
-      <div class="movie-castcrew"><span class="nom-2">Produzione</span>
-          <ul>
-              <div class="name">
-                  <% @film.production_companies.each do |pc| %>
-                      <li>
-                          <h4 class = "nom-2"> <%= pc.name %> </h4>
-                      </li>
-                  <% end %>
-              </div>
-          </ul>
-      </div>
+
       <div class = "movie-details"></div>
       <div class="movie-castcrew"><span class="nom">Parole Chiave</span>
           <div class = "wrapper-1">
@@ -529,7 +536,7 @@ body {
   opacity: 0;
   overflow: hidden;
   position: absolute;
-  right: 0px;
+  right: -1%;
   height: auto;
   transition: all 500ms;
   background: none;
@@ -573,8 +580,7 @@ body {
   height: 0;
   width: 360px;
   height: 555px;
-  right: -40px;
-  top: 100px;
+  right: 1%;
   -moz-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
   box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
@@ -596,7 +602,8 @@ body {
   color: rgba(255, 255, 255, 0.8);
 }
 .moviecard.movie-view-trailer .movie-poster {
-  right: 800px;
+  right: 65%;
+  display: none;
 }
 .moviecard.movie-view-trailer #movie-content {
   opacity: 0;
