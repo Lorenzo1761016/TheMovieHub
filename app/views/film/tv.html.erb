@@ -26,42 +26,44 @@
             <% end %>
         </span>
     </div>
-    <div class="movie-castcrew"><span class="nom-2">Created By</span>
-        <ul>
-            <div class="name">
-                <% @serie.created_by.each do |d| %>
-                    <li>
-                        <%= link_to persona_path(d.id), class: "nom" do%>
-                            <h4 class = "nom"><%= d.name%></h4>
-                        <% end %>
-                    </li>
-                <% end %>
-            </div>
-        </ul>
-    </div>
-    <div class="movie-castcrew"><span class="nom">Cast</span>
-        <ul>
-            <% @cast.each do |character| %>
-                <% break if character.order > 6 %>
-                <li>
-                    <%= link_to persona_path(character.id), class: "nom" do %>
-                        <h4 class = "nom"> <%= character.name %> </h4>
+    <div style="min-height: 500px">
+        <div class="movie-castcrew"><span class="nom-2">Created By</span>
+            <ul>
+                <div class="name">
+                    <% @serie.created_by.each do |d| %>
+                        <li>
+                            <%= link_to persona_path(d.id), class: "nom" do%>
+                                <h4 class = "nom"><%= d.name%></h4>
+                            <% end %>
+                        </li>
                     <% end %>
-                    <h5> <%= character.character %> </h5>
-                </li>
-            <% end %>
-        </ul>
-    </div>
-    <div class="movie-castcrew"><span class="nom-2">Produzione</span>
-        <ul>
-            <div class="name">
-                <% @serie.production_companies.each do |pc| %>
+                </div>
+            </ul>
+        </div>
+        <div class="movie-castcrew"><span class="nom">Cast</span>
+            <ul>
+                <% @cast.each do |character| %>
+                    <% break if character.order > 6 %>
                     <li>
-                        <h4 class = "nom-2"> <%= pc.name %> <h5><%= pc.origin_country %> </h5></h4> 
+                        <%= link_to persona_path(character.id), class: "nom" do %>
+                            <h4 class = "nom"> <%= character.name %> </h4>
+                        <% end %>
+                        <h5> <%= character.character %> </h5>
                     </li>
                 <% end %>
-            </div>
-        </ul>
+            </ul>
+        </div>
+        <div class="movie-castcrew"><span class="nom-2">Produzione</span>
+            <ul>
+                <div class="name">
+                    <% @serie.production_companies.each do |pc| %>
+                        <li>
+                            <h4 class = "nom-2"> <%= pc.name %> <h5><%= pc.origin_country %> </h5></h4> 
+                        </li>
+                    <% end %>
+                </div>
+            </ul>
+        </div>
     </div>
     <div class = "kw"></div>
     <h1> STAGIONI </h1>
@@ -482,8 +484,8 @@ body {
   height: 0;
   width: 360px;
   height: 525px;
-  right: -40px;
-  top: 100px;
+    right: 9%;
+    top: 7%;
   -moz-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
   box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
