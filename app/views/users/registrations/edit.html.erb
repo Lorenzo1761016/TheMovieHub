@@ -64,13 +64,19 @@
         </div>
 
         <div class="actions form-group wid">
-          <%= f.submit "Update", class:"btn btn-primary btn-block" %>
+          <h3>Conferma?</h3>
+          <%= f.submit "Aggiorna", class:"btn btn-success btn-block" %>
         </div>
       <% end %>
-      <div class = "wid">
-        <h3>Cancel my account</h3>
 
-        <p><%= button_to "Cancella account", destroy_path(resource_name), class:"btn btn-primary btn-block",data: { confirm: "Sei sicuro di voler eliminare il tuo account?" }, method: :delete %></p>
+      <div class = "wid">
+        <h3>Cancellare l'account definitivamente?</h3>
+        <p><%= button_to "Cancella account", destroy_path(resource_name), class:"btn btn-danger btn-block",data: { confirm: "Sei sicuro di voler eliminare il tuo account?" }, method: :delete %></p>
+      </div>
+
+      <div class = "wid">
+        <h3>Annula modifiche</h3>
+        <p> <%= link_to "Torna indietro", "../users/1" , class:"btn btn-primary btn-block" %> </p>
       </div>
     </article>
   </div>

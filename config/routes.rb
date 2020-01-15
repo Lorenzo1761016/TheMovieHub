@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-   root 'static_pages#home'
+  root 'static_pages#home'
           
   devise_for :users , controllers: {
     session: 'users/session', 
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'tv/:id/season/:number', to: 'film#season', as: 'season'
   get 'tv/:id', to: 'film#tv', as: 'tv'
   get 'movie/:id', to: 'film#result', as: 'result'
-  post 'search'     => 'film#search'
+  post'search'     => 'film#search'
   get 'search'      => 'film#search'
   get 'index'       => 'film#index'
   get 'film/persona'
