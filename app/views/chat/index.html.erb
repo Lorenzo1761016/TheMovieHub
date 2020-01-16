@@ -11,17 +11,20 @@
 	</div>
 </div>
 <div class = 'container-fluid'>
-	<textarea id="msg" class = 'form-control' placeholder='Scrivi qualcosa...' width = 100px></textarea>
+	<textarea row="1" id="msg" class = 'form-control' placeholder='Scrivi qualcosa...' ></textarea>
 	<button class = 'btn btn-success' id="send">Send Message</button>
 </div>
 
-
-
-
 <style class = 'cp-pen-styles'>
+
+.form-control{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .msgb{
  border-style: groove;
- height: 300px;
+ height: 500px;
  overflow-y: auto;
 }
 
@@ -46,6 +49,7 @@
 
 #frame .content .messages {
   height: auto;
+  padding-top: 20px;
   min-height: calc(100% - 93px);
   max-height: calc(100% - 93px);
   overflow-y: scroll;
@@ -67,7 +71,6 @@
   display: inline-block;
   clear: both;
   float: left;
-  margin: 15px 15px 5px 15px;
   width: calc(100% - 25px);
   font-size: 0.9em;
 }
@@ -116,10 +119,14 @@
 		/* RECEIVE MESSAGE */
 		App.chat.received = function(data)
 		{
+      if(data['message']=="")
+      return;
+
+      else
 			$('<li class="sent"><p>' + data['message'] + '</p></li>').appendTo($('.messages ul'));
 		}
 		
-		$('#msg').on('keydown', function (e){
+    $('#msg').on('keydown', function (e){
     		if(e.which == 13) {
 				$("#send").click();	
     		}
