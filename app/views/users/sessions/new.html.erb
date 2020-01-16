@@ -2,10 +2,20 @@
 <div class = "moviecard">
   <div class = "card bg-light corp">
     <article class="card-body mx-auto" style="max-width: 600px;">
-      <h2 class="card-title mt-3 text-center">Effettua l'accesso</h2>
+      <h2 class="card-title mt-3 text-center">Effettua l'accesso con</h2>
+
+      <%- if devise_mapping.omniauthable? %>
+        <%- resource_class.omniauth_providers.each do |provider| %>
+          <%= link_to omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-twitter" do %>
+            <i class="fab fa-<%=provider%>"></i>
+            accedi con <%= OmniAuth::Utils.camelize(provider) %>
+          <% end %><br />
+        <% end %>
+      <% end %>
+      <hr>
+
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        
-         
+        <h3  class="card-title mt-3 text-center">Hai già un account?<h3>
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
           <%= f.label :email %><br />
@@ -34,6 +44,7 @@
         <p class="text-center">Non hai ancora un account? <%= link_to "Registrati", new_user_registration_path %> </p>    
 
       <% end %>
+
     </article>
   </div>
 </div>

@@ -1,4 +1,4 @@
-
+<% provide(:title, 'Sign Up') %>
 <div class = "moviecard">
   <div class = "card bg-light corp">
     <article class="card-body mx-auto" style="max-width: 600px;">
@@ -8,14 +8,12 @@
         <%- resource_class.omniauth_providers.each do |provider| %>
           <%= link_to omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-twitter" do %>
             <i class="fab fa-<%=provider%>"></i>
-            Sign in with <%= OmniAuth::Utils.camelize(provider) %>
+            registrati con <%= OmniAuth::Utils.camelize(provider) %>
           <% end %><br />
         <% end %>
       <% end %>
 
-      <p class="divider-text">
-        <span class="bg-light">OR</span>
-      </p>
+      <hr>
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>      	
@@ -130,11 +128,6 @@ body {
     top: 55%;
     left: 0;
     z-index: 1;
-}
-
-.btn-twitter {
-    background-color: #42AEEC;
-    color: #fff;
 }
 
 </style>

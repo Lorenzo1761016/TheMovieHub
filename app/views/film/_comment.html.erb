@@ -51,9 +51,7 @@
             $('#id_<%= comment.id%>').toggle();
         });
         $('.comment').click(function(){
-            comment_id = $(this).attr("data-id")
-            alert(comment_id)
-            $('.score-num').html('<%= @comment.get_likes.size %>')
+            
         });
     });   
 </script> 

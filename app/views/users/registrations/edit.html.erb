@@ -17,7 +17,7 @@
           <%= f.label :first_name %><br />
           <%= f.text_field :first_name, size: "63", autofocous: true %>
         </div>
-
+        
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-info"></i> </span>
           <%= f.label :last_name %><br />
@@ -59,7 +59,7 @@
 
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-          <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+          <%= f.label :current_password %> <i>we need your current password to confirm your changes!</i><br />
           <%= f.password_field :current_password, size: "63", autocomplete: "current-password" %>
         </div>
 
@@ -71,7 +71,7 @@
 
       <div class = "wid">
         <h3>Cancellare l'account definitivamente?</h3>
-        <p><%= button_to "Cancella account", destroy_path(resource_name), class:"btn btn-danger btn-block",data: { confirm: "Sei sicuro di voler eliminare il tuo account?" }, method: :delete %></p>
+        <p><%= link_to "Cancella account", user_path(@user), class:"btn btn-danger btn-block",data: { confirm: "Sei sicuro di voler eliminare il tuo account?" }, method: :delete %></p>
       </div>
 
       <div class = "wid">

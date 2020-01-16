@@ -128,7 +128,7 @@
 		$("#send").click(function(){
 			msg = $("#msg").val()
             if (msg){
-				tot ='<%= current_user.email %>'+": "+msg
+				tot ='<%= if current_user.username != null %>'+": "+msg
                 /* SEND MESSAGE */
                 App.chat.send_msg(tot)
 				$("#msg").val(null)
