@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get 'film/tv'
   get '/unban/:id', to: 'users#unban', as: 'unban'
   get '/ban/:id', to: 'users#ban', as: 'ban'
-  get 'destroy/:id', to: 'users#destroy', as: 'destroy' 
+  delete "users/:id", to: "users#destroy"
   get 'stats' => 'stats#stats'
 
   mount ActionCable.server => '/cable'

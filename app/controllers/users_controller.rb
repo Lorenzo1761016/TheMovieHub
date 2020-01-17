@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
-  before_action :require_admin
  
-
   def index
     ahoy.track "Users index", language: "Ruby"
     @users = User.all
   end
+  
   def show
     @user = User.find(params[:id])
     ahoy.track "Profilo utente "+@user.username, language: "Ruby"

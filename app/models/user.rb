@@ -20,7 +20,11 @@ class User < ActiveRecord::Base
       puts(auth)
       user.username = auth.info.nickname
       user.first_name  = auth.info.name              # assuming the user model has a name
-      #user.email = auth.info.email            # since we are using twitter, which hasn't got any email, we'll just comment this
+      if user.email != ""
+        user.email = auth.info.email
+      else
+        user.email == ""
+      end
       user.password = Devise.friendly_token[0, 20]
       user.provider = auth.provider
       # If you are using confirmable and the provider(s) you use validate emails, 
