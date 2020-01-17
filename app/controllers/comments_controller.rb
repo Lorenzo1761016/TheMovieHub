@@ -18,9 +18,7 @@ class CommentsController < ApplicationController
       @comment.username = current_user.username
       if @comment.save
           redirect_back fallback_location: root_path, notice: "commento postato"
-          puts("ID: "+@comment.id.to_s)
-          @user = current_user.username
-          puts("UTENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE: "+@user)
+          ahoy.track "Commento postato", language: "Ruby"
       else
           redirect_back fallback_location: root_path
         end
@@ -30,6 +28,7 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
       @comment.destroy
       redirect_back fallback_location: root_path, notice: "commento eliminato"
+      ahoy.track "Commento Eliminato", language: "Ruby"
   end     
 
   def like

@@ -11,6 +11,7 @@ class FilmController < ApplicationController
 
 
   def index
+    ahoy.track "Index", language: "Ruby"
     @popular_films = Tmdb::Movie.popular
     @popular_series = Tmdb::TV.popular
     @popular_people = Tmdb::Person.popular
@@ -18,9 +19,11 @@ class FilmController < ApplicationController
 
   def search 
     @search = Tmdb::Search.multi(params[:query])
+    ahoy.track "Search "+params[:query], language: "Ruby"
   end
 
   def result
+    ahoy.track "Film: "+Tmdb::Movie.detail(params[:id]).title ,language: "Ruby"
     if Film.exists?(params[:id])
       # your truck exists in the database
       @found = Film.find(params[:id])
@@ -50,6 +53,7 @@ class FilmController < ApplicationController
   end
 
   def tv
+    ahoy.track "Serie TV: "+Tmdb::TV.detail(params[:id]).name ,language: "Ruby"
     if Tv.exists?(params[:id])
       # your truck exists in the database
       @ftv = Tv.find(params[:id])
@@ -79,11 +83,13 @@ class FilmController < ApplicationController
     @videos = Tmdb::Tv::Season.videos(params[:id],params[:number])
     @poster_path = @season.poster_path ? 'https://image.tmdb.org/t/p/original/'+@season.poster_path : "/no_locandina.webp";
     @serie = Tmdb::TV.detail(params[:id])
+    ahoy.track "Serie TV:" + @serie.name + ", " + @season.name, language: "Ruby"
   end
 
   def persona
     @persona = Tmdb::Person.detail(params[:id])
     @mc = Tmdb::Person.combined_credits(params[:id])
     @profile_path = @persona.profile_path ? 'https://image.tmdb.org/t/p/original/'+@persona.profile_path : "/no_locandina.webp";
+    ahoy.track "Persona "+ @persona.name
   end
 end

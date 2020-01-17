@@ -8,6 +8,7 @@ class StaticPagesController < ApplicationController
   end
 
   def home
+    ahoy.track "Homepage", language: "Ruby"
   end
 
   def help

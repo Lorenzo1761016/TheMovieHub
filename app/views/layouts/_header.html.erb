@@ -12,7 +12,6 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "Database", index_path %></li>
         <% if user_signed_in? %>
           <li><%= link_to "Chat", chat_path %></li>
           <li>
@@ -21,6 +20,7 @@
             <% end %>
           </li>
           <% if current_user.admin? %>
+            <li><%= link_to "Stats", stats_path %></li>
             <li><%= link_to "All Users", users_path %></li>
           <% end %>
           <li><%= link_to "Log out", destroy_user_session_path, method: :delete, data: {confirm: "Sei sicuro di voler uscire?"} %></li>

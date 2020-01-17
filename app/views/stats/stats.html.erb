@@ -1,0 +1,36 @@
+<h1>Stats</h1>
+
+VISITE TOTALI: <%= @count %>
+EVENTI TOTALI: <%= @event_count%>
+<br>
+
+
+<% @users.each do |u| %>
+    <%= u.username %>
+    VISITE: <%= u.visits.count%>
+    EVENTI: <%= u.events.count%>
+    <br> 
+
+    <% u.visits.each do |v| %>
+        <%= v.id %>) 
+        dispositivo: <%= v.device_type %> - 
+        sistema operativo: <%= v.os %> -
+        browser: <%= v.browser %> -
+        pagina di arrivo: <%= v.landing_page %> -
+        inizio sessione: <%= v.started_at %>
+
+        <br>
+
+    <% end %>
+    <% u.events.each do |e| %>
+        <%= e.id %>
+        <%= e.name %>
+        <br>
+    <% end %>
+    <br>    
+<% end %>
+
+<% @events.each do |e| %>
+    <%= e.name %>
+    <br>
+<% end %>

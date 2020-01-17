@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'stats/stats'
   root 'static_pages#home'
           
   devise_for :users , controllers: {
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
   get '/unban/:id', to: 'users#unban', as: 'unban'
   get '/ban/:id', to: 'users#ban', as: 'ban'
   get 'destroy/:id', to: 'users#destroy', as: 'destroy' 
+  get 'stats' => 'stats#stats'
 
   mount ActionCable.server => '/cable'
 

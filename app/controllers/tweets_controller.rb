@@ -10,6 +10,7 @@ class TweetsController < ApplicationController
           end
           '%#{params[:tweet]}%'
           @tweets = client.search(params[:obj_name], tweet_mode: "extended").take(20)
+          ahoy.track "Tweets", language: "Ruby"
           rescue Twitter::Error::TooManyRequests => error
               # NOTE: Your process could go to sleep for up to 15 minutes but if you
               # retry any sooner, it will almost certainly fail with the same exception.
@@ -18,6 +19,5 @@ class TweetsController < ApplicationController
     end
     
     def index
-        redirect_back fallback_location: root_path
     end
 end

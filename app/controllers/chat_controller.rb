@@ -10,5 +10,6 @@ class ChatController < ApplicationController
     end
   end
   def index
+    ahoy.track "Chat", language: "Ruby"
   end
 end
