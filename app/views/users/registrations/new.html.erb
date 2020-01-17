@@ -32,16 +32,21 @@
         
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-info"></i> </span>
-          <%= f.label :first_name %><br />
+          <%= f.label :first_name %> <em>-Optional</em><br />
           <%= f.text_field :first_name, size: "51", autofocus: true %>
         </div>
   
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-info"></i> </span>
-          <%= f.label :last_name %><br />
+          <%= f.label :last_name %> <em>-Optional</em><br />
           <%= f.text_field :last_name,size: "51", autofocus: true %>
         </div>
 
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-mobile"></i> </span>
+          <%= f.label :phone_number %> <em>-Optional</em><br />
+          <%= f.text_field :phone_number, size: "63", autofocous: true %>
+        </div>
       
         <div class="form-group input-group wid" style = "margin-left: 40%">
           <span class="input-group-text"> <i class="fa fa-venus-mars"></i> </span>

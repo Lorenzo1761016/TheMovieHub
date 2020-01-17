@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_164433) do
     t.integer "gender", default: 0
     t.boolean "admin", default: false
     t.boolean "banned"
+    t.string "bio", limit: 500, default: " "
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
