@@ -2,35 +2,36 @@
 
 VISITE TOTALI: <%= @count %>
 EVENTI TOTALI: <%= @event_count%>
+FILM CERCATI: <%= @film_count%> 
+SERIE TV CERCATE: <%= @tv_count%>
 <br>
 
 
 <% @users.each do |u| %>
     <%= u.username %>
+    <br>
     VISITE: <%= u.visits.count%>
-    EVENTI: <%= u.events.count%>
-    <br> 
-
+    <br>
     <% u.visits.each do |v| %>
         <%= v.id %>) 
         dispositivo: <%= v.device_type %> - 
         sistema operativo: <%= v.os %> -
         browser: <%= v.browser %> -
-        pagina di arrivo: <%= v.landing_page %> -
         inizio sessione: <%= v.started_at %>
 
         <br>
 
     <% end %>
+    EVENTI: <%= u.events.count%>
+    <br> 
+
+    
     <% u.events.each do |e| %>
-        <%= e.id %>
-        <%= e.name %>
+        <%= e.id %>)
+        <%= e.name %> -
+        <%= e.time %>
         <br>
     <% end %>
     <br>    
-<% end %>
 
-<% @events.each do |e| %>
-    <%= e.name %>
-    <br>
 <% end %>

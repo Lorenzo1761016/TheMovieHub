@@ -9,6 +9,7 @@ class ChatController < ApplicationController
       redirect_to new_user_session_path # halts request cycle
     end
   end
+  
   def index
     ahoy.track "Chat", language: "Ruby"
   end

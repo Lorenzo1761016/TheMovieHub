@@ -10,9 +10,9 @@
                         <table class="table user-list">
                             <thead>
                                 <tr>
-                                <th><span>User</span></th>
-                                <th><span>Name</span></th>
-                                <th><span>Created</span></th>
+                                <th><span>Utente</span></th>
+                                <th><span>Nome</span></th>
+                                <th><span>Data Creazione</span></th>
                                 <th class="text-center"><span>Status</span></th>
                                 <th><span>Email</span></th>
                                 <th>&nbsp;</th>
@@ -23,7 +23,6 @@
                                 <% @users.each do |user|%>
                                   <tr>
                                     <td>
-                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
                                         <%= link_to user_path(user.id), class: "nom user-link" do %>
                                           <%= user.username %>
                                         <% end %>
@@ -111,7 +110,6 @@ body{
     display: block;
     font-size: 1.25em;
     padding-top: 3px;
-    margin-left: 60px;
 }
 a {
     color: #3498db;

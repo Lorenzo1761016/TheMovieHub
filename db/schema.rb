@@ -74,15 +74,6 @@ ActiveRecord::Schema.define(version: 2020_01_17_164433) do
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
 
-  create_table "analytics", force: :cascade do |t|
-    t.string "top_film", default: "Nessuno"
-    t.integer "counter_film", default: 0
-    t.string "top_tv", default: "Nessuna"
-    t.integer "counter_tv", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.integer "commentable_id"
@@ -156,8 +147,8 @@ ActiveRecord::Schema.define(version: 2020_01_17_164433) do
     t.integer "phone_number"
     t.string "twittername", limit: 20, default: "", null: false
     t.integer "gender", default: 0
-    t.boolean "admin", default: false
-    t.boolean "banned"
+    t.boolean "admin"
+    t.boolean "banned", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

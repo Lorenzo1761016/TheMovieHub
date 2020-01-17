@@ -19,7 +19,7 @@ class FilmController < ApplicationController
 
   def search 
     @search = Tmdb::Search.multi(params[:query])
-    ahoy.track "Search "+params[:query], language: "Ruby"
+    ahoy.track "Search '"+params[:query]+"'", language: "Ruby"
   end
 
   def result
@@ -90,6 +90,6 @@ class FilmController < ApplicationController
     @persona = Tmdb::Person.detail(params[:id])
     @mc = Tmdb::Person.combined_credits(params[:id])
     @profile_path = @persona.profile_path ? 'https://image.tmdb.org/t/p/original/'+@persona.profile_path : "/no_locandina.webp";
-    ahoy.track "Persona "+ @persona.name
+    ahoy.track "Persona: "+ @persona.name
   end
 end
