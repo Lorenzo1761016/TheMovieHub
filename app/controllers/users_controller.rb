@@ -15,21 +15,21 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_back fallback_location: root_path, notice: "utente eliminato"
+    redirect_to "/", notice: "user eliminated"
     ahoy.track "Utente "+@user.username+" eliminato", language: "Ruby"
   end
 
   def ban
     @user = User.find(params[:id])
     @user.update(banned: true);
-    ahoy.track "Utente "+@user.username+" bannato"
+    redirect_to "/", notice: "user blocked"
     redirect_back fallback_location: root_path, notice: "utente bloccato"
   end
 
   def unban
     @user = User.find(params[:id])
     @user.update(banned: false);
-    ahoy.track "Utente "+@user.username+" sbloccato"
+    redirect_to "/", notice: "user unblocked"
     redirect_back fallback_location: root_path, notice: "utente sbloccato"
   end
 
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   
   def require_admin
   unless current_user
-    flash[:error] =  "DEVI ESSERE ADMIN"
+    flash[:error] =  "YOU MUST BE ADMIN"
       redirect_to new_user_session_path # halts request cycle
     end
   end

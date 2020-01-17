@@ -2,7 +2,7 @@
 <div class = "moviecard">
   <div class = "card bg-light corp">
     <article class="card-body mx-auto" style="max-width: 600px;">
-      <h2 class="card-title mt-3 text-center">Modifica Account</h2>
+      <h2 class="card-title mt-3 text-center">Edit your Accaount</h2>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
         <!--change username, first name and last name-->
@@ -11,7 +11,7 @@
           <%= f.label :username %><br />
           <%= f.text_field :username, size: "63", autofocous: true %>
         </div>
-
+        <!--change user> first name & last name-->
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-info"></i> </span>
           <%= f.label :first_name %><br />
@@ -23,6 +23,13 @@
           <%= f.label :last_name %><br />
           <%= f.text_field :last_name, size: "63", autofocous: true %>
         </div>
+        <!--change phone number-->
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-mobile"></i> </span>
+          <%= f.label :phone_number %><br />
+          <%= f.text_field :phone_number, size: "63", autofocous: true %>
+        </div>
+
         <!--check gender-->
         <div class="form-group input-group wid" style = "margin-left: 45%">
           <span class="input-group-text"> <i class="fa fa-venus-mars"></i> </span>
@@ -35,6 +42,13 @@
           <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
           <%= f.label :email %><br />
           <%= f.email_field :email, size: "63", autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <!--update user bio-->
+        <div class="form-group input-group wid">
+          <span class="input-group-text"> <i class="fa fa-info"></i> </span>
+          <%= f.label :bio %><br />
+          <%= f.text_area :bio, size: "63", autofocus: true, autocomplete: "bio" %>
         </div>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -64,19 +78,19 @@
         </div>
 
         <div class="actions form-group wid">
-          <h3>Conferma?</h3>
-          <%= f.submit "Aggiorna", class:"btn btn-success btn-block" %>
+          <h3>Save Edit</h3>
+          <%= f.submit "Update", class:"btn btn-success btn-block" %>
         </div>
       <% end %>
 
       <div class = "wid">
-        <h3>Cancellare l'account definitivamente?</h3>
-        <p><%= link_to "Cancella account", user_path(@user), class:"btn btn-danger btn-block",data: { confirm: "Sei sicuro di voler eliminare il tuo account?" }, method: :delete %></p>
+        <h3>Delete your account permanently?</h3>
+        <p><%= link_to "Delete Account", user_path(@user), class:"btn btn-danger btn-block",data: { confirm: "Sei sicuro di voler eliminare il tuo account?" }, method: :delete %></p>
       </div>
 
       <div class = "wid">
-        <h3>Annula modifiche</h3>
-        <p> <%= link_to "Torna indietro", "../users/1" , class:"btn btn-primary btn-block" %> </p>
+        <h3>Delete Edit</h3>
+        <p> <%= link_to "Back", "../users/1" , class:"btn btn-primary btn-block" %> </p>
       </div>
     </article>
   </div>
