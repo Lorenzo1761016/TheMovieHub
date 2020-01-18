@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   def self.create_from_provider_data(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       puts(auth)
+      puts(auth.info.nickname)
       user.username = auth.info.nickname
       user.first_name  = auth.info.name              # assuming the user model has a name
       if user.email != ""

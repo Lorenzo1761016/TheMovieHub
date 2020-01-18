@@ -147,9 +147,9 @@ ActiveRecord::Schema.define(version: 2020_01_17_164433) do
     t.integer "phone_number"
     t.string "twittername", limit: 20, default: "", null: false
     t.integer "gender", default: 0
-    t.boolean "admin", default: false
-    t.string "bio", limit: 500, default: " "
+    t.boolean "admin"
     t.boolean "banned", default: false
+    t.string "bio", limit: 500, default: " "
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
