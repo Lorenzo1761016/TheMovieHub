@@ -4,7 +4,11 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
+                        <%if @user.provider == ""%>
                             <img src="" alt=""/>
+                        <%else%>
+                            <img src="<%= @user.providerimg %>">
+                        <%end%>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -72,15 +76,11 @@
                                             </div>
                                         </div>
                                         <%end%>
-                            </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Your Bio</label><br/>
+                                        <div class="form-group">
+                                        <label for="biography_card">Your Bio</label>
+                                        <textarea id="biography_card" rows="7" readonly><%=@user.bio%></textarea>
                                     </div>
-                                    <div class="col-md-6">
-                                        <p> <%= @user.bio%></p>
-                                    </div>
-                                </div>
+                                </div>   
                             </div>
                         </div>
                     </div>

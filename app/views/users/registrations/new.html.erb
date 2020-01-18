@@ -1,14 +1,14 @@
 <% provide(:title, 'Sign Up') %>
 <div class = "moviecard">
   <div class = "card bg-light corp">
-    <article class="card-body mx-auto" style="max-width: 600px;">
-      <h2 class="card-title mt-3 text-center">Crea Un Account</h2>
+    <article class="card-body mx-auto" style="max-width: 700px;">
+      <h2 class="card-title mt-3 text-center">Create an Account</h2>
       
       <%- if devise_mapping.omniauthable? %>
         <%- resource_class.omniauth_providers.each do |provider| %>
           <%= link_to omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-twitter" do %>
             <i class="fab fa-<%=provider%>"></i>
-            registrati con <%= OmniAuth::Utils.camelize(provider) %>
+            Signup with <%= OmniAuth::Utils.camelize(provider) %>
           <% end %><br />
         <% end %>
       <% end %>
@@ -45,15 +45,23 @@
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-mobile"></i> </span>
           <%= f.label :phone_number %> <em>-Optional</em><br />
-          <%= f.text_field :phone_number, size: "63", autofocous: true %>
+          <%= f.text_field :phone_number, size: "51", autofocous: true %>
         </div>
       
         <div class="form-group input-group wid" style = "margin-left: 40%">
           <span class="input-group-text"> <i class="fa fa-venus-mars"></i> </span>
           <%= f.label :gender %><br/>
           <%= f.select(:gender, User.gender_types.map { |k,v| [k.capitalize, v] }) %>
+          <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
+          <%= f.label :date_of_birth %><br />
+          <%= f.date_select :date_of_birth, size: "63", :start_year=>1950 %>
         </div>
-            
+
+        <!--edit date of birth-->
+        <div class="form-group input-group wid" style = "margin-left: 40%">
+          
+        </div>
+
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
           <%= f.label :password %>
@@ -71,9 +79,9 @@
 
                       
         <div class="form-group actions">
-          <%= f.submit "Crea Account", class:"btn btn-primary btn-block" %>
+          <%= f.submit "Create account", class:"btn btn-primary btn-block" %>
         </div>    
-        <p class="text-center">Hai già un account? <%= link_to "Log In", new_user_session_path %> </p>             
+        <p class="text-center">Already SignUp? <%= link_to "Log In", new_user_session_path %> </p>             
           <% end %>
         </div>
       </div>

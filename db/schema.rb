@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_164433) do
     t.boolean "admin"
     t.boolean "banned", default: false
     t.string "bio", limit: 500, default: " "
+    t.string "providerimg", default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

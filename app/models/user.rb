@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
       else
         user.email = "not provided by twitter"
       end
+      user.providerimg = auth.info.image
       user.password = Devise.friendly_token[0, 20]
       user.provider = auth.provider
       # If you are using confirmable and the provider(s) you use validate emails, 
