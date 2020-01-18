@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
       if user.email != ""
         user.email = auth.info.email
       else
-        puts("peonotmail")
         user.email = "not provided by twitter"
       end
       user.password = Devise.friendly_token[0, 20]
@@ -34,9 +33,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def email_required?
-    super && provider.blank?
-  end
+  #def email_required?
+  #  super && provider.blank?
+  #end
 
   def active_for_authentication?
     super && !self.banned?
