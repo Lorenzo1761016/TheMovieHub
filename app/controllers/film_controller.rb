@@ -1,6 +1,6 @@
 class FilmController < ApplicationController
   before_action :require_login
- 
+  respond_to :js, :html, :json
  
   def require_login
     unless current_user != nil

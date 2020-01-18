@@ -2,27 +2,27 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
-            <div class="panel panel-default marg">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong id = "user"> <%= comment.username %> </strong> <span class="text-muted"><small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small></span>
                     <% if current_user.username == comment.username || current_user.admin? %> 
                         <%= link_to "Elimina", comment, :method => :delete,:class => "link"%> 
                     <% end %>
-                   <a id = 'a_<%= comment.id %>' style = "cursor: pointer"> Rispondi </a>
+                   <a id = 'a_<%= comment.id %>' > Rispondi </a>
                 </div>
                 <div class="panel-body">
                     <%= comment.body %>
                 </div><!-- /panel-body -->
                 <div id="comment_n<%= comment.id %>%", style="text-align:center;", data-id="<%=comment.id%>", class="comment"> 
-                        <%= link_to like_comment_path(comment), method: :put, remote: :true do %>
+                        <%= link_to like_comment_path(comment), method: :put, class: "votebtn", remote: true, data: { type: :json } do %>
                             <i class="fas fa-thumbs-up"></i>
                         <% end %>
                         <span class="score">
-                           <span class="score_num",>
-                             <%=comment.votes_for.size%>
+                           <span class="score_num", id='comment_<%= comment.id %>'>
+                             <%= comment.votes_for.size %>
                            </span>
                         </span>
-                        <%= link_to dislike_comment_path(comment), method: :put, remote: :true do %>
+                        <%= link_to dislike_comment_path(comment), method: :put, class: "votebtn", remote: true, data: { type: :json } do %>
                             <i class="fas fa-thumbs-up fa-rotate-180"></i>              
                         <% end %>
                 </div>
@@ -50,15 +50,9 @@
             event.preventDefault();
             $('#id_<%= comment.id%>').toggle();
         });
-        $('.comment').click(function(){
-            
-        });
+        $('.votebtn').on('ajax:success', function (data) {
+            aler("peo")
+            $(this).html(data.count); 
+            });
     });   
 </script> 
-
-<style>
-.marg{
-    margin-top: 20px;
-    margin-left: -40px;
-}
-</style>
