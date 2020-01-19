@@ -27,6 +27,9 @@ class FilmController < ApplicationController
     if Film.exists?(params[:id])
       # your truck exists in the database
       @found = Film.find(params[:id])
+      count = @found.visits
+      @found.visits = count+1
+      @found.save
     else
       # the truck doesn't exist
       n = Film.all.size
@@ -40,6 +43,7 @@ class FilmController < ApplicationController
      end
 
     end
+
     @film = Tmdb::Movie.detail(params[:id])
     @cast = Tmdb::Movie.cast(params[:id])
     @video = Tmdb::Movie.videos(params[:id])
@@ -57,6 +61,9 @@ class FilmController < ApplicationController
     if Tv.exists?(params[:id])
       # your truck exists in the database
       @ftv = Tv.find(params[:id])
+      count = @ftv.visits
+      @ftv.visits = count+1
+      @ftv.save
     else
       # the truck doesn't exist
       n = Tv.all.size

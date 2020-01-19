@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_164433) do
+ActiveRecord::Schema.define(version: 2020_01_19_163808) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_164433) do
     t.string "film_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "visits", default: 1
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_164433) do
     t.string "tv_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "visits", default: 1
   end
 
   create_table "tweets", force: :cascade do |t|
@@ -147,7 +149,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_164433) do
     t.integer "phone_number"
     t.string "twittername", limit: 20, default: "", null: false
     t.integer "gender", default: 0
-    t.boolean "admin"
+    t.boolean "admin", default: false
     t.boolean "banned", default: false
     t.string "bio", limit: 500, default: " "
     t.string "providerimg", default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
