@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    ahoy.track "Profilo utente "+@user.username, language: "Ruby"
+    ahoy.track "Profilo utente '"+@user.username+"'", language: "Ruby"
 
   end
 
@@ -15,22 +15,24 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to "/", notice: "user eliminated"
-    ahoy.track "Utente "+@user.username+" eliminato", language: "Ruby"
+    redirect_back fallback_location: root_path, notice: "Utente '"+@user.username+"' eliminato"
+    ahoy.track "Utente '"+@user.username+"' eliminato", language: "Ruby"
   end
 
   def ban
     @user = User.find(params[:id])
     @user.update(banned: true);
-    redirect_to "/", notice: "user blocked"
-    redirect_back fallback_location: root_path, notice: "utente bloccato"
+    redirect_back fallback_location: root_path, notice: "Utente '"+@user.username+"' sospeso"
+    ahoy.track "Utente '"+@user.username+"' sospeso", language: "Ruby"
+
   end
 
   def unban
     @user = User.find(params[:id])
     @user.update(banned: false);
-    redirect_to "/", notice: "user unblocked"
-    redirect_back fallback_location: root_path, notice: "utente sbloccato"
+    redirect_back fallback_location: root_path, notice: "Utente '"+@user.username+"' sbloccato"
+    ahoy.track "Utente '"+@user.username+"' sbloccato", language: "Ruby"
+
   end
 
   private
