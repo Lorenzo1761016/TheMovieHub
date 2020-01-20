@@ -11,9 +11,9 @@
                    <a id = 'a_<%= comment.id %>' style = "cursor: pointer"> Rispondi </a>
                 </div>
                 <div class="panel-body">
-                    <%= comment.body %>
+                    <p> <%= comment.body %> </p>
                 </div><!-- /panel-body -->
-                <div id="comment_n<%= comment.id %>%", style="text-align:center;", data-id="<%=comment.id%>", class="comment"> 
+                <div id="comment_n <%= comment.id %> ", style="text-align:right;", data-id="<%=comment.id%>", class="comment"> 
                         <%= link_to like_comment_path(comment), method: :put, remote: :true do %>
                             <i class="fas fa-thumbs-up"></i>
                         <% end %>
@@ -23,7 +23,7 @@
                            </span>
                         </span>
                         <%= link_to dislike_comment_path(comment), method: :put, remote: :true do %>
-                            <i class="fas fa-thumbs-up fa-rotate-180"></i>              
+                            <i class="fas fa-thumbs-up fa-rotate-180 thumbs-down"></i>              
                         <% end %>
                 </div>
             </div><!-- /panel panel-default -->
@@ -32,7 +32,7 @@
 </div>
 
  
-   <div id = 'id_<%= comment.id %>' style = "display: none" >
+           <div id = 'id_<%= comment.id %>' style = "display: none" >
         <%= form_for [comment, Comment.new] do |f| %>
             <%= f.text_area :body, placeholder: "Rispondi" %><br/>
             <%= f.submit "Rispondi"  %>
@@ -44,6 +44,34 @@
     </ul> 
 </body>
 
+<style>
+
+/* Stile personalizzato per i commenti */
+
+.marg{
+    margin-top: 10px;
+    margin-left: -40px;
+}
+.small{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.thumbs-down{
+    margin-right: 10px;
+    color:red;
+}
+
+.panel-body{
+    padding: 7px;
+}
+
+p{
+    text-overflow: ellipsis;
+}
+
+</style>
+
 <script>
     $(document).ready(function() {
         $('#a_<%= comment.id %>').click(function(event){
@@ -54,9 +82,4 @@
     });   
 </script> 
 
-<style>
-.marg{
-    margin-top: 20px;
-    margin-left: -40px;
-}
-</style>
+
