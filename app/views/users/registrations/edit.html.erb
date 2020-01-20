@@ -9,13 +9,13 @@
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-user"></i> </span>
           <%= f.label :username %><br />
-          <%= f.text_field :username, size: "63", autofocous: true %>
+          <%= f.text_field :username, size: "63", autofocous: true, :disabled =>  is_auth? %>
         </div>
         <!--change user> first name & last name-->
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-info"></i> </span>
           <%= f.label :first_name %><br />
-          <%= f.text_field :first_name, size: "63", autofocous: true %>
+          <%= f.text_field :first_name, size: "63", autofocous: true, :disabled => is_auth? %>
         </div>
         
         <div class="form-group input-group wid">
@@ -55,7 +55,7 @@
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-info"></i> </span>
           <%= f.label :bio %><br />
-          <%= f.text_area :bio, size: "63", autofocus: true, autocomplete: "bio" %>
+          <%= f.text_area :bio, size: "63", autofocus: true, autocomplete: "bio", :disabled => is_auth? %>
         </div>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
