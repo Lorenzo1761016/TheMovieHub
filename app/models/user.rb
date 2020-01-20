@@ -18,26 +18,28 @@ class User < ActiveRecord::Base
   def self.create_from_provider_data(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       puts(auth)
-      puts(auth.info.nickname)
       user.username = auth.info.nickname
       user.first_name  = auth.info.name              # assuming the user model has a name
-      if user.email != ""
+      if auth.info.mail != nil
         user.email = auth.info.email
       else
-        user.email = "not provided by twitter"
+        user.email = ""
       end
       user.providerimg = auth.info.image
       user.password = Devise.friendly_token[0, 20]
       user.provider = auth.provider
+      if auth.info.description != nil
+        user.bio = auth.info.description
+      end
       # If you are using confirmable and the provider(s) you use validate emails, 
       # uncomment the line below to skip the confirmation emails.
       user.skip_confirmation!
     end
   end
 
-  #def email_required?
-  #  super && provider.blank?
-  #end
+  def email_required?
+    super && provider.blank?
+  end
 
   def active_for_authentication?
     super && !self.banned?

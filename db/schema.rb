@@ -149,8 +149,10 @@ ActiveRecord::Schema.define(version: 2020_01_19_163808) do
     t.integer "phone_number"
     t.string "twittername", limit: 20, default: "", null: false
     t.integer "gender", default: 0
-    t.boolean "admin"
-    t.boolean "banned"
+    t.boolean "admin", default: false
+    t.boolean "banned", default: false
+    t.string "bio", limit: 500, default: " "
+    t.string "providerimg", default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
