@@ -1,5 +1,5 @@
 <% provide(:title, 'Tweets') %>
-<div class = "wrapper">
+<div class = "container">
     <% @tweets.each do |tweet| %>
         <div class = "each-item">
             <blockquote class="twitter-tweet">
@@ -33,7 +33,16 @@ body{
     background: #B5B5B5;
 }
 
+.container{
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .wrapper {
+
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
     display: grid;
     grid-gap: 30px;
@@ -42,8 +51,10 @@ body{
 }
 
 .each-item{
+    margin: 10px;
+    padding: 10px;
     height: auto;
-    background-color: #faffe6;
+    background-color: #C6DAD5;
     border-radius: 10px;
 }
 
