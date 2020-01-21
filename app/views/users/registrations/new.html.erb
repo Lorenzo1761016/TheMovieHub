@@ -48,7 +48,7 @@
           <%= f.text_field :phone_number, size: "51", autofocous: true %>
         </div>
       
-        <div class="form-group input-group wid" style = "margin-left: 40%">
+        <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-venus-mars"></i> </span>
           <%= f.label :gender %><br/>
           <%= f.select(:gender, User.gender_types.map { |k,v| [k.capitalize, v] }) %>
@@ -58,7 +58,7 @@
         </div>
 
         <!--edit date of birth-->
-        <div class="form-group input-group wid" style = "margin-left: 40%">
+        <div class="form-group input-group wid" >
           
         </div>
 
@@ -92,9 +92,11 @@
 
 body {
   background: #B5B5B5;
+  padding-top: 7%;
 }
 
 .moviecard {
+  margin-top: 50px;
   font-family: 'Helvetica', sans-serif, 'Ariel';
   position: absolute;
   background: #ffffff;
@@ -104,21 +106,27 @@ body {
   max-width: 2000px;
   min-height: 300px;
   height: auto;
-  padding: 30px 290px 30px 30px;
   -moz-box-shadow: -5px 5px 15px;
   -webkit-box-shadow: -5px 5px 15px;
   box-shadow: -5px 5px 15px;
   border-radius: 10px;
-
 }
 
-
-.wid{
-  margin-left: 15%;
-}
 
 .corp{
-  margin-left: 200px;
+  margin: 30px 0 30px 0;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+.btn-twitter{
+  width: 500px;
+}
+
+.wid{
+  width: 400px;
+  margin-left: 50px;
 }
 
 .divider-text {

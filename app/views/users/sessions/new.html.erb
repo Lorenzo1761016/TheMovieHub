@@ -12,10 +12,10 @@
           <% end %><br />
         <% end %>
       <% end %>
-      <hr>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <h3  class="card-title mt-3 text-center">Hai già un account?<h3>
+        <h3  class="card-title mt-3 text-center">Oppure accedi<h3>
+        <h3  class="card-title mt-3 text-center">con il tuo account Moviepedia<h3>
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
           <%= f.label :email %><br />
@@ -31,7 +31,7 @@
   
 
         <% if devise_mapping.rememberable? %>
-          <div class="form-group input-group wid" style = "margin-left: 35%">
+          <div class="form-group input-group wid" style="margin-bottom: 50px" >
             <span class="input-group-text"> <i class="fa fa-bookmark"></i> </span>
             <%= f.label :remember_me %>
             <%= f.check_box :remember_me %>
@@ -58,6 +58,10 @@ body {
   background: #B5B5B5;
 }
 
+.btn{
+  margin: 20px 0 20px 0;
+}
+
 .moviecard {
   font-family: 'Helvetica', sans-serif, 'Ariel';
   position: absolute;
@@ -69,7 +73,6 @@ body {
   max-width: 2000px;
   min-height: 300px;
   height: auto;
-  padding: 30px 290px 30px 30px;
   -moz-box-shadow: -5px 5px 15px;
   -webkit-box-shadow: -5px 5px 15px;
   box-shadow: -5px 5px 15px;
@@ -77,13 +80,20 @@ body {
 
 }
 
-
-.wid{
-  margin-left: 15%;
+.corp{
+  margin: 30px 0 30px 0;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
 }
 
-.corp{
-  margin-left: 200px;
+.btn-twitter{
+  width: 500px;
+}
+
+.wid{
+  width: 400px;
+  margin-left: 50px;
 }
 
 .divider-text {
