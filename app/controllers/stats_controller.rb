@@ -6,6 +6,7 @@ class StatsController < ApplicationController
     @users = User.all
     puts ("visite: ")
     @count =  Ahoy::Visit.count
+    @visits = Ahoy::Visit.all
     @event_count  = Ahoy::Event.count
     @events  = Ahoy::Event.all
     @film_count =  Ahoy::Event.select { |event| event.name['Film'] }.uniq.count
@@ -21,10 +22,39 @@ class StatsController < ApplicationController
           film = Tmdb::Movie.detail(f.id).title
         end
       end
-      return film+" - "+count.to_s+" visite"
+      return film
     end
+
+    def top_film_count
+      @films = Film.all
+      count = 0
+      film = "Nessuno"
+      @films.each do |f|
+        if f.visits > count
+          count = f.visits
+        end
+      end
+      return count
+    end
+
+    def top_film_id
+      @films = Film.all
+      count = 0
+      film = "Nessuno"
+      @films.each do |f|
+        if f.visits > count
+          count = f.visits
+          film = Tmdb::Movie.detail(f.id).id
+        end
+      end
+      return film
+    end
+
+   
        
     @top_film = top_film
+    @top_film_count = top_film_count
+    @top_film_id = top_film_id
 
     def top_tv
       @tvs = Tv.all
@@ -36,10 +66,52 @@ class StatsController < ApplicationController
           tv = Tmdb::TV.detail(t.id).name
         end
       end
-      return tv+" - "+count.to_s+" visite"
+      return tv
+    end
+
+
+    def top_tv_count
+      @tvs = Tv.all
+      count = 0
+      tv = "Nessuno"
+      @tvs.each do |t|
+        if t.visits > count
+          count = t.visits
+        end
+      end
+      return count
+    end
+    
+
+    def top_tv_id
+      @tvs = Tv.all
+      count = 0
+      tv = "Nessuno"
+      @tvs.each do |t|
+        if t.visits > count
+          count = t.visits
+          tv = Tmdb::TV.detail(t.id).id
+        end
+      end
+      return tv
     end
 
     @top_tv = top_tv
+    @top_tv_count = top_tv_count
+    @top_tv_id = top_tv_id
+
+    def twitter_users
+      @users = User.all
+      count = 0
+      @users.each do |u|
+        if u.provider == "twitter"
+          count = count+1
+        end
+      end
+      return count
+    end
+
+    @twitter_users = twitter_users
 
 
   end

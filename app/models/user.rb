@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  acts_as_voter 
+  acts_as_voter
   has_many :visits, class_name: "Ahoy::Visit"
   has_many :events, class_name: "Ahoy::Event"
   # Include default devise modules. Others available are:
@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
       else
         user.email = ""
       end
-      user.providerimg = auth.info.image
       user.password = Devise.friendly_token[0, 20]
       user.provider = auth.provider
       if auth.info.description != nil
