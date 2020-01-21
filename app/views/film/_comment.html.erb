@@ -32,10 +32,10 @@
 </div>
 
  
-           <div id = 'id_<%= comment.id %>' style = "display: none" >
+    <div id = 'id_<%= comment.id %>' style = "display: none" >
         <%= form_for [comment, Comment.new] do |f| %>
-            <%= f.text_area :body, placeholder: "Rispondi" %><br/>
-            <%= f.submit "Rispondi"  %>
+            <%= f.text_area :body, placeholder: "Rispondi",style: "width:500px" %><br/>
+            <%= f.submit "Rispondi", class: "btn btn-success", style: "width:200px; margin-top:5px" %>
         <% end %>
     </div> 
 

@@ -89,17 +89,25 @@
           <% end %>
       </div>
     </div>
-    <h1 style = "margin-left: 20%"> COMMENTI </h1>
-    <div class = "container cmnts">
-        <ul>
-            <%= render(partial: 'comment', collection: @found.comments) %>
-        </ul>
+
+
+    <div  style="text-align: center; width: 1030px; margin-top:50px">
+      <h1> COMMENTI </h1>
+      <div class = "container cmnts">
+          <ul>
+              <%= render(partial: 'comment', collection: @found.comments) %>
+          </ul>
+      </div>
     </div>
-    <h3>Commenta anche tu</h3>
-    <%= form_for [@found, Comment.new] do |f| %>
-      <%= f.text_area :body, placeholder: "Aggiungi un commento...", class: "ta" %><br/>
-      <%= f.submit "Invio", class: "inv" %>
-    <% end %>
+    <div style="text-align: center; width: 1030px" >
+      <h3>Commenta anche tu</h3>
+      <%= form_for [@found, Comment.new] do |f| %>
+        <%= f.text_area :body, placeholder: "Aggiungi un commento...", class: "ta" %><br/>
+        <%= f.submit "Invio", class: "inv btn btn-success" %>
+      <% end %>
+    </div>
+
+
     <% if @film.belongs_to_collection%>
       <div style = "margin-left:30%"><h1> Altri titoli di: "<%= @collection.name %>" </h1> </div>
       <div style = "width: 1150px;height: 250px;margin-left:0px">
@@ -256,11 +264,13 @@ div.scrollmenu a:hover {
   background-color: #777;
 }
 .inv{
-    width: 1030px;
+  margin-top:10px;
+  margin-bottom:100px;
+  width: 300px;
 }
 .ta{
     width: 1030px;
-    height: 70px;
+    height: 50px;
 }
 .nom{
     font-size: 18px;
