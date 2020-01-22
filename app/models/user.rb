@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  validates :username, presence: true
   acts_as_voter
   has_many :visits, class_name: "Ahoy::Visit"
   has_many :events, class_name: "Ahoy::Event"

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Film, type: :model do
+RSpec.describe Tv, type: :model do
   subject { described_class.new(id: 103)  }
     
     describe "Validations" do 
