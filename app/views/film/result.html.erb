@@ -7,7 +7,13 @@
           Feed
           <i class="fab fa-twitter"></i>
         <% end %>
-      </span></div>
+      </span>
+      <% if is_fav %>
+        <button id = "rmf"> Rimuovi dai preferiti </button>
+      <% else %>
+        <%= button_to "Aggiungi ai preferiti", favfilm_film_path(params[:id]), id: "fav"%> 
+      <% end %>
+      </div>
       <div class="movie-details"><span class="movie-rating"><%= @film.original_title %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
               <% @film.genres.each do |g|%>
                   <%= g.name %>
@@ -151,7 +157,8 @@
                   <% end %>
               <% end %>
           </div>
-          <div >
+          <div >        <button id = "fav"> Aggiungi ai preferiti </button> 
+
               <button class = "xbt" id = "right"><i id = "aw" class="arrow right"></i></button>
           </div>
           
@@ -240,7 +247,7 @@ div.scrollmenu a {
   width: 1000px;
   max-width: 1030px;
   height: 450px;
-  max-height: 450px;
+  max-height: 450px;        
   overflow: auto;
   white-space: nowrap;
   margin-top: 10px;
@@ -635,6 +642,7 @@ body {
 </style>
 
 <script>
+
 
 
 $(document).ready(function(){

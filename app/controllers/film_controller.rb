@@ -30,6 +30,7 @@ class FilmController < ApplicationController
       count = @found.visits
       @found.visits = count+1
       @found.save
+      
     else
       # the truck doesn't exist
       n = Film.all.size
@@ -44,6 +45,7 @@ class FilmController < ApplicationController
 
     end
 
+
     @film = Tmdb::Movie.detail(params[:id])
     @cast = Tmdb::Movie.cast(params[:id])
     @video = Tmdb::Movie.videos(params[:id])
@@ -54,6 +56,7 @@ class FilmController < ApplicationController
     if @film.belongs_to_collection
       @collection = Tmdb::Collection.detail(@film.belongs_to_collection.id);
     end
+
   end
 
   def tv
@@ -99,4 +102,16 @@ class FilmController < ApplicationController
     @profile_path = @persona.profile_path ? 'https://image.tmdb.org/t/p/original/'+@persona.profile_path : "/no_locandina.webp";
     ahoy.track "Persona: "+ @persona.name
   end
+
+  def favfilm
+    u = Favorite.new(user_id: current_user.id, fav_type: "Film", fav_id: params[:id], fav_name: Tmdb::Movie.detail(params[:id]).title)
+    if(u.save!)
+      flash[:notice] = "Elemento aggiunto ai preveriti"
+      ahoy.track f.fav_name+" Aggiunto Ai Preferiti"
+    else
+      flash[:alert] = "Si è verificato un errore."
+    end
+  end
+
+  
 end

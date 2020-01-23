@@ -1,0 +1,13 @@
+<% @favs.each do |f| %>
+    <% if f.user_id == current_user.id %>
+        <%= f.fav_type %>: 
+        <% if f.fav_type == "Film" %>
+            <%= link_to result_path(f.fav_id) do %>
+                <%= f.name %>
+            <% end %>
+            - Data di aggiunta: <%= f.created_at %> - 
+            <%= link_to "Elimina", favdestroy_path(params[:id]) %>
+        <% end %>
+    <% end %>
+    <br>
+<% end %>

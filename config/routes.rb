@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   get '/ban/:id', to: 'users#ban', as: 'ban'
   delete "users/:id", to: "users#destroy"
   get 'stats' => 'stats#stats'
-
+  get '/:id/favorites', to: "users#favorites", as: "favorites"
   mount ActionCable.server => '/cable'
 
   resources :films do
