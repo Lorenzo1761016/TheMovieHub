@@ -6,7 +6,7 @@
                 <%= f.name %>
             <% end %>
             - Data di aggiunta: <%= f.created_at %> - 
-            <%= link_to "Elimina", favdestroy_path(params[:id]) %>
+            <%= link_to "Elimina", favdestroy_path(params[:id],f.id),:method => :delete %>
         <% end %>
     <% end %>
     <br>

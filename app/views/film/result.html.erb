@@ -11,7 +11,7 @@
       <% if is_fav %>
         <button id = "rmf"> Rimuovi dai preferiti </button>
       <% else %>
-        <%= button_to "Aggiungi ai preferiti", favfilm_film_path(params[:id]), id: "fav"%> 
+        <%= button_to "Aggiungi ai preferiti", favfilm_path(params[:id]), id: "fav"%> 
       <% end %>
       </div>
       <div class="movie-details"><span class="movie-rating"><%= @film.original_title %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">

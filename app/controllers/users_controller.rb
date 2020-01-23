@@ -40,8 +40,8 @@ class UsersController < ApplicationController
   end
 
   def favdestroy
-    f = Favorite.find(params[:id])
-    ahoy.track f.fav_name+" Rimosso dai Preferiti"
+    f = Favorite.find(params[:fav])
+    ahoy.track f.name+" Rimosso dai Preferiti"
     f.destroy
     redirect_back fallback_location: root_path, notice: "Elemento rimosso dai preferiti"
   end

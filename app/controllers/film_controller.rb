@@ -104,14 +104,12 @@ class FilmController < ApplicationController
   end
 
   def favfilm
-    u = Favorite.new(user_id: current_user.id, fav_type: "Film", fav_id: params[:id], fav_name: Tmdb::Movie.detail(params[:id]).title)
-    if(u.save!)
-      flash[:notice] = "Elemento aggiunto ai preveriti"
-      ahoy.track f.fav_name+" Aggiunto Ai Preferiti"
-    else
-      flash[:alert] = "Si è verificato un errore."
-    end
+    u = Favorite.new(user_id: current_user.id, fav_type: "Film", fav_id: params[:id], name: Tmdb::Movie.detail(params[:id]).title)
+    u.save!
+    ahoy.track u.name+" Aggiunto Ai Preferiti"
+    redirect_back fallback_location: root_path, notice: "Elemento aggiunto ai preferiti"
   end
+
 
   
 end

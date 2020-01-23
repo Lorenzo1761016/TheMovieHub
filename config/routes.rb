@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   delete "users/:id", to: "users#destroy"
   get 'stats' => 'stats#stats'
   get '/:id/favorites', to: "users#favorites", as: "favorites"
+  post '/favorite/:id', to: "film#favfilm", as: "favfilm"
+  delete '/:id/favorites/:fav', to: "users#favdestroy", as: "favdestroy"
   mount ActionCable.server => '/cable'
 
   resources :films do
