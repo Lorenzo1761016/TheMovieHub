@@ -1,13 +1,131 @@
-<% @favs.each do |f| %>
-    <% if f.user_id == current_user.id %>
-        <%= f.fav_type %>: 
-        <% if f.fav_type == "Film" %>
-            <%= link_to result_path(f.fav_id) do %>
-                <%= f.name %>
+<h1> Preferiti </h1>
+
+<div class = "wrapper">
+    <% @favs.each do |f| %>
+        <% if f.user_id == current_user.id %>
+            <% if f.fav_type == "Film" %>
+                <div class = "filter movie">
+                    <div class = "rad each-item">
+                        <%= link_to result_path(f.fav_id), style: "color: black" do %>
+                            <% if Tmdb::Movie.detail(f.fav_id).poster_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+Tmdb::Movie.detail(f.fav_id).poster_path)%>'>
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                            <% end %>
+                            <div class="cap1">
+                                <h3 class = "text-center txt"><%= f.name %></h3>
+                                Data di aggiunta: <%= f.created_at %>
+                            </div>
+                        <% end %>
+                        <div class="cap2">
+                            <%= link_to "Elimina", favdestroy_path(params[:id],f.id),class: "nom txt text-center",:method => :delete %>
+                        </div>
+                    </div>
+                </div>
             <% end %>
-            - Data di aggiunta: <%= f.created_at %> - 
-            <%= link_to "Elimina", favdestroy_path(params[:id],f.id),:method => :delete %>
         <% end %>
     <% end %>
-    <br>
-<% end %>
+</div>
+
+
+<script>
+$(document).ready(function(){
+
+    $(".filter-button").click(function(){
+        var value = $(this).attr('data-filter');
+        
+        if(value == "all")
+        {
+            //$('.filter').removeClass('hidden');
+            $('.filter').show('3000');
+        }
+        else
+        {
+//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+            $(".filter").not('.'+value).hide('3000');
+            $('.filter').filter('.'+value).show('3000');
+            
+        }
+    });
+
+});
+</script>
+
+<style>
+
+.each-item
+{
+    position:relative;
+    overflow: hidden;
+
+}
+
+.each-item:hover .cap2, .each-item:hover .cap1
+{
+    left:0px;
+    overflow: hidden;
+   
+}
+
+.cap1
+{
+    position:absolute;
+    width: 100%;
+    height:80%;
+    background:rgba(255, 255, 255, 0.7);
+    top:0px;
+    left:-100%;
+    padding:10px;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+
+.cap2
+{
+    position:absolute;
+    width:100%;
+    height:20%;
+    background:rgba(108, 122, 137, 0.9);
+    bottom:0px;
+    left:100%;
+    padding:0px;
+    transition: all 1s;
+    overflow: hidden;
+}
+
+
+.wrapper {
+    width: 100%;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(5, 210px);
+}
+
+.img {
+    width: 210px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.rad{
+    border-radius: 25px;
+    border: solid;
+    border-color: black;
+}
+
+.nom{
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    margin-left: 70px;
+
+}
+
+.nom:hover{
+    text-decoration: none;
+    color: black;
+}
+
+</style>

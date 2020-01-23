@@ -45,7 +45,7 @@ class FilmController < ApplicationController
 
     end
 
-
+    @favs = Favorite.all
     @film = Tmdb::Movie.detail(params[:id])
     @cast = Tmdb::Movie.cast(params[:id])
     @video = Tmdb::Movie.videos(params[:id])

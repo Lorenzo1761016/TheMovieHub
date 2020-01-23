@@ -7,65 +7,65 @@
     </div>
     <br>
 <div class = "wrapper">
-        <% @search.results.each do |s|%>
-            <% if s.media_type == "movie" %>
-                <div class = "filter movie">
-                    <div class = "rad each-item">
-                        <%= link_to result_path(s.id) do %>
-                            <% if s.poster_path %>
-                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
-                            <%else%>
-                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
-                            <% end %>
-                            <div class="cap1">
-                                <h3 class = "text-center txt"><%= s.title %></h3>
-                            </div>
+    <% @search.results.each do |s|%>
+        <% if s.media_type == "movie" %>
+            <div class = "filter movie">
+                <div class = "rad each-item">
+                    <%= link_to result_path(s.id) do %>
+                        <% if s.poster_path %>
+                            <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>'>
+                        <%else%>
+                            <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
                         <% end %>
-                        <div class="cap2">
-                            <h2 class="text-center txt">Film</h2>
+                        <div class="cap1">
+                            <h3 class = "text-center txt"><%= s.title %></h3>
                         </div>
+                    <% end %>
+                    <div class="cap2">
+                        <h2 class="text-center txt">Film</h2>
                     </div>
                 </div>
-            <% end %>
-            <% if s.media_type == "tv" %>
-                <div class = "filter tv">
-                    <div class = "rad each-item">
-                        <%= link_to tv_path(s.id), class: "filter tv" do %>
-                            <% if s.poster_path %>
-                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' >
-                            <%else%>
-                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>' width = 210px>
-                            <% end %>
-                            <div class="cap1">
-                                <h3 class = "text-center txt"><%= s.name %></h3>
-                            </div>
-                        <% end %>
-                        <div class="cap2">
-                            <h2 class="text-center txt">Serie TV</h2>
-                        </div>
-                    </div>
-                </div>
-            <% end %>
-            <% if s.media_type == "person" %>
-                <div class = "filter person">
-                    <div class = "rad each-item">
-                        <%= link_to persona_path(s.id), class: "filter person" do %>
-                            <% if s.profile_path %>
-                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.profile_path)%>' >
-                            <%else%>
-                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>' >
-                            <% end %>
-                            <div class="cap1">
-                                <h3 class = "text-center txt"><%= s.name %></h3>
-                            </div>
-                        <% end %>
-                        <div class="cap2">
-                            <h2 class="text-center txt">Persona</h2>
-                        </div>
-                    </div>
-                </div>
-            <% end %>
+            </div>
         <% end %>
+        <% if s.media_type == "tv" %>
+            <div class = "filter tv">
+                <div class = "rad each-item">
+                    <%= link_to tv_path(s.id), class: "filter tv" do %>
+                        <% if s.poster_path %>
+                            <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.poster_path)%>' >
+                        <%else%>
+                            <img class = "img" src = '<%= image_path('/no_locandina.webp')%>' width = 210px>
+                        <% end %>
+                        <div class="cap1">
+                            <h3 class = "text-center txt"><%= s.name %></h3>
+                        </div>
+                    <% end %>
+                    <div class="cap2">
+                        <h2 class="text-center txt">Serie TV</h2>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+        <% if s.media_type == "person" %>
+            <div class = "filter person">
+                <div class = "rad each-item">
+                    <%= link_to persona_path(s.id), class: "filter person" do %>
+                        <% if s.profile_path %>
+                            <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+s.profile_path)%>' >
+                        <%else%>
+                            <img class = "img" src = '<%= image_path('/no_locandina.webp')%>' >
+                        <% end %>
+                        <div class="cap1">
+                            <h3 class = "text-center txt"><%= s.name %></h3>
+                        </div>
+                    <% end %>
+                    <div class="cap2">
+                        <h2 class="text-center txt">Persona</h2>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
 </div>
 
 

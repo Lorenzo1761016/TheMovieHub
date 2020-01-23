@@ -9,9 +9,13 @@
         <% end %>
       </span>
       <% if is_fav %>
-        <button id = "rmf"> Rimuovi dai preferiti </button>
+        <% @favs.each do |f| %>
+          <% if f.user_id == current_user.id && f.name == @film.title %>
+            <%= button_to "Rimuovi dai preferiti", favdestroy_path(f.user_id, f.id), :method => :delete %>
+          <% end %>
+        <% end %>
       <% else %>
-        <%= button_to "Aggiungi ai preferiti", favfilm_path(params[:id]), id: "fav"%> 
+        <%= button_to "Aggiungi ai preferiti", favfilm_path(params[:id])%> 
       <% end %>
       </div>
       <div class="movie-details"><span class="movie-rating"><%= @film.original_title %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
