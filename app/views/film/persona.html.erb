@@ -29,10 +29,10 @@
         </span>
     </div>
     <div class="movie-castcrew"><span class="nom-2">Biografia</span>
-        <% if @persona.biography !=  "" %>
+        <% if @persona.biography != "" %>
             <div><span style = "font-size: 16px"><%= @persona.biography %></span></div>
         <% else %>
-            <span style = "margin-left: 5px;font-size: 14px"> non disponibile </span>
+            <span style = "margin-left: 5px;font-size: 16px"> non disponibile </span>
         <% end %>
     </div>
     <div class="movie-synopsis">
@@ -92,7 +92,7 @@
 
 .scrl{
     width: 1000px;
-    height: 340px;
+    height: 510px;
     overflow-y: scroll;
     overflow-x: hidden;
     margin-left: 30px;
@@ -265,7 +265,7 @@ body {
   border: none;
 }
 .moviecard .movie-castcrew {
-  min-height: 350px;
+  min-height: 300px;
   padding-top: 40px;
   width: 65%;
   height: auto;
@@ -298,7 +298,7 @@ body {
   width: 200px;
   height: 300px;
   right: 14%;
-  top: 15%;
+  top: 13%;
   -moz-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
   box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);

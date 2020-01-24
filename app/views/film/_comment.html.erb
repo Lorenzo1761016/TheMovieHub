@@ -4,7 +4,16 @@
         <div class="col-sm-5">
             <div class="panel panel-default marg">
                 <div class="panel-heading">
-                    <strong id = "user"> <%= comment.username %> </strong> <span class="text-muted"><small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small></span>
+                    <% users = User.all %>
+                    <% users.each do |u| %>
+                        <% if u.username == comment.username %>
+                            <% @user_id = u.id %>
+                        <% end %>
+                    <% end %>
+                    <%= link_to user_path(@user_id), class: "lnk" do %>
+                        <strong id = "user"><%= comment.username %> </strong> 
+                    <% end %>
+                    <span class="text-muted"><small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small></span>
                     <% if current_user.username == comment.username || current_user.admin? %> 
                         <%= link_to "Elimina", comment, :method => :delete,:class => "link"%> 
                     <% end %>
@@ -47,6 +56,16 @@
 <style>
 
 /* Stile personalizzato per i commenti */
+
+.lnk{
+    color:black;
+    text-decoration: none;
+}
+
+.lnk:hover{
+    text-decoration: none;
+    color: gray;
+}
 
 .marg{
     margin-top: 10px;

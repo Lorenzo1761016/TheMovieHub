@@ -28,7 +28,7 @@
                             <div class="" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Name</label>
+                                                <label>Nome</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p><%= @user.first_name%> <%= @user.last_name%></p>
@@ -36,7 +36,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Gender</label>
+                                                <label>Sesso</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p> <%= User.gender_types.key(@user.gender) %> </p>
@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Date of Birth</label>
+                                                <label>Data Di Nascita</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p><%= @user.date_of_birth%></p>
@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Email</label>
+                                                <label>E-Mail</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p><%= @user.email%></p>
@@ -60,7 +60,21 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Phone</label>
+                                                <label>Ruolo</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>
+                                                    <% if @user.admin? %>
+                                                        Admin
+                                                    <% else %>
+                                                        Utente
+                                                    <% end %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Numero Di Telefono</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p><%= @user.phone_number%></p>
@@ -69,7 +83,7 @@
                                         <%if @user.provider != ""%>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Twitter Account</label>
+                                                <label>Account Twitter</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <a href="https://twitter.com/<%= @user.username%>" class="btn btn-primary btn-twitter" > Twitter of <%=@user.username%></a>
@@ -77,7 +91,7 @@
                                         </div>
                                         <%end%>
                                         <div class="form-group">
-                                        <label for="biography_card">Your Bio</label>
+                                        <label for="biography_card">Biografia</label>
                                         <textarea id="biography_card" rows="7" readonly><%=@user.bio%></textarea>
                                     </div>
                                 </div>   
