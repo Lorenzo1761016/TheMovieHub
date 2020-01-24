@@ -1,5 +1,12 @@
 <h1> Preferiti </h1>
 
+ <div>
+    <button class="btn btn-primary filter-button" data-filter="all">Tutto</button>
+    <button class="btn btn-default filter-button" data-filter="movie">Film</button>
+    <button class="btn btn-default filter-button" data-filter="tv">Serie TV</button>
+</div>
+
+<br>
 <div class = "wrapper">
     <% @favs.each do |f| %>
         <% if f.user_id == current_user.id %>
@@ -9,6 +16,26 @@
                         <%= link_to result_path(f.fav_id), style: "color: black" do %>
                             <% if Tmdb::Movie.detail(f.fav_id).poster_path %>
                                 <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+Tmdb::Movie.detail(f.fav_id).poster_path)%>'>
+                            <%else%>
+                                <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
+                            <% end %>
+                            <div class="cap1">
+                                <h3 class = "text-center txt"><%= f.name %></h3>
+                                Data di aggiunta: <%= f.created_at %>
+                            </div>
+                        <% end %>
+                        <div class="cap2">
+                            <%= link_to "Elimina", favdestroy_path(params[:id],f.id),class: "nom txt text-center",:method => :delete %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            <% if f.fav_type == "TV" %>
+                <div class = "filter tv">
+                    <div class = "rad each-item">
+                        <%= link_to result_path(f.fav_id), style: "color: black" do %>
+                            <% if Tmdb::TV.detail(f.fav_id).poster_path %>
+                                <img class = "img" src= '<%= image_path('https://image.tmdb.org/t/p/original/'+Tmdb::TV.detail(f.fav_id).poster_path)%>'>
                             <%else%>
                                 <img class = "img" src = '<%= image_path('/no_locandina.webp')%>'>
                             <% end %>

@@ -66,7 +66,7 @@ class FilmController < ApplicationController
       @ftv = Tv.find(params[:id])
       count = @ftv.visits
       @ftv.visits = count+1
-      @ftv.save
+      @ftv.save!
     else
       # the truck doesn't exist
       n = Tv.all.size
@@ -79,6 +79,7 @@ class FilmController < ApplicationController
       @ftv = Tv.find(params[:id])
      end
     end
+    @favs = Favorite.all
     @serie = Tmdb::TV.detail(params[:id])
     @cast = Tmdb::TV.cast(params[:id])
     @ratings = Tmdb::TV.content_ratings(params[:id])
@@ -107,6 +108,14 @@ class FilmController < ApplicationController
     u = Favorite.new(user_id: current_user.id, fav_type: "Film", fav_id: params[:id], name: Tmdb::Movie.detail(params[:id]).title)
     u.save!
     ahoy.track u.name+" Aggiunto Ai Preferiti"
+    redirect_back fallback_location: root_path, notice: "Elemento aggiunto ai preferiti"
+  end
+
+
+  def favtv
+    u = Favorite.new(user_id: current_user.id, fav_type: "TV", fav_id: params[:id], name: Tmdb::TV.detail(params[:id]).name)
+    u.save!
+    ahoy.track u.name+"Serie Aggiunta Ai Preferiti"
     redirect_back fallback_location: root_path, notice: "Elemento aggiunto ai preferiti"
   end
 

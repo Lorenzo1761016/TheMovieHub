@@ -9,6 +9,22 @@
   <div id="movie-content">
     <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @serie.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
     <div class="movie-title"><%=@serie.name %><span class="movie-year">(<%= @serie.original_name%>)
+    <br>
+        <div class = "trb but">
+          <% if is_fav_tv %>
+            <% @favs.each do |f| %>
+              <% if f.user_id == current_user.id && f.fav_type == "TV" && f.fav_id == @serie.id %>
+                <%= link_to favdestroy_path(f.user_id,f.id), :method => :delete, class: "line trb-1", style:"font-size:18px;" do %>
+                  Rimuovi dai preferiti <i class="fa fa-minus-circle red"></i>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= link_to favtv_path(params[:id]), class: "line trb-1", style:"font-size:18px;" do %>
+              Aggiungi ai preferiti <i class="fa fa-star yellow"></i>
+            <% end %>
+          <% end %>
+        </div>
             <%= link_to tweets_path(obj_name: @serie.name), method: :post, class: "btn btn-primary btn-twitter", target: '_blank', style: "border-radius: 10px;margin-bottom:3px;border: 1px solid black" do%>
                 Feed
                 <i class="fab fa-twitter"></i>
@@ -136,6 +152,37 @@
     </div>
 </div>
 <style>
+
+
+.but{
+  background-color: #dedede;
+  width: 200px;
+  height: 50px;
+  padding: 6px;
+  margin-left: 5px;
+  margin-right: 5px;
+  position: relative;
+  display: inline;
+}
+
+.trb-1{
+  color: black
+}
+
+.trb-1:hover{
+  color:black;
+  text-decoration: none;
+}
+
+
+.yellow{
+    color: black;
+}
+
+.trb:hover .yellow{
+  color: yellow;
+}
+
 
 
 #arw {

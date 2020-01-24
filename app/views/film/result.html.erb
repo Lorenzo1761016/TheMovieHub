@@ -4,7 +4,7 @@
       <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
       <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date[0..3]%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button>
         <div class = "trb but">
-          <% if is_fav %>
+          <% if is_fav_film %>
             <% @favs.each do |f| %>
               <% if f.user_id == current_user.id && f.name == @film.title %>
                 <%= link_to favdestroy_path(f.user_id,f.id), :method => :delete, class: "line trb-1", style:"font-size:18px;" do %>
