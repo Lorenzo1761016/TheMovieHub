@@ -3,20 +3,26 @@
     <div id="movie-content">
       <div class="movie-ratings"><span class="star">★</span><span class="score"><%= @film.vote_average %></span><span class="score-out-of">/ 10 (IMDB)</span></div>
       <div class="movie-title"><%=@film.title %><span class="movie-year">(<%= @film.release_date[0..3]%>) <button class = "trb play-trailer" style="font-size:18px;"> Guarda il trailer <i class="fa fa-youtube-play red"></i></button>
+        <div class = "trb but">
+          <% if is_fav %>
+            <% @favs.each do |f| %>
+              <% if f.user_id == current_user.id && f.name == @film.title %>
+                <%= link_to favdestroy_path(f.user_id,f.id), :method => :delete, class: "line trb-1", style:"font-size:18px;" do %>
+                  Rimuovi dai preferiti <i class="fa fa-minus-circle red"></i>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= link_to favfilm_path(params[:id]), class: "line trb-1", style:"font-size:18px;" do %>
+              Aggiungi ai preferiti <i class="fa fa-star yellow"></i>
+            <% end %>
+          <% end %>
+        </div>
         <%= link_to tweets_path(obj_name: @film.title), method: :post, class: "btn btn-primary btn-twitter", target: '_blank', style: "border-radius: 10px;margin-bottom:3px;border: 1px solid black" do%>
           Feed
           <i class="fab fa-twitter"></i>
         <% end %>
       </span>
-      <% if is_fav %>
-        <% @favs.each do |f| %>
-          <% if f.user_id == current_user.id && f.name == @film.title %>
-            <%= button_to "Rimuovi dai preferiti", favdestroy_path(f.user_id, f.id), :method => :delete %>
-          <% end %>
-        <% end %>
-      <% else %>
-        <%= button_to "Aggiungi ai preferiti", favfilm_path(params[:id])%> 
-      <% end %>
       </div>
       <div class="movie-details"><span class="movie-rating"><%= @film.original_title %></span><span class="movie-duration"><%= @film.runtime %> min.</span><span class="movie-genre">
               <% @film.genres.each do |g|%>
@@ -173,6 +179,32 @@
   </div>
 
 <style>
+
+.line{
+  position: relative;
+  display: inline;
+}
+
+
+.but{
+  background-color: #dedede;
+  width: 200px;
+  height: 50px;
+  padding: 6px;
+  margin-left: 5px;
+  margin-right: 5px;
+  position: relative;
+  display: inline;
+}
+
+.trb-1{
+  color: black
+}
+
+.trb-1:hover{
+  color:black;
+  text-decoration: none;
+}
 
 
 #aw{
@@ -335,6 +367,14 @@ div.scrollmenu a:hover {
 
 .trb:hover .red{
      color: red;    
+}
+
+.yellow{
+    color: black;
+}
+
+.trb:hover .yellow{
+  color: yellow;
 }
 
 .cmnts{
