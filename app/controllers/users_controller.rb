@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    puts("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi")
+    puts("IMG: "+@user.providerimg)
     ahoy.track "Profilo utente '"+@user.username+"'", language: "Ruby"
 
   end
@@ -37,6 +39,8 @@ class UsersController < ApplicationController
 
   def favorites
     @favs = Favorite.all
+    @id = params[:id]
+    puts("ID: "+@id)
   end
 
   def favdestroy

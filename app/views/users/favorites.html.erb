@@ -9,7 +9,7 @@
 <br>
 <div class = "wrapper">
     <% @favs.each do |f| %>
-        <% if f.user_id == current_user.id %>
+        <% if f.user_id.to_s == @id.to_s %>
             <% if f.fav_type == "Film" %>
                 <div class = "filter movie">
                     <div class = "rad each-item">
@@ -25,7 +25,11 @@
                             </div>
                         <% end %>
                         <div class="cap2">
-                            <%= link_to "Elimina", favdestroy_path(params[:id],f.id),class: "nom txt text-center",:method => :delete %>
+                            <% if f.user_id == current_user.id %>
+                                <%= link_to "Elimina", favdestroy_path(params[:id],f.id),class: "nom txt text-center",:method => :delete %>
+                            <% else %>
+                                <h2 class="text-center txt">Film</h2>
+                            <% end %>
                         </div>
                     </div>
                 </div>
@@ -45,7 +49,11 @@
                             </div>
                         <% end %>
                         <div class="cap2">
-                            <%= link_to "Elimina", favdestroy_path(params[:id],f.id),class: "nom txt text-center",:method => :delete %>
+                            <% if f.user_id == current_user.id %>
+                                <%= link_to "Elimina", favdestroy_path(params[:id],f.id),class: "nom txt text-center",:method => :delete %>
+                            <% else %>
+                                <h2 class="text-center txt">Serie TV</h2>
+                            <% end %>
                         </div>
                     </div>
                 </div>
@@ -140,6 +148,11 @@ $(document).ready(function(){
     border-radius: 25px;
     border: solid;
     border-color: black;
+}
+
+.txt{
+    font-size: 24px;
+    color: black;
 }
 
 .nom{

@@ -22,7 +22,7 @@
           <li>
             <%= link_to "Preferiti", favorites_path(current_user) %>
           </li>
-          <% if current_user.admin? %>
+          <% if current_user.admin? || current_user.mod? %>
             <li><%= link_to "Stats", stats_path %></li>
             <li><%= link_to "All Users", users_path %></li>
           <% end %>
