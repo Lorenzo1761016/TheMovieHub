@@ -77,6 +77,14 @@ group :development do
   gem 'dotenv', '~> 2.2.1'
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'shoulda-matchers'
+end
+
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
