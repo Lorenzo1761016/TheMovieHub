@@ -69,98 +69,160 @@
 
 
 <h1>Stats</h1>
-<div id = "b1" class = "containerTab" style = "display: none">
-    VISITE TOTALI: <%= @count %>
-    <br>
-    <% @visits.each do |v| %>
-        <%= v.id %>)
-        DISPOSTIVO: <%= v.device_type %> - 
-        SISTEMA OPERATIVO: <%= v.os %> - 
-        BROWSER <%= v.browser %> - 
-        INIZIO SESSIONE: <%= v.started_at %>
-        <br>
-    <% end  %>
+<div id = "b1" class = "container containerTab" style = "display: none">
+    <div class="row">
+		<div>
+            <table class="table table-striped table-condensed">
+                  <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th style = "text-align: center">Dispositivo</th>
+                      <th style = "text-align: center">Sistema Operativo</th>
+                      <th style = "text-align: center">Browser</th>
+                      <th style = "text-align: center"> Inizio Sessione</th>
+                  </tr>
+              </thead>   
+              <tbody>
+                <% @visits.each do |v| %>
+                    <tr>
+                        <td> <%= v.id %> </td>
+                        <td style = "text-align:center"><%= v.os %></td>
+                        <td style = "text-align:center"><%= v.device_type %></td>
+                        <td style = "text-align:center">  <%= v.browser %></td>     
+                        <td style = "text-align:center"> <%= v.started_at %></td>                                 
+                    </tr>
+                <% end %>
+              </tbody>
+            </table>
+	    </div>
+    </div>
 </div>
 
-<div id = "b2" class = "containerTab" style = "display: none">
-    EVENTI TOTALI: <%= @event_count%>
-    <br>
-    <% @events.each do |e| %>
-        <%= e.id %>)
-        <%= e.name %> - 
-        <%= e.time %>
-        <br>
-    <% end %>
+<div id = "b2" class = "container containerTab" style = "display: none">
+	<div class="row">
+		<div>
+            <table class="table table-striped table-condensed">
+                  <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th style = "text-align: center">Evento</th>
+                      <th></th>
+                      <th style = "text-align: center"> Data Visita</th>
+                  </tr>
+              </thead>   
+              <tbody>
+                 <% @events.each do |e| %>
+                    <tr>
+                        <td> <%= e.id %> </td>
+                        <td style = "text-align:center"><%= e.name %><td>
+                        <td style = "text-align:center">  <%= e.time %></td>     
+                        <td></td>                                 
+                    </tr>
+                 <% end %>
+              </tbody>
+            </table>
+	    </div>
+    </div>
+   
 </div>
 
 <div id = "b3" class = "containerTab" style = "display:none">
-    <% @users.each do |u| %>
-        <%= link_to user_path(u.id) do %>
-            <%= u.username %>
-        <% end %>
-        <br>
-        VISITE: <%= u.visits.count%>
-        <br>
-        <% u.visits.each do |v| %>
-            <%= v.id %>) 
-            DISPOSTIVO: <%= v.device_type %> - 
-            SISTEMA OPERATIVO: <%= v.os %> -
-            BROWSER: <%= v.browser %> -
-            INIZIO SESSIONE: <%= v.started_at %>
-
-            <br>
-
-        <% end %>
-    
-        EVENTI: <%= u.events.count%>
-        <br> 
-
-        
-        <% u.events.each do |e| %>
-            <%= e.id %>)
-            <%= e.name %> -
-            <%= e.time %>
-            <br>
-        <% end %>  
-
-        <% end %>
+    <div style = "margin-left: 100px" class="row">
+		<div>
+            <table class="table table-striped table-condensed">
+                  <thead>
+                  <tr>
+                      <th>Utente</th>
+                      <th style = "text-align: center">Visite</th>
+                      <th style = "text-align: center">Ultima Visita</th>
+                      <th style = "text-align: center">Interazioni</th>
+                  </tr>
+              </thead>   
+              <tbody>
+                <% @users.each do |u| %>
+                    <tr>
+                        <td>
+                            <%= link_to user_path(u.id), class: "nom" do %>
+                                <%= u.username %>
+                            <% end %>
+                        </td>
+                        <td style = "text-align:center"><%= u.visits.count %></td>
+                        <td style = "text-align:center">
+                            <% if u.visits.count != 0 %>
+                                <% u.visits.last(1).each do |uu|%>
+                                    <%= uu.started_at %>
+                                <% end %>
+                            <% else %>
+                                 - 
+                            <% end %>
+                        </td>
+                        <td style = "text-align:center">  <%= u.events.count %></td>     
+                    </tr>
+                <% end %>
+              </tbody>
+            </table>
+	    </div>
+    </div>
 </div>
 
 <div id = "b4" class = "containerTab" style = "display: none">
-    <% @users.each do |u| %>
-        <% if u.provider == "twitter"%>
-            <%= link_to user_path(u.id) do %>
-                <%= u.username %>
-            <% end %>
-            <br>
-            VISITE: <%= u.visits.count%>
-            <br>
-            <% u.visits.each do |v| %>
-                <%= v.id %>) 
-                DISPOSTIVO: <%= v.device_type %> - 
-                SISTEMA OPERATIVO: <%= v.os %> -
-                BROWSER: <%= v.browser %> -
-                INIZIO SESSIONE: <%= v.started_at %>
-
-                <br>
-
-            <% end %>
-        
-            EVENTI: <%= u.events.count%>
-            <br> 
-
-            
-            <% u.events.each do |e| %>
-                <%= e.id %>)
-                <%= e.name %> -
-                <%= e.time %>
-                <br>
-                <br>
-            <% end %>  
-        <% end %>
-    <% end %>
+    <div style = "margin-left: 100px" class="row">
+		<div>
+            <table class="table table-striped table-condensed">
+                  <thead>
+                  <tr>
+                      <th>Utente</th>
+                      <th style = "text-align: center">Visite</th>
+                      <th style = "text-align: center">Ultima Visita</th>
+                      <th style = "text-align: center">Interazioni</th>
+                  </tr>
+              </thead>   
+              <tbody>
+                <% @users.each do |u| %>
+                    <% if u.provider == "twitter"%>
+                        <tr>
+                            <td>
+                                <%= link_to user_path(u.id), class: "nom" do %>
+                                    <%= u.username %>
+                                <% end %>
+                            </td>
+                            <td style = "text-align:center"><%= u.visits.count %></td>
+                            <td style = "text-align:center">
+                                <% if u.visits.count != 0 %>
+                                    <% u.visits.last(1).each do |uu|%>
+                                        <%= uu.started_at %>
+                                    <% end %>
+                                <% else %>
+                                    - 
+                                <% end %>
+                            </td>
+                            <td style = "text-align:center">  <%= u.events.count %></td>     
+                        </tr>
+                    <% end %>
+                <% end %>
+              </tbody>
+            </table>
+	    </div>
+    </div>
 </div>
 <style>
+
+.nom{
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: -7px;
+}
+
+.nom:hover{
+    text-decoration: none;
+    color: gray;
+    
+}
+
+.containerTab{
+    width: 1000px;
+}
 
 @import url("http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css");
 body { margin-top:20px; }
