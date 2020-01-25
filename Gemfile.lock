@@ -105,6 +105,10 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.6)
+    database_cleaner (1.8.0.beta)
+    database_cleaner-active_record (1.8.0.beta)
+      activerecord
+      database_cleaner (~> 1.8.0.beta)
     device_detector (1.0.3)
     devise (4.7.1)
       bcrypt (~> 3.0)
@@ -348,6 +352,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper (= 1.2.0)
   coffee-rails (~> 4.2.0)
+  database_cleaner-active_record
   devise (~> 4.2)
   dotenv (~> 2.2.1)
   duktape

@@ -1,21 +1,60 @@
-<h1> CHATROOM </h1>
 <br>
-<div class = 'msgb' id = 'msgf'>
-	<div id = "frame">
-		<div class = 'content'>
-			<div class = 'messages' id="chat">
-				<ul>
-				</u>
-			</div>
-		</div>
-	</div>
+<div class = "moviecard">
+  <h1 style = "margin-left: 200px;"> CHATROOM </h1>
+  <div class = 'msgb' id = 'msgf'>
+    <div id = "frame">
+      <div class = 'content'>
+        <div class = 'messages' id="chat">
+          <ul>
+          </u>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class = 'container container-fluid'>
+    <textarea row="1" id="msg" class = 'ta form-control' placeholder='Scrivi qualcosa...' ></textarea>
+    <button class = 'inv btn btn-success' id="send">Send Message</button>
+  </div>
 </div>
-<div class = 'container-fluid'>
-	<textarea row="1" id="msg" class = 'form-control' placeholder='Scrivi qualcosa...' ></textarea>
-	<button class = 'btn btn-success' id="send">Send Message</button>
-</div>
-
 <style class = 'cp-pen-styles'>
+
+body {
+  background: #B5B5B5;
+}
+
+.inv{
+  display: inline-block;
+  float: left;
+  position: relative;
+  margin-top: 20px;
+  margin-left: 10px;
+  padding: 15px;
+}
+
+.ta{
+  width: 970px;
+  margin-left: 30px;
+  position: relative;
+  float: left;
+}
+.moviecard {
+  font-family: 'Helvetica', sans-serif, 'Ariel';
+  position: absolute;
+  background: #ffffff;
+  color: #555555;
+  margin-left: -70px;
+  width: 1300px;
+  max-width: 2000px;
+  min-height: 300px;
+  height: auto;
+  padding: 30px 290px 30px 30px;
+  -moz-box-shadow: -5px 5px 15px;
+  -webkit-box-shadow: -5px 5px 15px;
+  box-shadow: -5px 5px 15px;
+  border-radius: 10px;
+
+}
+
 
 .form-control{
     margin-top: 20px;
@@ -25,6 +64,7 @@
 .msgb{
  border-style: groove;
  height: 500px;
+ width: 1230px;
  overflow-y: auto;
 }
 
@@ -127,9 +167,12 @@
 		}
 		
     $('#msg').on('keydown', function (e){
-    		if(e.which == 13) {
+      if (e.keyCode == 13) {
+        e.preventDefault();
+      }
+    	if(e.which == 13) {
 				$("#send").click();	
-    		}
+    	}
 		});
 
 		$("#send").click(function(){
