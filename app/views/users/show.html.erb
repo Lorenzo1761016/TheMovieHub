@@ -20,7 +20,9 @@
 
                     <div class="col-md-2">
                         <%= link_to 'Preferiti', favorites_path(@user.id), class: "btn btn-block btn-primary" %>
-                        <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-block btn-primary" %>
+                        <% if @user.id == current_user.id %>
+                            <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-block btn-primary" %>
+                        <% end %>
                     </div>
                 </div>
                 <div class="row">

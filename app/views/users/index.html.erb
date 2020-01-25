@@ -57,13 +57,22 @@
                                         <% else %>
                                             <% if !(current_user.mod? && user.mod?) %>        
                                                 <%= link_to ban_path(user.id), class:"table-link danger", title: "Block", data: {confirm: "vuoi sospendere "+user.username+"?"} do %>
-                                                    <i class="fas fa-user-lock" style="color: #A21717;font-size:26px"></i>
+                                                    <i class="fas fa-user-clock" style="color: #A21717;font-size:26px"></i>
                                                 <% end %>
                                             <% end %>
                                         <% end %>
                                         <% if !current_user.mod%>
                                             <%= link_to user_path(user), class:"table-link danger",title: "Delete", data: {confirm: "vuoi eliminare definitivamente "+user.username+"?"},  method: :delete  do %>
                                                 <i class="fas fa-user-times" style="font-size:26px"></i>
+                                            <% end %>
+                                        <% end %>
+                                        <% if !user.mod? %>
+                                            <%= link_to plus_path(user.id), class:"table-link danger",title: "Promuovi", data: {confirm: "vuoi promuovere "+user.username+"?"} do %>
+                                                <i class="fas fa-user-plus" style="color: green;font-size:26px"></i>
+                                            <% end %>
+                                        <% elsif user.mod? && !current_user.mod? %>
+                                            <%= link_to minus_path(user.id), class:"table-link danger",title: "Retrocedi", data: {confirm: "vuoi retrocedere "+user.username+"?"} do %>
+                                                <i class="fas fa-user-minus" style="color: #A21717;font-size:26px"></i>
                                             <% end %>
                                         <% end %>
                                       <% end %>

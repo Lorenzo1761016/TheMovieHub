@@ -37,6 +37,20 @@ class UsersController < ApplicationController
 
   end
 
+  def plus
+    @user = User.find(params[:id])
+    @user.update(mod: true);
+    redirect_back fallback_location: root_path, notice: "Utente '"+@user.username+"' promosso"
+    ahoy.track "Utente '"+@user.username+"' promosso", language: "Ruby"
+  end
+
+  def minus
+    @user = User.find(params[:id])
+    @user.update(mod: false);
+    redirect_back fallback_location: root_path, notice: "Utente '"+@user.username+"' retrocesso"
+    ahoy.track "Utente '"+@user.username+"' retrocesso", language: "Ruby"
+  end
+
   def favorites
     @favs = Favorite.all
     @id = params[:id]

@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   get 'film/tv'
   get '/unban/:id', to: 'users#unban', as: 'unban'
   get '/ban/:id', to: 'users#ban', as: 'ban'
+  get '/plus/:id', to: 'users#plus', as: 'plus'
+  get '/minus/:id', to: 'users#minus', as: 'minus'
   delete "users/:id", to: "users#destroy"
   get 'stats' => 'stats#stats'
   get '/:id/favorites', to: "users#favorites", as: "favorites"
