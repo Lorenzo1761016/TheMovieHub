@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 2020_01_24_171248) do
     t.boolean "admin", default: false
     t.boolean "banned", default: false
     t.string "bio", limit: 500, default: " "
+    t.string "font_image", default: "#ccc"
     t.string "providerimg", default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     t.boolean "mod", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
