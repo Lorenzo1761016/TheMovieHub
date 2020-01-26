@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
- 
+  attr_accessor :current_password 
   def index
     ahoy.track "Users index", language: "Ruby"
     @users = User.all

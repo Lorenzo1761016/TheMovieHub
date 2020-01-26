@@ -1,36 +1,31 @@
 <div class = "moviecard">
     <div class="container emp-profile">
             <form method="post">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-img">
-                        <%if @user.provider == ""%>
-                            <img src="" alt=""/>
-                        <%else%>
-                            <img src="<%= @user.providerimg %>">
-                        <%end%>
+                    <div class="flex-container">
+                        <div class="col-md-2">
+                                <%if @user.provider == ""%>
+                                    <div class="circle" style="background-color: <%=@user.font_image%>;">
+                                        <span class="initials">
+                                        <%if @user.first_name == "" || @user.last_name == ""%>
+                                            <%=@user.username%>
+                                        <%else%>
+                                            <%=@user.first_name[0] + @user.last_name[0]%>
+                                        <%end%>
+                                        </span>
+                                    </div>
+                                <%else%>
+                                    <img src="<%= @user.providerimg %>" class="circle" style="background-color: <%=@user.font_image%>;">
+                                <%end%>
+                            <div>
+                                <%= link_to 'Preferiti', favorites_path(@user.id), class: "btn btn-block btn-primary" %>
+                                <% if @user.id == current_user.id %>
+                                    <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-block btn-primary" %>
+                                <% end %>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="profile-head">
-                                    <h1><%= @user.username %></h1>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-2">
-                        <%= link_to 'Preferiti', favorites_path(@user.id), class: "btn btn-block btn-primary" %>
-                        <% if @user.id == current_user.id %>
-                            <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-block btn-primary" %>
-                        <% end %>
-                    </div>
-                </div>
-                <div class="row">
-                        <div class="col-md-4">
-                        </div>
-                    <div class="col-md-8">
-                        <div class="tab-content profile-tab" id="myTabContent">
-                            <div class="" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="col-md-8">
+                            <div class="tab-content profile-tab" id="myTabContent">
+                                <div class="" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Nome</label>
@@ -96,14 +91,13 @@
                                         </div>
                                         <%end%>
                                         <div class="form-group">
-                                        <label for="biography_card">Biografia</label>
-                                        <textarea id="biography_card" rows="7" readonly><%=@user.bio%></textarea>
-                                    </div>
-                                </div>   
+                                            <label for="biography_card">Biografia</label>
+                                            <textarea id="biography_card" rows="7" readonly><%=@user.bio%></textarea>
+                                        </div>
+                                    </div>   
+                                </div>
                             </div>
-                        </div>
                     </div>
-                </div>
             </form>           
         </div>
     </div>
@@ -133,5 +127,21 @@ body {
 
 }
 
+
+.circle {
+    border-radius: 50%;
+    height: var(--avataruser-size);
+    text-align: center;
+    width: var(--avataruser-size);
+  }
+  
+  .initials {
+    font-size: calc(var(--avataruser-size) / 2); /* 50% of parent */
+    line-height: 1;
+    position: relative;
+    top: calc(var(--avataruser-size) / 4); /* 25% of parent */
+    color: white;
+  }
+  
 
 </style>

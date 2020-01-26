@@ -16,6 +16,14 @@ class User < ActiveRecord::Base
       female: 2,
       other: 3
       }
+  enum font_types: {
+    Grey: "#808080",
+    Blue: "#0000ff", 
+    Yellow: "#ffff00", 
+    Green: "#66ff66", 
+    Fuchsia: "#ff00ff", 
+    Red: "#ff0000"
+  }
       
   def self.create_from_provider_data(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -27,7 +35,7 @@ class User < ActiveRecord::Base
       else
         user.email = ""
       end
-      user.password = Devise.friendly_token[0, 20]
+      user.password = Devise.friendly_token[0, 20].first(8)
       user.provider = auth.provider
       if auth.info.description != nil
         user.bio = auth.info.description
@@ -35,6 +43,9 @@ class User < ActiveRecord::Base
       # If you are using confirmable and the provider(s) you use validate emails, 
       # uncomment the line below to skip the confirmation emails.
       user.skip_confirmation!
+      if auth.info.image != nil
+        user.providerimg = auth.info.image
+      end
     end
   end
 
