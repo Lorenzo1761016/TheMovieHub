@@ -1,5 +1,5 @@
 class StatsController < ApplicationController
-  before_action :require_admin
+  before_action :require_ad_mod
  
   def stats
     ahoy.track "Stats", language: "Ruby"
@@ -121,10 +121,10 @@ class StatsController < ApplicationController
 
   private
   
-  def require_admin
-  unless current_user
-    flash[:error] =  "DEVI ESSERE ADMIN"
-      redirect_to new_user_session_path # halts request cycle
+  def require_ad_mod
+    unless current_user.role == "A" || current_user.role == "M"
+      flash[:alert] =  "Accesso Negato"
+        redirect_back fallback_location: root_path # halts request cycle
     end
   end
 

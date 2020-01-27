@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  before_validation :check_role
   validates :username, presence: true
   acts_as_voter
   has_many :visits, class_name: "Ahoy::Visit"
@@ -61,5 +62,12 @@ class User < ActiveRecord::Base
     active_for_authentication? ? super : :locked
   end
 
+  private
+
+  def check_role
+    unless self.role == "A" || self.role == "M" || self.role == "U"
+      self.update(role: "U")
+    end
+  end
 end
   
