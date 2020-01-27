@@ -64,8 +64,10 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <p>
-                                                    <% if @user.admin? %>
+                                                    <% if @user.role == "A" %>
                                                         Admin
+                                                    <% elsif @user.role == "M" %>
+                                                        Mod
                                                     <% else %>
                                                         Utente
                                                     <% end %>

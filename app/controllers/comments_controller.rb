@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
     before_action :find_commentable
     before_action :require_login
+    before_action :require_ad_mod_curr, :only => [:destroy]
     respond_to :js, :html, :json
   def require_login
     unless current_user != nil
@@ -25,8 +26,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-      @comment = Comment.find(params[:id])
-      @comment.destroy
+      comment = Comment.find(params[:id])
+      comment.destroy
       redirect_back fallback_location: root_path, notice: "commento eliminato"
       ahoy.track "Commento Eliminato", language: "Ruby"
   end     
@@ -60,4 +61,12 @@ class CommentsController < ApplicationController
       @commentable = Tv.find_by_id(params[:tv_id]) if params[:tv_id]
   end
 
+  private 
+
+  def require_ad_mod_curr
+    unless Comment.find(params[:id]).username == current_user.username || current_user.role == "A" || current_user.role == "M"
+      flash[:alert] =  "Per accedere a questa pagina devi essere amministatore o moderatore."
+        redirect_to root_path # halts request cycle
+    end
+  end
 end
