@@ -17,9 +17,9 @@
                                     <img src="<%= @user.providerimg %>" class="circle" style="background-color: <%=@user.font_image%>;">
                                 <%end%>
                             <div>
-                                <%= link_to 'Preferiti', favorites_path(@user.id), class: "btn btn-block btn-primary" %>
+                                <%= link_to 'Preferiti', favorites_path(@user.id), class: "btn btn-block btn-primary btn-profile" %>
                                 <% if @user.id == current_user.id %>
-                                    <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-block btn-primary" %>
+                                    <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-block btn-primary btn-profile" %>
                                 <% end %>
                             </div>
                         </div>
@@ -110,6 +110,7 @@ body {
 }
 
 .moviecard {
+    
   font-family: 'Helvetica', sans-serif, 'Ariel';
   position: absolute;
   background: #ffffff;
@@ -127,12 +128,12 @@ body {
 
 }
 
-
 .circle {
     border-radius: 50%;
     height: var(--avataruser-size);
     text-align: center;
     width: var(--avataruser-size);
+    margin: 0 0 39%;
   }
   
   .initials {
@@ -142,6 +143,25 @@ body {
     top: calc(var(--avataruser-size) / 4); /* 25% of parent */
     color: white;
   }
+
+.col-md-2{
+    align-items: center;
+    margin: 0 7% 0 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+.col-md-6{
+    width: 50%;
+    height: 34px;
+}
+
+
+  .btn-profile{
+    margin: 25px 0 20px 0;
+    width: 180px;
+  }
+
   
 
 </style>
