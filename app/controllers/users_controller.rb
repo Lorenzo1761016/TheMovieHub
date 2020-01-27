@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  before_action :require_admin, :only => [:destroy]
+  before_action :require_ad_mod, :only => [:index]
+  before_action :require_ger, :only => [:ban, :unban, :plus, :minus]
+  before_action :require_current, :only => [:favdestroy]
+
   def index
     ahoy.track "Users index", language: "Ruby"
     @users = User.all
@@ -38,14 +43,14 @@ class UsersController < ApplicationController
 
   def plus
     @user = User.find(params[:id])
-    @user.update(mod: true);
+    @user.update(role: "M");
     redirect_back fallback_location: root_path, notice: "Utente '"+@user.username+"' promosso"
     ahoy.track "Utente '"+@user.username+"' promosso", language: "Ruby"
   end
 
   def minus
     @user = User.find(params[:id])
-    @user.update(mod: false);
+    @user.update(role: "U");
     redirect_back fallback_location: root_path, notice: "Utente '"+@user.username+"' retrocesso"
     ahoy.track "Utente '"+@user.username+"' retrocesso", language: "Ruby"
   end
@@ -67,9 +72,29 @@ class UsersController < ApplicationController
   private
   
   def require_admin
-  unless current_user
-    flash[:error] =  "YOU MUST BE ADMIN"
-      redirect_to new_user_session_path # halts request cycle
+  unless current_user.role == "A"
+    flash[:alert] =  "Accesso Negato"
+      redirect_back fallback_location: root_path # halts request cycle
+    end
+  end
+  
+  def require_ad_mod
+    unless current_user.role == "A" || current_user.role == "M"
+      flash[:alert] =  "Accesso Negato"
+        redirect_to root_path # halts request cycle
+    end
+  end
+
+  def require_ger
+    unless (current_user.role == "A" && (User.find(params[:id]).role == "M" || User.find(params[:id]).role == "U")) || (current_user.role == "M" && User.find(params[:id]).role == "U")
+      flash[:alert] =  "Accesso Negato"
+        redirect_to root_path # halts request cycle
+    end
+  end
+  
+  def require_current
+    unless current_user.id == Favorite.find(params[:fav]).user_id
+        redirect_back fallback_location: root_path, alert: "Accesso Negato" # halts request cycle
     end
   end
 end

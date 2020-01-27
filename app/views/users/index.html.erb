@@ -32,9 +32,9 @@
                                     <td class="text-center">
                                       <% if user.banned? %>
                                         <span class="label label-danger">Sospeso</span>
-                                      <% elsif user.admin? %>
+                                      <% elsif user.role == "A" %>
                                         <span class="label label-success">Admin</span>
-                                      <% elsif user.mod? %>
+                                      <% elsif user.role == "M" %>
                                         <span class="label label-success">Mod</span>                                      
                                       <% else %>
                                         <span class="label label-default">Utente</span>
@@ -44,38 +44,38 @@
                                         <span style = "font-size: 14px"> <%= user.email %></span>
                                     </td>
                                     <td style="width: 15%;padding-left: 50px">
-                                      <% if user.username == current_user.username %>
+                                    <% if user.username == current_user.username %>
                                         <%= link_to "#", class:"table-link danger",title: "Modifica" do %>
                                             <i class="fas fa-user-edit" style="color: #0A1F73;font-size:26px"></i>
                                         <% end %>
-                                      <% end %>
-                                      <% if !user.admin?%>
-                                        <% if user.banned?%>
-                                          <%= link_to unban_path(user.id), class:"table-link danger",title: "Unblock", data: {confirm: "vuoi sbloccare "+user.username+"?"} do %>
-                                              <i class="fas fa-user-check" style="color: green;font-size:26px"></i>
-                                          <% end %> 
-                                        <% else %>
-                                            <% if !(current_user.mod? && user.mod?) %>        
+                                    <% end %>
+                                    <% if user.role != "A" && current_user != user && (user.role == "M" || user.role == "U") %>
+                                        <% if !(current_user.role == "M" && user.role == "M")%>
+                                            <% if user.banned?%>
+                                                <%= link_to unban_path(user.id), class:"table-link danger",title: "Unblock", data: {confirm: "vuoi sbloccare "+user.username+"?"} do %>
+                                                    <i class="fas fa-user-check" style="color: green;font-size:26px"></i>
+                                                <% end %>
+                                            <% else %>
                                                 <%= link_to ban_path(user.id), class:"table-link danger", title: "Block", data: {confirm: "vuoi sospendere "+user.username+"?"} do %>
                                                     <i class="fas fa-user-clock" style="color: #A21717;font-size:26px"></i>
                                                 <% end %>
                                             <% end %>
-                                        <% end %>
-                                        <% if !current_user.mod%>
-                                            <%= link_to user_path(user), class:"table-link danger",title: "Delete", data: {confirm: "vuoi eliminare definitivamente "+user.username+"?"},  method: :delete  do %>
-                                                <i class="fas fa-user-times" style="font-size:26px"></i>
+                                            <% if user.role == "U" %>    
+                                                <%= link_to plus_path(user.id), class:"table-link danger",title: "Promuovi", data: {confirm: "vuoi promuovere "+user.username+"?"} do %>
+                                                    <i class="fas fa-user-plus" style="color: green;font-size:26px"></i>
+                                                <% end %>
+                                            <% else %>
+                                                <%= link_to minus_path(user.id), class:"table-link danger",title: "Retrocedi", data: {confirm: "vuoi retrocedere "+user.username+"?"} do %>
+                                                    <i class="fas fa-user-minus" style="color: #A21717;font-size:26px"></i>
+                                                <% end %>
+                                            <% end %>
+                                            <% if current_user.role == "A" %>
+                                                <%= link_to user_path(user), class:"table-link danger",title: "Delete", data: {confirm: "vuoi eliminare definitivamente "+user.username+"?"},  method: :delete  do %>
+                                                        <i class="fas fa-user-times" style="font-size:26px"></i>
+                                                <% end %>
                                             <% end %>
                                         <% end %>
-                                        <% if !user.mod? %>
-                                            <%= link_to plus_path(user.id), class:"table-link danger",title: "Promuovi", data: {confirm: "vuoi promuovere "+user.username+"?"} do %>
-                                                <i class="fas fa-user-plus" style="color: green;font-size:26px"></i>
-                                            <% end %>
-                                        <% elsif user.mod? && !current_user.mod? %>
-                                            <%= link_to minus_path(user.id), class:"table-link danger",title: "Retrocedi", data: {confirm: "vuoi retrocedere "+user.username+"?"} do %>
-                                                <i class="fas fa-user-minus" style="color: #A21717;font-size:26px"></i>
-                                            <% end %>
-                                        <% end %>
-                                      <% end %>
+                                    <% end %>
                                     </td>
                                   </tr>
                                 <% end %>

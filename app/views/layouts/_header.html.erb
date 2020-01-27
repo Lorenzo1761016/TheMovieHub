@@ -33,7 +33,7 @@
               <%end%>
             <% end %>
           </li>
-          <% if current_user.admin? || current_user.mod? %>
+          <% if current_user.role == "A" || current_user.role == "M" %>
             <li><%= link_to "Stats", stats_path %></li>
             <li><%= link_to "All Users", users_path %></li>
           <% end %>
