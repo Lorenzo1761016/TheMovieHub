@@ -24,7 +24,8 @@
                                   <tr>
                                     <td>
                                         <%= link_to user_path(user.id), class: "nom user-link" do %>
-                                          <%= user.username %>
+                                            <img src="<%= user.providerimg %>" class="circleheader" style="margin-bottom: 5px;background-color: <%=user.font_image%>;">
+                                            <%= user.username %>
                                         <% end %>
                                     </td>
                                     <td><span style = "font-size: 14px"><%= user.first_name %> <%= user.last_name %></span></td>
@@ -60,16 +61,16 @@
                                                     <i class="fas fa-user-clock" style="color: #A21717;font-size:26px"></i>
                                                 <% end %>
                                             <% end %>
-                                            <% if user.role == "U" %>    
-                                                <%= link_to plus_path(user.id), class:"table-link danger",title: "Promuovi", data: {confirm: "vuoi promuovere "+user.username+"?"} do %>
-                                                    <i class="fas fa-user-plus" style="color: green;font-size:26px"></i>
-                                                <% end %>
-                                            <% else %>
-                                                <%= link_to minus_path(user.id), class:"table-link danger",title: "Retrocedi", data: {confirm: "vuoi retrocedere "+user.username+"?"} do %>
-                                                    <i class="fas fa-user-minus" style="color: #A21717;font-size:26px"></i>
-                                                <% end %>
-                                            <% end %>
                                             <% if current_user.role == "A" %>
+                                                <% if user.role == "U" %>    
+                                                    <%= link_to plus_path(user.id), class:"table-link danger",title: "Promuovi", data: {confirm: "vuoi promuovere "+user.username+"?"} do %>
+                                                        <i class="fas fa-user-plus" style="color: green;font-size:26px"></i>
+                                                    <% end %>
+                                                <% else %>
+                                                    <%= link_to minus_path(user.id), class:"table-link danger",title: "Retrocedi", data: {confirm: "vuoi retrocedere "+user.username+"?"} do %>
+                                                        <i class="fas fa-user-minus" style="color: #A21717;font-size:26px"></i>
+                                                    <% end %>
+                                                <% end %>
                                                 <%= link_to user_path(user), class:"table-link danger",title: "Delete", data: {confirm: "vuoi eliminare definitivamente "+user.username+"?"},  method: :delete  do %>
                                                         <i class="fas fa-user-times" style="font-size:26px"></i>
                                                 <% end %>
@@ -90,6 +91,23 @@
 </div>
 
 <style>
+
+
+.circleheader {
+    border-radius: 50%;
+    height: var(--avatarheader-size);
+    text-align: center;
+    width: var(--avatarheader-size);
+  }
+  
+  .initialsheader {
+    font-size: calc(var(--avatarheader-size) / 2); /* 50% of parent */
+    line-height: 1;
+    position: relative;
+    top: calc(var(--avatarheader-size) / 4); /* 25% of parent */
+    color: white;
+  }
+  
 
 body{
     background:#eee;    

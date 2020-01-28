@@ -14,7 +14,7 @@
                         <strong id = "user"><%= comment.username %> </strong> 
                     <% end %>
                     <span class="text-muted"><small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small></span>
-                    <% if current_user.username == comment.username || current_user.admin? || current_user.mod? %> 
+                    <% if current_user.username == comment.username || current_user.role == "A" || current_user.role == "M" %> 
                         <%= link_to "Elimina", comment, :method => :delete,:class => "link"%> 
                     <% end %>
                    <a id = 'a_<%= comment.id %>' style = "cursor: pointer"> Rispondi </a>

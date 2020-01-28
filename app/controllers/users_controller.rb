@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :require_admin, :only => [:destroy]
+  before_action :require_admin, :only => [:destroy, :plus, :minus]
   before_action :require_ad_mod, :only => [:index]
-  before_action :require_ger, :only => [:ban, :unban, :plus, :minus]
+  before_action :require_ger, :only => [:ban, :unban]
   before_action :require_current, :only => [:favdestroy]
 
   def index
