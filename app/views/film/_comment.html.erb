@@ -31,9 +31,6 @@
                              <%=comment.votes_for.size%>
                            </span>
                         </span>
-                        <%= link_to dislike_comment_path(comment), method: :put, remote: :true do %>
-                            <i class="fas fa-thumbs-up fa-rotate-180 thumbs-down"></i>              
-                        <% end %>
                 </div>
             </div><!-- /panel panel-default -->
         </div><!-- /col-sm-5 -->

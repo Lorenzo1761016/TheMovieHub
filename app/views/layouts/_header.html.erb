@@ -16,21 +16,7 @@
           <li><%= link_to "Chat", chat_path %></li>
           <li>
             <%= link_to user_path(current_user) do %>
-              <%if current_user.provider == ""%>
-                  <div class="circleheader" style="background-color: <%=current_user.font_image%>;">
-                      <span class="initialsheader">
-                      <%if current_user.first_name == "" || current_user.last_name == ""%>
-                          <%=current_user.username%>
-                      <%else%>
-                          <%=current_user.first_name[0] + current_user.last_name[0]%>
-                      <%end%>
-                      </span>
-                  </div>
-                  Profilo
-              <%else%>
-                  <img src="<%= current_user.providerimg %>" class="circleheader" style="background-color: <%=current_user.font_image%>;">
-                  Profilo
-              <%end%>
+              <%=current_user.username%>
             <% end %>
           </li>
           <% if current_user.role == "A" || current_user.role == "M" %>

@@ -41,15 +41,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  def dislike
-    @comment = Comment.find(params[:id])
-    if current_user.voted_for? @comment
-        @comment.undisliked_by current_user
-    else
-        @comment.dislike_by current_user
-    end
-  end
-
   private
   def comment_params
       params.require(:comment).permit(:body)
