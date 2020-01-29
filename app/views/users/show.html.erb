@@ -19,7 +19,9 @@
                             <div>
                                 <%= link_to 'Preferiti', favorites_path(@user.id), class: "btn btn-block btn-primary btn-profile" %>
                                 <% if @user.id == current_user.id %>
-                                    <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-block btn-primary btn-profile" %>
+                                    <% if current_user.provider != "twitter" %>
+                                        <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-block btn-primary btn-profile" %>
+                                    <% end %>
                                 <% end %>
                             </div>
                         </div>
@@ -42,14 +44,16 @@
                                                 <p> <%= User.gender_types.key(@user.gender) %> </p>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Data Di Nascita</label>
+                                        <% if @user.provider != "twitter"%>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Data Di Nascita</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><%= @user.date_of_birth%></p>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p><%= @user.date_of_birth%></p>
-                                            </div>
-                                        </div>
+                                        <% end %>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>E-Mail</label>
@@ -74,21 +78,23 @@
                                                 </div>
                                             <% end %>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Numero Di Telefono</label>
+                                        <% if @user.provider != "twitter" %>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Numero Di Telefono</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><%= @user.phone_number%></p>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p><%= @user.phone_number%></p>
-                                            </div>
-                                        </div>
+                                        <% end %>
                                         <%if @user.provider != ""%>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Account Twitter</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <a href="https://twitter.com/<%= @user.username%>" class="btn btn-primary btn-twitter" > Twitter of <%=@user.username%></a>
+                                                <a href="https://twitter.com/<%= @user.username%>" target = "blank" class="btn btn-primary btn-twitter" > Twitter of <%=@user.username%></a>
                                             </div>
                                         </div>
                                         <%end%>

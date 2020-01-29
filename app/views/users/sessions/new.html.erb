@@ -8,7 +8,7 @@
         <%- resource_class.omniauth_providers.each do |provider| %>
           <%= link_to omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-twitter" do %>
             <i class="fab fa-<%=provider%>"></i>
-            Signin with <%= OmniAuth::Utils.camelize(provider) %>
+            Accedi con <%= OmniAuth::Utils.camelize(provider) %>
           <% end %><br />
         <% end %>
       <% end %>
@@ -39,7 +39,7 @@
         <% end %>
 
         <div class="form-group actions">
-          <%= f.submit "Log In", class:"btn btn-primary btn-block" %>
+          <%= f.submit "Accedi", class:"btn btn-primary btn-block" %>
         </div>    
         <p class="text-center">Non hai ancora un account? <%= link_to "Registrati", new_user_registration_path %> </p>    
 
@@ -68,7 +68,7 @@ body {
   background: #ffffff;
   color: #555555;
   margin: 10px;
-  width: 1100px;
+    width: 1100px;
   max-width: 2000px;
   min-height: 300px;
   height: auto;

@@ -2,7 +2,7 @@
 <div class = "moviecard">
   <div class = "card bg-light corp">
     <article class="card-body mx-auto" style="max-width: 600px;">
-      <h2 class="card-title mt-3 text-center">Edit your Account</h2>
+      <h2 class="card-title mt-3 text-center">Modifica il tuo Account</h2>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
         <!--change username, first name and last name-->
@@ -64,11 +64,11 @@
         <!--change user password-->
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-          <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+          <%= f.label :password %> <i>(non compilare se non vuoi modificare)</i><br />
           <%= f.password_field :password, size: "63", autocomplete: "new-password" %>
           <% if @minimum_password_length %>
             <br />
-            <em><%= @minimum_password_length %> characters minimum</em>
+            <em>(minimo <%= @minimum_password_length %> caratteri) </em>
           <% end %>
         </div>
 
@@ -86,24 +86,24 @@
 
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-          <%= f.label :current_password %> <i>-we need your current password to confirm your changes!</i><br />
+          <%= f.label :current_password %> <i>-Devi inserire la password corrente per salvare le modifiche</i><br />
           <%= f.password_field :current_password, size: "63", autocomplete: "current-password" %>
         </div>
 
         <div class="actions form-group wid">
-          <h3>Save Edit</h3>
-          <%= f.submit "Update", class:"btn btn-success btn-block" %>
+          <h3>Salva le modifiche</h3>
+          <%= f.submit "Salva", class:"btn btn-success btn-block" %>
         </div>
       <% end %>
 
       <div class = "wid">
-        <h3>Delete your account permanently?</h3>
-        <p><%= link_to "Delete Account", user_path(@user), class:"btn btn-danger btn-block",data: { confirm: "Sei sicuro di voler eliminare il tuo account?" }, method: :delete %></p>
+        <h3>Vuoi eliminare definitivamente il tuo account?</h3>
+        <p><%= link_to "Elimina Account", user_path(@user), class:"btn btn-danger btn-block",data: { confirm: "Sei sicuro di voler eliminare il tuo account?" }, method: :delete %></p>
       </div>
 
       <div class = "wid">
-        <h3>Delete Edit</h3>
-        <p> <%= link_to "Back", "../users/1" , class:"btn btn-primary btn-block" %> </p>
+        <h3>Scarta le modifiche</h3>
+        <p> <%= link_to "Torna Indietro", "../users/1" , class:"btn btn-primary btn-block" %> </p>
       </div>
     </article>
   </div>

@@ -2,13 +2,13 @@
 <div class = "moviecard">
   <div class = "card bg-light corp">
     <article class="card-body mx-auto" style="max-width: 700px;">
-      <h2 class="card-title mt-3 text-center">Create an Account</h2>
+      <h2 class="card-title mt-3 text-center">Crea un Account</h2>
       
       <%- if devise_mapping.omniauthable? %>
         <%- resource_class.omniauth_providers.each do |provider| %>
           <%= link_to omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-twitter" do %>
             <i class="fab fa-<%=provider%>"></i>
-            Signup with <%= OmniAuth::Utils.camelize(provider) %>
+            Registrati con <%= OmniAuth::Utils.camelize(provider) %>
           <% end %><br />
         <% end %>
       <% end %>
@@ -32,19 +32,19 @@
         
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-info"></i> </span>
-          <%= f.label :first_name %> <em>-Optional</em><br />
+          <%= f.label :first_name %> <em>-Opzionale</em><br />
           <%= f.text_field :first_name, size: "51", autofocus: true %>
         </div>
   
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-info"></i> </span>
-          <%= f.label :last_name %> <em>-Optional</em><br />
+          <%= f.label :last_name %> <em>-Opzionale</em><br />
           <%= f.text_field :last_name,size: "51", autofocus: true %>
         </div>
 
         <div class="form-group input-group wid">
           <span class="input-group-text"> <i class="fa fa-mobile"></i> </span>
-          <%= f.label :phone_number %> <em>-Optional</em><br />
+          <%= f.label :phone_number %> <em>-Opzionale</em><br />
           <%= f.text_field :phone_number, size: "51", autofocous: true %>
         </div>
       
@@ -66,7 +66,7 @@
           <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
           <%= f.label :password %>
           <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <em>(minimo <%= @minimum_password_length %> caratteri)</em>
           <% end %><br />
           <%= f.password_field :password, size: "51", autocomplete: "new-password" %>
         </div>
@@ -79,9 +79,9 @@
 
                       
         <div class="form-group actions">
-          <%= f.submit "Create account", class:"btn btn-primary btn-block" %>
+          <%= f.submit "Registrati", class:"btn btn-primary btn-block" %>
         </div>    
-        <p class="text-center">Already SignUp? <%= link_to "Log In", new_user_session_path %> </p>             
+        <p class="text-center">Hai già un account? <%= link_to "Log In", new_user_session_path %> </p>             
           <% end %>
         </div>
       </div>
