@@ -36,8 +36,12 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if current_user.voted_for? @comment
         @comment.unliked_by current_user
+        ahoy.track "Like", language: "Ruby"
+        redirect_back fallback_location: root_path, notice: "Hai tolto 'Mi Piace' dal commento ''"+ @comment.body + "'' di " + @comment.username+"."  
     else
       @comment.liked_by current_user
+      ahoy.track "Dislike", language: "Ruby"
+      redirect_back fallback_location: root_path, notice: "Hai messo 'Mi Piace' al commento ''"+ @comment.body + "'' di " + @comment.username+"."  
     end
   end
 
