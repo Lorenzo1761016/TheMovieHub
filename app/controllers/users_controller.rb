@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :require_admin, :only => [:destroy, :plus, :minus]
+  before_action :require_admin, :only => [:plus, :minus]
   before_action :require_ad_mod, :only => [:index]
   before_action :require_ger, :only => [:ban, :unban]
   before_action :require_current, :only => [:favdestroy]
+  before_action :require_ad_user, :only => [:destroy]
 
   def index
     ahoy.track "Users index", language: "Ruby"
@@ -97,4 +98,11 @@ class UsersController < ApplicationController
         redirect_back fallback_location: root_path, alert: "Accesso Negato" # halts request cycle
     end
   end
+
+  def require_ad_user
+    unless current_user.role == "A" || current_user.id == User.find(params[:id]).id
+      flash[:alert] =  "Accesso Negato"
+        redirect_back fallback_location: root_path # halts request cycle
+      end
+    end
 end

@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   get '/favorite_film/:id', to: "film#favfilm", as: "favfilm"
   get '/favorite_tv/:id', to: "film#favtv", as: "favtv"
   delete '/:id/favorite_destroy/:fav', to: "users#favdestroy", as: "favdestroy"
+  get '/404', to: "errors#not_found"
+
   mount ActionCable.server => '/cable'
 
   resources :films do
