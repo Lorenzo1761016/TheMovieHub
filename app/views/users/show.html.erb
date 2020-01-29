@@ -59,20 +59,20 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Ruolo</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>
-                                                    <% if @user.role == "A" %>
-                                                        Admin
-                                                    <% elsif @user.role == "M" %>
-                                                        Mod
-                                                    <% else %>
-                                                        Utente
-                                                    <% end %>
-                                                </p>
-                                            </div>
+                                            <% if @user.role != "U" %>
+                                                <div class="col-md-6">
+                                                    <label>Ruolo</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>
+                                                        <% if @user.role == "A" %>
+                                                            Admin
+                                                        <% elsif @user.role == "M" %>
+                                                            Mod
+                                                        <% end %>
+                                                    </p>
+                                                </div>
+                                            <% end %>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
