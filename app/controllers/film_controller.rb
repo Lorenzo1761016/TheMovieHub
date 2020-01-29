@@ -11,6 +11,9 @@ class FilmController < ApplicationController
 
 
   def index
+    if create_admin
+      puts("Admin creato!")
+    end
     ahoy.track "Index", language: "Ruby"
     @popular_films = Tmdb::Movie.popular
     @popular_series = Tmdb::TV.popular
@@ -118,6 +121,29 @@ class FilmController < ApplicationController
     ahoy.track u.name+"Serie Aggiunta Ai Preferiti"
     redirect_back fallback_location: root_path, notice: "Elemento aggiunto ai preferiti"
   end
+
+  private
+
+  def create_admin
+    users = User.all
+    count =  0
+    users.each do |u|
+      if u.role =="A"
+        puts("Admin: "+u.username)
+        count = count+1
+      end
+    end
+    if count == 0
+      u = User.new(email: "lorenzo.scarlino.98@gmail.com", username: "LorenzoAdmin", first_name: "Lorenzo", last_name: "Admin", password: "oooooo", role: "A")
+      u.save!
+      puts( "Admin creato")
+      return true
+    else
+      puts("Ci sono già Admin")
+      return false
+    end
+  end
+
 
 
   
