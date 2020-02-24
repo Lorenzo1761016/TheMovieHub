@@ -20,7 +20,7 @@ gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
 # Use ActiveRecord Sessions
 gem 'activerecord-session_store', '~> 1.0'
 # use bootstrap for scss
-gem 'bootstrap-sass', '~>3.2.0.0'
+gem 'bootstrap-sass', '~>3.4.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
